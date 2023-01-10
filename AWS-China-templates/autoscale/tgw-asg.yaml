@@ -452,7 +452,7 @@ Resources:
     Type: AWS::CloudFormation::Stack
     Condition: DeployManagement
     Properties:
-      TemplateURL: https://raw.githubusercontent.com/gexqin/CloudGuard-China/main/AWS-China-templates/management/management.yaml
+      TemplateURL: https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/management/management.yaml
       Parameters:
         VPC: !Ref VPC
         ManagementSubnet: !Select [0, !Ref GatewaysSubnets]
@@ -504,7 +504,7 @@ Resources:
   SecurityGatewaysStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://raw.githubusercontent.com/gexqin/CloudGuard-China/main/AWS-China-templates/autoscale/autoscale.yaml
+      TemplateURL: https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/autoscale/autoscale.yaml
       Parameters:
         VPC: !Ref VPC
         GatewaysSubnets: !Join [',', !Ref GatewaysSubnets]

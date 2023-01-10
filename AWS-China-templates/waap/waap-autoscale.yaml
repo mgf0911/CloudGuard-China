@@ -271,7 +271,7 @@ Resources:
   AMI:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://raw.githubusercontent.com/gexqin/CloudGuard-China/main/AWS-China-templates/waap/waap-amis.yaml
+      TemplateURL: https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/waap/waap-amis.yaml
   NotificationTopic:
     Type: AWS::SNS::Topic
     Condition: ProvidedAdminEmail
