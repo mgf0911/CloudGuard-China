@@ -95,11 +95,7 @@ variable "predefined_role" {
 variable "gateway_version" {
   type = string
   description =  "Gateway version and license"
-<<<<<<< HEAD:terraform-for-China/aws-cn/cluster/variables.tf
-  default = "R80.40-PAYG-NGTP"
-=======
   default = "R81.10-BYOL"
->>>>>>> b4cce76e7de2185778ff438d6e01376cb7eead2a:terraform/aws/cluster/variables.tf
 }
 module "validate_gateway_version" {
   source = "../modules/common/version_license"
