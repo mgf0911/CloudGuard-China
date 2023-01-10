@@ -1,0 +1,215 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Deploys a Check Point CloudGuard Infinity Gateway into a new VPC (14112021)
+Metadata:
+  AWS::CloudFormation::Interface:
+    ParameterGroups:
+      - Label:
+          default: VPC network settingson
+        Parameters:
+          - AvailabilityZone
+          - VPCCIDR
+          - PublicSubnetCIDR
+          - PrivateSubnetCIDR
+      - Label:
+          default: EC2 instance details
+        Parameters:
+          - GatewayName
+          - GatewayInstanceType
+          - InboundSources
+          - KeyName
+          - AllocatePublicAddress
+          - EnableInstanceConnect
+          - GatewayPasswordHash
+      - Label:
+          default: Check Point Infinity Next Cloud
+        Parameters:
+          - InfinityToken
+          - FogAddress
+      - Label:
+          default: Gateway settings
+        Parameters:
+          - GatewayHostname
+          - GatewayBootstrapScript
+    ParameterLabels:
+      AvailabilityZone:
+        default: Availability zone
+      VPCCIDR:
+        default: VPC CIDR
+      PublicSubnetCIDR:
+        default: Public subnet CIDR
+      PrivateSubnetCIDR:
+        default: Private subnet CIDR
+      GatewayName:
+        default: Gateway Name
+      InboundSources:
+        default: Allow access from
+      KeyName:
+        default: Key name
+      InfinityToken:
+        default: Infinity Next Agent Token
+      AllocatePublicAddress:
+        default: Assign public IP address to the gateway
+      EnableInstanceConnect:
+        default: Enable EC2 Instance Connect
+      GatewayPasswordHash:
+        default: Gateway's Password hash
+      FogAddress:
+        default: Fog address (optional)
+      GatewayInstanceType:
+        default: Gateway's instance type
+      GatewayHostname:
+        default: Gateway's Hostname (optional)
+      GatewayBootstrapScript:
+        default: Bootstrap script (optional)
+Parameters:
+  AvailabilityZone:
+    Description: The availability zone in which to deploy the instance
+    Type: AWS::EC2::AvailabilityZone::Name
+    MinLength: 1
+  VPCCIDR:
+    Description: The CIDR block of the VPC
+    Type: String
+    Default: 10.0.0.0/16
+    AllowedPattern: '^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(1[6-9]|2[0-8]))$'
+    ConstraintDescription: CIDR block parameter must be in the form x.x.x.x/16-28
+  PublicSubnetCIDR:
+    Description: The public subnet of the Security Gateway
+    Type: String
+    Default: 10.0.10.0/24
+  PrivateSubnetCIDR:
+    Description: The private subnet of the Security Gateway
+    Type: String
+    Default: 10.0.11.0/24
+  GatewayName:
+    Type: String
+    Default: Check-Point-Infinty-Next
+  InboundSources:
+    Description: Specify the client IP addresses that can reach your instance. Can be IP address range in CIDR notation (e.g. for any source use 0.0.0.0/0)
+    Type: String
+    Default: 0.0.0.0/0
+    AllowedPattern: '^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$'
+    ConstraintDescription: Only CIDR notation is allowed i.e. X.X.X.X/X
+  KeyName:
+    Description: The EC2 Key Pair to allow SSH access to the instances created by this stack
+    Type: AWS::EC2::KeyPair::KeyName
+    MinLength: 1
+    ConstraintDescription: Must be the name of an existing EC2 KeyPair
+  InfinityToken:
+    Description: 'Token can be obtained by logging in to Infinity Portal "https://portal.checkpoint.com/" -> INFINITY POLICY -> CLOUD -> Profiles'
+    Type: String
+    AllowedPattern: '^cp-(([a-z0-9A-Z-]{72,72})|([a-z0-9A-Z-]{75,75}))$'
+    ConstraintDescription: Token should begin with 'cp-' and must be 75 or 78 characters long
+    NoEcho: true
+  AllocatePublicAddress:
+    Type: String
+    Default: true
+    AllowedValues:
+      - true
+      - false
+  EnableInstanceConnect:
+    Description: Enable SSH connection over AWS web console
+    Type: String
+    Default: false
+    AllowedValues:
+      - true
+      - false
+  GatewayPasswordHash:
+    Description: User is set to 'admin' (use command "openssl passwd -6 PASSWORD" to get the password's hash)
+    Type: String
+    Default: ''
+    AllowedPattern: '^[\$\./a-zA-Z0-9]*$'
+    NoEcho: true
+  FogAddress:
+    Type: String
+    Default: ''
+  GatewayInstanceType:
+    Type: String
+    Default: c5.xlarge
+    AllowedValues:
+      - c5.large
+      - c5.xlarge
+      - c5.2xlarge
+      - c5.4xlarge
+      - c5.9xlarge
+      - c5.18xlarge
+      - c5n.large
+      - c5n.xlarge
+      - c5n.2xlarge
+      - c5n.4xlarge
+      - c5n.9xlarge
+      - c5n.18xlarge
+    ConstraintDescription: Must be a valid EC2 instance type
+  GatewayHostname:
+    Type: String
+    Default: ''
+    AllowedPattern: '^([A-Za-z]([-0-9A-Za-z]{0,61}[0-9A-Za-z])?|)$'
+    ConstraintDescription: A valid hostname label or an empty string
+  GatewayBootstrapScript:
+    Description: An optional script with semicolon (;) separated commands to run on the initial boot
+    Type: String
+    Default: ''
+    NoEcho: true
+Conditions:
+  AllocateAddress: !Equals [!Ref AllocatePublicAddress, true]
+Resources:
+  Vpc:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://cgi-cfts.s3.amazonaws.com/utils/vpc.yaml
+      Parameters:
+        AvailabilityZones: !Ref AvailabilityZone
+        NumberOfAZs: 1
+        VPCCIDR: !Ref VPCCIDR
+        PublicSubnet1CIDR: !Ref PublicSubnetCIDR
+        CreatePrivateSubnets: true
+        PrivateSubnet1CIDR: !Ref PrivateSubnetCIDR
+        CreateTgwSubnets: false
+  InternalRoutingTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !GetAtt Vpc.Outputs.VPCID
+      Tags:
+        - Key: Name
+          Value:
+            !Join
+            - _
+            - - !Ref 'AWS::StackName'
+              - InternalRoutingTable
+  InternalNetworkRouteAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref InternalRoutingTable
+      SubnetId: !GetAtt Vpc.Outputs.PrivateSubnet1ID
+  GatewayStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://cgi-cfts.s3.amazonaws.com/waap/waap-gateway.yaml
+      Parameters:
+        VPC: !GetAtt Vpc.Outputs.VPCID
+        PublicSubnet: !GetAtt Vpc.Outputs.PublicSubnet1ID
+        PrivateSubnet: !GetAtt Vpc.Outputs.PrivateSubnet1ID
+        InternalRouteTable: !Ref InternalRoutingTable
+        GatewayName: !Ref GatewayName
+        GatewayInstanceType: !Ref GatewayInstanceType
+        KeyName: !Ref KeyName
+        AllocatePublicAddress: !Ref AllocatePublicAddress
+        EnableInstanceConnect: !Ref EnableInstanceConnect
+        InboundSources: !Ref InboundSources
+        GatewayPasswordHash: !Ref GatewayPasswordHash
+        InfinityToken: !Ref InfinityToken
+        FogAddress: !Ref FogAddress
+        GatewayHostname: !Ref GatewayHostname
+        GatewayBootstrapScript: !Ref GatewayBootstrapScript
+Outputs:
+  CheckPointInstancePublicAddress:
+    Condition: AllocateAddress
+    Description: The public address of the Check Point instance
+    Value: !GetAtt GatewayStack.Outputs.PublicAddress
+  CheckPointInstanceSSH:
+    Condition: AllocateAddress
+    Description: SSH command to the Check Point instance
+    Value: !GetAtt GatewayStack.Outputs.SSH
+  CheckPointInstanceURL:
+    Condition: AllocateAddress
+    Description: URL to the portal
+    Value: !GetAtt GatewayStack.Outputs.URL
