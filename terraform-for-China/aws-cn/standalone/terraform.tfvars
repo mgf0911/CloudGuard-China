@@ -20,11 +20,7 @@ instance_tags = {
 }
 
 // --- Check Point Settings ---
-<<<<<<< HEAD:terraform-for-China/aws-cn/standalone/terraform.tfvars
-standalone_version = "R81-BYOL"
-=======
 standalone_version = "R81.10-PAYG-NGTP"
->>>>>>> b4cce76e7de2185778ff438d6e01376cb7eead2a:terraform/aws/standalone/terraform.tfvars
 admin_shell = "/bin/bash"
 standalone_password_hash = "12345678"
 

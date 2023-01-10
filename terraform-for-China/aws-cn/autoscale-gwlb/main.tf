@@ -37,20 +37,9 @@ resource "aws_launch_template" "asg_launch_template" {
   image_id = module.amis.ami_id
   instance_type = var.gateway_instance_type
   key_name = var.key_name
-<<<<<<< HEAD:terraform-for-China/aws-cn/autoscale-gwlb/main.tf
-  security_groups = [aws_security_group.permissive_sg.id]
-  associate_public_ip_address = true
-  iam_instance_profile = ( var.enable_cloudwatch ? aws_iam_instance_profile.instance_profile[0].name : "")
-
-  root_block_device {
-    volume_type = var.volume_type
-    volume_size = var.volume_size
-    encrypted = var.enable_volume_encryption
-=======
   network_interfaces {
     associate_public_ip_address = var.allocate_public_IP
     security_groups = [aws_security_group.permissive_sg.id]
->>>>>>> b4cce76e7de2185778ff438d6e01376cb7eead2a:terraform/aws/autoscale-gwlb/main.tf
   }
 
   iam_instance_profile {

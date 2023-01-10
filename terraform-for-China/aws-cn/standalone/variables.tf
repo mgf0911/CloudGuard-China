@@ -90,11 +90,7 @@ variable "instance_tags" {
 variable "standalone_version" {
   type = string
   description =  "Security Gateway & Management (Standalone) version and license"
-<<<<<<< HEAD:terraform-for-China/aws-cn/standalone/variables.tf
-  default = "R81-BYOL"
-=======
   default = "R81.10-PAYG-NGTP"
->>>>>>> b4cce76e7de2185778ff438d6e01376cb7eead2a:terraform/aws/standalone/variables.tf
 }
 module "validate_standalone_version" {
   source = "../modules/common/version_license"
