@@ -335,7 +335,7 @@ Resources:
   VPCStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://cgi-cfts.s3.amazonaws.com/utils/vpc.yaml
+      TemplateURL: https://raw.githubusercontent.com/gexqin/CloudGuard-China/main/AWS-China-templates/utils/vpc.yaml
       Parameters:
         AvailabilityZones: !Join [',' , !Ref AvailabilityZones]
         NumberOfAZs: !Ref NumberOfAZs
@@ -351,7 +351,7 @@ Resources:
   MainStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://cgi-cfts.s3.amazonaws.com/waap/waap-autoscale.yaml
+      TemplateURL: https://raw.githubusercontent.com/gexqin/CloudGuard-China/main/AWS-China-templates/waap/waap-autoscale.yaml
       Parameters:
         VPC: !GetAtt VPCStack.Outputs.VPCID
         GatewaysSubnets: !Join

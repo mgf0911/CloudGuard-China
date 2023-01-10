@@ -347,7 +347,7 @@ Resources:
     Condition: EnableCloudWatch
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://cgi-cfts.s3.amazonaws.com/iam/cloudwatch-policy.yaml
+      TemplateURL: https://raw.githubusercontent.com/gexqin/CloudGuard-China/main/AWS-China-templates/iam/cloudwatch-policy.yaml
       Parameters:
         PolicyName: ChkpGatewayPolicy
         PolicyRole: !Ref ChkpGatewayRole
@@ -361,7 +361,7 @@ Resources:
   AMI:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://cgi-cfts.s3.amazonaws.com/utils/amis.yaml
+      TemplateURL: https://raw.githubusercontent.com/gexqin/CloudGuard-China/main/AWS-China-templates/utils/amis.yaml
       Parameters:
         Version: !Join ['-', [!Ref GatewayVersion, GW]]
   NotificationTopic:

@@ -315,7 +315,7 @@ Resources:
   VPCStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://cgi-cfts.s3.amazonaws.com/utils/vpc.yaml
+      TemplateURL: https://raw.githubusercontent.com/gexqin/CloudGuard-China/main/AWS-China-templates/utils/vpc.yaml
       Parameters:
         AvailabilityZones: !Ref AvailabilityZone
         NumberOfAZs: 1
@@ -334,7 +334,7 @@ Resources:
     Type: AWS::CloudFormation::Stack
     DependsOn: VPCStack
     Properties:
-      TemplateURL: https://cgi-cfts.s3.amazonaws.com/cluster/cluster.yaml
+      TemplateURL: https://raw.githubusercontent.com/gexqin/CloudGuard-China/main/AWS-China-templates/cluster/cluster.yaml
       Parameters:
         VPC: !GetAtt VPCStack.Outputs.VPCID
         PublicSubnet: !GetAtt VPCStack.Outputs.PublicSubnet1ID

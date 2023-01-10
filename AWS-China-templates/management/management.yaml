@@ -352,7 +352,7 @@ Resources:
   AMI:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://cgi-cfts.s3.amazonaws.com/utils/amis.yaml
+      TemplateURL: https://raw.githubusercontent.com/gexqin/CloudGuard-China/main/AWS-China-templates/utils/amis.yaml
       Parameters:
         Version: !Join ['-', [!Ref ManagementVersion, MGMT]]
   ManagementReadyHandle:
@@ -424,7 +424,7 @@ Resources:
     Type: AWS::CloudFormation::Stack
     Condition: CreateRole
     Properties:
-      TemplateURL: https://cgi-cfts.s3.amazonaws.com/iam/cme-iam-role.yaml
+      TemplateURL: https://raw.githubusercontent.com/gexqin/CloudGuard-China/main/AWS-China-templates/iam/cme-iam-role.yaml
       Parameters:
         Permissions: !Ref ManagementPermissions
         STSRoles: !Join [',', !Ref ManagementSTSRoles]

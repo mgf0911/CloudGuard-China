@@ -339,7 +339,7 @@ Resources:
   ClusterStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://cgi-cfts.s3.amazonaws.com/cluster/cross-az-cluster.yaml
+      TemplateURL: https://raw.githubusercontent.com/gexqin/CloudGuard-China/main/AWS-China-templates/cluster/cross-az-cluster.yaml
       Parameters:
         VPC: !Ref VPC
         PublicSubnetA: !Ref PublicSubnetA

@@ -166,7 +166,7 @@ Resources:
   AMI:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://cgi-cfts.s3.amazonaws.com/waap/waap-amis.yaml
+      TemplateURL: https://raw.githubusercontent.com/gexqin/CloudGuard-China/main/AWS-China-templates/waap/waap-amis.yaml
   ExternalNetworkInterface:
     Type: AWS::EC2::NetworkInterface
     Properties:
