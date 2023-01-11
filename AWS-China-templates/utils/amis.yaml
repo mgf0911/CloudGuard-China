@@ -4,7 +4,7 @@ Parameters:
   Version:
     Description: Security Gateway or Management Server version
     Type: String
-    Default: R80.40-PAYG-NGTP-GW
+    Default: R81.20-BYOL-GW
     AllowedValues:
     - R80.30-BYOL-MGMT
     - R80.30-BYOL-GW
