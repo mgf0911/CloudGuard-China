@@ -377,38 +377,18 @@ Parameters:
     Type: String
     Default: c5.xlarge
     AllowedValues:
-      - c4.large
-      - c4.xlarge
       - c5.large
       - c5.xlarge
       - c5.2xlarge
       - c5.4xlarge
       - c5.9xlarge
       - c5.18xlarge
-      - c5n.large
-      - c5n.xlarge
-      - c5n.2xlarge
-      - c5n.4xlarge
-      - c5n.9xlarge
-      - c5n.18xlarge
       - m5.large
       - m5.xlarge
       - m5.2xlarge
       - m5.4xlarge
       - m5.8xlarge
       - m5.12xlarge
-      - m6i.large
-      - m6i.xlarge
-      - m6i.2xlarge
-      - m6i.4xlarge
-      - m6i.12xlarge
-      - m6i.24xlarge
-      - c6i.large
-      - c6i.xlarge
-      - c6i.2xlarge
-      - c6i.4xlarge
-      - c6i.12xlarge
-      - c6i.24xlarge
       - r5.large
       - r5.xlarge
       - r5.2xlarge
@@ -421,24 +401,6 @@ Parameters:
       - r5a.4xlarge
       - r5a.12xlarge
       - r5a.24xlarge
-      - r5b.large
-      - r5b.xlarge
-      - r5b.2xlarge
-      - r5b.4xlarge
-      - r5b.12xlarge
-      - r5b.24xlarge
-      - r5n.large
-      - r5n.xlarge
-      - r5n.2xlarge
-      - r5n.4xlarge
-      - r5n.12xlarge
-      - r5n.24xlarge
-      - m6a.large
-      - m6a.xlarge
-      - m6a.2xlarge
-      - m6a.4xlarge
-      - m6a.12xlarge
-      - m6a.24xlarge
     ConstraintDescription: Must be a valid EC2 instance type
   GatewaysMinSize:
     Description: The minimal number of Security Gateways.
@@ -453,14 +415,9 @@ Parameters:
   GatewayVersion:
     Description: The version and license to install on the Security Gateways.
     Type: String
-    Default: R80.40-BYOL
+    Default: R81.20-BYOL
     AllowedValues:
-      - R80.40-BYOL
-      - R80.40-PAYG-NGTP
-      - R80.40-PAYG-NGTX
       - R81.20-BYOL
-      - R81.20-PAYG-NGTP
-      - R81.20-PAYG-NGTX
   GatewayPasswordHash:
     Description: Admin user's password hash (use command "openssl passwd -6 PASSWORD" to get the PASSWORD's hash). (optional)
     Type: String
@@ -512,31 +469,12 @@ Parameters:
       - c5.4xlarge
       - c5.9xlarge
       - c5.18xlarge
-      - c5n.large
-      - c5n.xlarge
-      - c5n.2xlarge
-      - c5n.4xlarge
-      - c5n.9xlarge
-      - c5n.18xlarge
       - m5.large
       - m5.xlarge
       - m5.2xlarge
       - m5.4xlarge
       - m5.8xlarge
       - m5.12xlarge
-      - m5.24xlarge
-      - m6i.large
-      - m6i.xlarge
-      - m6i.2xlarge
-      - m6i.4xlarge
-      - m6i.12xlarge
-      - m6i.24xlarge
-      - c6i.large
-      - c6i.xlarge
-      - c6i.2xlarge
-      - c6i.4xlarge
-      - c6i.12xlarge
-      - c6i.24xlarge
       - r5.large
       - r5.xlarge
       - r5.2xlarge
@@ -549,24 +487,6 @@ Parameters:
       - r5a.4xlarge
       - r5a.12xlarge
       - r5a.24xlarge
-      - r5b.large
-      - r5b.xlarge
-      - r5b.2xlarge
-      - r5b.4xlarge
-      - r5b.12xlarge
-      - r5b.24xlarge
-      - r5n.large
-      - r5n.xlarge
-      - r5n.2xlarge
-      - r5n.4xlarge
-      - r5n.12xlarge
-      - r5n.24xlarge
-      - m6a.large
-      - m6a.xlarge
-      - m6a.2xlarge
-      - m6a.4xlarge
-      - m6a.12xlarge
-      - m6a.24xlarge
     ConstraintDescription: Must be a valid EC2 instance type
   ManagementVersion:
     Description: The license to install on the Security Management Server.
@@ -574,13 +494,9 @@ Parameters:
     Default: R81.10-BYOL
     AllowedValues:
       - R80.40-BYOL
-      - R80.40-PAYG
       - R81-BYOL
-      - R81-PAYG
       - R81.10-BYOL
-      - R81.10-PAYG
       - R81.20-BYOL
-      - R81.20-PAYG
   ManagementPasswordHash:
     Description: Admin user's password hash (use command "openssl passwd -6 PASSWORD" to get the PASSWORD's hash). (optional)
     Type: String
