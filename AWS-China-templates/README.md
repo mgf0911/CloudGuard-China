@@ -158,7 +158,7 @@
 </tbody>
 </table>
 <p>&nbsp;</p>
-<h3 id="Transit Gateway Auto Scaling Group">Security Gateways Auto Scaling Group for Transit Gateway</h3>
+<h3 id="Transit Gateway Auto Scaling Group">Security Gateways Auto Scaling Group for Transit Gateway (Not work yet)</h3>
 <table class="footnote" style="table-layout: fixed; width: 100%;" width="100%" cellspacing="2" cellpadding="4" border="1">
 <tbody>
 <tr class="SubTitle" style="text-align: center;" bgcolor="#d6dff0">
