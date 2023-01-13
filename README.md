@@ -10,10 +10,9 @@ The repository contains:
 * Community-supported content
 
 ## Related Products and Solutions
-* CloudGuard Network Security for Azure-cn(Not ready)
-* CloudGuard Network Security  for AWS-cn(Not ready)
+* CloudGuard Network Security for Azure-China (Not ready)
+* CloudGuard Network Security  for AWS-China (Part ready)
 * CloudGuard Network Security for GCP
-* CloudGuard Network Security for AliCloud(Not ready)
 * CloudGuard Network Security  for Azure Stack
 
 ## References
