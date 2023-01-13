@@ -1,9 +1,9 @@
-## AWS China CloudFormation Templates
+## AWS China CloudFormation Templates 中国AWS云的CloudGuard 集群部署模板
 
 <p><strong>Notes:</strong></p>
 <ul>
 <li>
-<p>You must accept the Software Terms of the relevant Check Point Product AMI in the <a href="https://aws.amazon.com/marketplace/">AWS Marketplace</a> at least once prior to launching the CloudFormation templates. It is not required to actually launch the instance from the Marketplace, but the agreement must be accepted from this location.</p>
+<p>You must accept the Software Terms of the relevant Check Point Product AMI in the <a href="https://awsmarketplace.amazonaws.cn/marketplace/">AWS Marketplace</a> at least once prior to launching the CloudFormation templates. It is not required to actually launch the instance from the Marketplace, but the agreement must be accepted from this location.使用此模板前请先在AWS中国镜像市场订阅相关镜像</p>
 </li>
 <li>
 <p>For R81.20 and higher versions, Gateway Load Balancer (GWLB) and Gateway images are unified. They use <strong>the same</strong> Product AMI in the AWS Marketplace.</p>
@@ -54,7 +54,7 @@
 </li>
 </ul>
 <!-- TOC-end -->
-<h3 id="Auto Scaling Group">Security Gateways Auto Scaling Group for Gateway Load Balancer (GWLB)</h3>
+<h3 id="Auto Scaling Group">Security Gateways Auto Scaling Group for Gateway Load Balancer (GWLB) （Not Work yet）</h3>
 <table class="footnote" style="table-layout: fixed;" width="100%" cellspacing="2" cellpadding="4" border="1">
 <tbody>
 <tr class="SubTitle" style="text-align: center;" bgcolor="#d6dff0">
