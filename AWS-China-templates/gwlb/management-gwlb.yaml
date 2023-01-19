@@ -213,13 +213,9 @@ Parameters:
     Default: R81.10-BYOL
     AllowedValues:
       - R80.40-BYOL
-      - R80.40-PAYG
       - R81-BYOL
-      - R81-PAYG
       - R81.10-BYOL
-      - R81.10-PAYG
       - R81.20-BYOL
-      - R81.20-PAYG
   Shell:
     Description: Change the admin shell to enable advanced command line configuration.
     Type: String

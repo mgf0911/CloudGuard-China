@@ -1,22 +1,20 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: Deploy a Gateway Load Balancer, Check Point CloudGuard IaaS Security Gateway Auto Scaling Group, and optionally a Security Management Server, Gateway Load Balancer Endpoints and NAT Gateways for each AZ, in a new VPC for Transit Gateway (20230103)
+Description: Deploy a Gateway Load Balancer, Check Point CloudGuard IaaS Security Gateway Auto Scaling Group, and optionally a Security Management Server, Gateway Load Balancer Endpoints and NAT Gateways for each AZ, in an existing VPC for Transit Gateway (20230117)
 Metadata:
   AWS::CloudFormation::Interface:
     ParameterGroups:
       - Label:
           default: VPC Network Configuration
         Parameters:
+          - VPC
+          - IGWID
           - AvailabilityZones
           - NumberOfAZs
-          - VPCCIDR
-          - PublicSubnet1CIDR
-          - PublicSubnet2CIDR
-          - PublicSubnet3CIDR
-          - PublicSubnet4CIDR
-          - TgwSubnet1CIDR
-          - TgwSubnet2CIDR
-          - TgwSubnet3CIDR
-          - TgwSubnet4CIDR
+          - GatewaysSubnets
+          - TgwSubnet1Id
+          - TgwSubnet2Id
+          - TgwSubnet3Id
+          - TgwSubnet4Id
           - NatGwSubnet1CIDR
           - NatGwSubnet2CIDR
           - NatGwSubnet3CIDR
@@ -40,12 +38,6 @@ Metadata:
           - AdminEmail
           - Shell
       - Label:
-          default: Gateway Load Balancer Configuration
-        Parameters:
-          - GWLBName
-          - TargetGroupName
-          - CrossZoneLoadBalancing
-      - Label:
           default: Check Point CloudGuard IaaS Security Gateways Auto Scaling Group Configuration
         Parameters:
           - GatewayName
@@ -59,6 +51,12 @@ Metadata:
           - AllocatePublicAddress
           - CloudWatch
       - Label:
+          default: Gateway Load Balancer Configuration
+        Parameters:
+          - GWLBName
+          - TargetGroupName
+          - CrossZoneLoadBalancing
+      - Label:
           default: Check Point CloudGuard IaaS Security Management Server Configuration
         Parameters:
           - ManagementDeploy
@@ -70,28 +68,24 @@ Metadata:
           - GatewayManagement
           - GatewaysAddresses
     ParameterLabels:
+      VPC:
+        default: VPC
+      IGWID:
+        default: Internet Gateway ID
       AvailabilityZones:
         default: Availability Zones
       NumberOfAZs:
         default: Number of AZs
-      VPCCIDR:
-        default: VPC CIDR
-      PublicSubnet1CIDR:
-        default: Public subnet 1 CIDR
-      PublicSubnet2CIDR:
-        default: Public subnet 2 CIDR
-      PublicSubnet3CIDR:
-        default: Public subnet 3 CIDR
-      PublicSubnet4CIDR:
-        default: Public subnet 4 CIDR
-      TgwSubnet1CIDR:
-        default: TGW subnet 1 CIDR
-      TgwSubnet2CIDR:
-        default: TGW subnet 2 CIDR
-      TgwSubnet3CIDR:
-        default: TGW subnet 3 CIDR
-      TgwSubnet4CIDR:
-        default: TGW subnet 4 CIDR
+      GatewaysSubnets:
+        default: Gateways subnets
+      TgwSubnet1Id:
+        default: Transit Gateway Attachment subnet 1 Id
+      TgwSubnet2Id:
+        default: Transit Gateway Attachment subnet 2 Id
+      TgwSubnet3Id:
+        default: Transit Gateway Attachment subnet 3 Id
+      TgwSubnet4Id:
+        default: Transit Gateway Attachment subnet 4 Id
       NatGwSubnet1CIDR:
         default: NAT subnet 1 CIDR
       NatGwSubnet2CIDR:
@@ -130,12 +124,6 @@ Metadata:
         default: Email address
       Shell:
         default: Admin shell
-      GWLBName:
-        default: Gateway Load Balancer Name
-      TargetGroupName:
-        default: Target Group Name
-      CrossZoneLoadBalancing:
-        default:  Enable Cross Zone Load Balancing
       GatewayName:
         default: Gateways instance name
       GatewayInstanceType:
@@ -156,6 +144,12 @@ Metadata:
         default: Allocate Public IPs
       CloudWatch:
         default: CloudWatch metrics
+      GWLBName:
+        default: Gateway Load Balancer Name
+      TargetGroupName:
+        default: Target Group Name
+      CrossZoneLoadBalancing:
+        default:  Enable Cross Zone Load Balancing
       ManagementDeploy:
         default: Deploy Management Server
       ManagementInstanceType:
@@ -173,6 +167,16 @@ Metadata:
       GatewaysAddresses:
         default: Gateways addresses
 Parameters:
+  VPC:
+    Description: Select an existing VPC.
+    Type: AWS::EC2::VPC::Id
+    MinLength: 1
+    ConstraintDescription: You must select a VPC.
+  IGWID:
+    Description: VPC's Internet Gateway Id (e.g. igw-123a4567).
+    Type: String
+    MinLength: 1
+    ConstraintDescription: You must insert an Internet Gateway Id.
   AvailabilityZones:
     Description: The Availability Zones (AZs) to use for the subnets in the VPC. Select two (the logical order is preserved).
     Type: List<AWS::EC2::AvailabilityZone::Name>
@@ -183,58 +187,26 @@ Parameters:
     Default: 2
     MinValue: 2
     MaxValue: 4
-  VPCCIDR:
-    Description: The CIDR block of the provided VPC.
+  GatewaysSubnets:
+    Description: Select at least 2 public subnets in the VPC. If you choose to deploy a Security Management Server it will be deployed in the first subnet.
+    Type: List<AWS::EC2::Subnet::Id>
+    MinLength: 2
+  TgwSubnet1Id:
+    Description: The TGW attachment subnet ID located in the 1st Availability Zone.
     Type: String
-    Default: 10.0.0.0/16
-    AllowedPattern: '^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(1[6-9]|2[0-8]))$'
-    ConstraintDescription: CIDR block parameter must be in the form x.x.x.x/16-28.
-  PublicSubnet1CIDR:
-    Description: CIDR block for public subnet 1 located in the 1st Availability Zone.
+    MinLength: 1
+    ConstraintDescription: You must insert Tgw Subnet Id for Availability Zone 1.
+  TgwSubnet2Id:
+    Description: The TGW attachment subnet ID located in the 2nd Availability Zone.
     Type: String
-    Default: 10.0.10.0/24
-    AllowedPattern: '^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(1[6-9]|2[0-8]))$'
-    ConstraintDescription: CIDR block parameter must be in the form x.x.x.x/16-28.
-  PublicSubnet2CIDR:
-    Description: CIDR block for public subnet 2 located in the 2nd Availability Zone.
+    MinLength: 1
+    ConstraintDescription: You must insert Tgw Subnet Id for Availability Zone 2.
+  TgwSubnet3Id:
+    Description: The TGW attachment subnet ID located in the 3rd Availability Zone.
     Type: String
-    Default: 10.0.20.0/24
-    AllowedPattern: '^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(1[6-9]|2[0-8]))$'
-    ConstraintDescription: CIDR block parameter must be in the form x.x.x.x/16-28.
-  PublicSubnet3CIDR:
-    Description: CIDR block for public subnet 3 located in the 3rd Availability Zone.
+  TgwSubnet4Id:
+    Description: The TGW attachment subnet ID located in the 4th Availability Zone.
     Type: String
-    Default: 10.0.30.0/24
-    AllowedPattern: '^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(1[6-9]|2[0-8]))$'
-    ConstraintDescription: CIDR block parameter must be in the form x.x.x.x/16-28.
-  PublicSubnet4CIDR:
-    Description: CIDR block for public subnet 4 located in the 4th Availability Zone.
-    Type: String
-    Default: 10.0.40.0/24
-    AllowedPattern: '^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(1[6-9]|2[0-8]))$'
-    ConstraintDescription: CIDR block parameter must be in the form x.x.x.x/16-28.
-  TgwSubnet1CIDR:
-    Description: CIDR block for TGW subnet 1 located in the 1st Availability Zone.
-    Type: String
-    Default: 10.0.12.0/24
-    AllowedPattern: '^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(1[6-9]|2[0-8]))$'
-    ConstraintDescription: CIDR block parameter must be in the form x.x.x.x/16-28.
-  TgwSubnet2CIDR:
-    Description: CIDR block for TGW subnet 2 located in the 2nd Availability Zone.
-    Type: String
-    Default: 10.0.22.0/24
-    ConstraintDescription: CIDR block parameter must be in the form x.x.x.x/16-28.
-  TgwSubnet3CIDR:
-    Description: CIDR block for TGW subnet 3 located in the 3rd Availability Zone.
-    Type: String
-    Default: 10.0.32.0/24
-    AllowedPattern: '^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(1[6-9]|2[0-8]))$'
-    ConstraintDescription: CIDR block parameter must be in the form x.x.x.x/16-28.
-  TgwSubnet4CIDR:
-    Description: CIDR block for TGW subnet 4 located in the 4th Availability Zone.
-    Type: String
-    Default: 10.0.42.0/24
-    ConstraintDescription: CIDR block parameter must be in the form x.x.x.x/16-28.
   NatGwSubnet1CIDR:
     Description: CIDR block for NAT subnet 1 located in the 1st Availability Zone.
     Type: String
@@ -347,33 +319,12 @@ Parameters:
       - /bin/bash
       - /bin/csh
       - /bin/tcsh
-  GWLBName:
-    Description: Gateway Load Balancer name. This name must be unique within your AWS account and can have a maximum of 32 alphanumeric characters and hyphens. A name cannot begin or end with a hyphen.
-    Type: String
-    AllowedPattern: '^([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9])$'
-    Default: gwlb1
-    MaxLength: 32
-    ConstraintDescription: Must be a valid GWLB Name
-  TargetGroupName:
-    Description: Target Group Name. This name must be unique within your AWS account and can have a maximum of 32 alphanumeric characters and hyphens. A name cannot begin or end with a hyphen.
-    Type: String
-    AllowedPattern: '^([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9])$'
-    Default: tg1
-    MaxLength: 32
-    ConstraintDescription: Must be a valid target group name.
-  CrossZoneLoadBalancing:
-    Description: Select 'true' to enable cross-az load balancing. NOTE! this may cause a spike in cross-az charges.
-    Type: String
-    Default: true
-    AllowedValues:
-      - true
-      - false
   GatewayName:
     Description: The name tag of the Security Gateway instances. (optional)
     Type: String
     Default: Check-Point-Gateway
   GatewayInstanceType:
-    Description: The EC2 instance type for the Security Gateways
+    Description: The EC2 instance type for the Security Gateways.
     Type: String
     Default: c5.xlarge
     AllowedValues:
@@ -401,7 +352,7 @@ Parameters:
       - r5a.4xlarge
       - r5a.12xlarge
       - r5a.24xlarge
-    ConstraintDescription: Must be a valid EC2 instance type
+    ConstraintDescription: Must be a valid EC2 instance type.
   GatewaysMinSize:
     Description: The minimal number of Security Gateways.
     Type: Number
@@ -417,6 +368,7 @@ Parameters:
     Type: String
     Default: R81.20-BYOL
     AllowedValues:
+      - R80.40-BYOL
       - R81.20-BYOL
   GatewayPasswordHash:
     Description: Admin user's password hash (use command "openssl passwd -6 PASSWORD" to get the PASSWORD's hash). (optional)
@@ -448,6 +400,23 @@ Parameters:
     Description: Report Check Point specific CloudWatch metrics.
     Type: String
     Default: false
+    AllowedValues:
+      - true
+      - false
+  GWLBName:
+    Description: Gateway Load Balancer name. This name must be unique within your AWS account and can have a maximum of 32 alphanumeric characters and hyphens. A name cannot begin or end with a hyphen.
+    Type: String
+    Default: gwlb1
+    ConstraintDescription: Must be a valid GWLB Name
+  TargetGroupName:
+    Description: Target Group Name. This name must be unique within your AWS account and can have a maximum of 32 alphanumeric characters and hyphens. A name cannot begin or end with a hyphen.
+    Type: String
+    Default: tg1
+    ConstraintDescription: Must be a valid target group name.
+  CrossZoneLoadBalancing:
+    Description: Select 'true' to enable cross-az load balancing. NOTE! this may cause a spike in cross-az charges.
+    Type: String
+    Default: true
     AllowedValues:
       - true
       - false
@@ -487,7 +456,7 @@ Parameters:
       - r5a.4xlarge
       - r5a.12xlarge
       - r5a.24xlarge
-    ConstraintDescription: Must be a valid EC2 instance type
+    ConstraintDescription: Must be a valid EC2 instance type.
   ManagementVersion:
     Description: The license to install on the Security Management Server.
     Type: String
@@ -529,51 +498,277 @@ Conditions:
   DeployManagement: !Equals [!Ref ManagementDeploy, true]
   VolumeEncryption: !Equals [!Ref EnableVolumeEncryption, true]
 Resources:
-  VPCStack:
+  GWLBeSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: !Ref GWLBeSubnet1CIDR
+      AvailabilityZone: !Select [0, !Ref AvailabilityZones]
+      Tags:
+        - Key: Name
+          Value: GWLBe subnet 1
+        - Key: Network
+          Value: Private
+  GWLBeSubnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: !Ref GWLBeSubnet2CIDR
+      AvailabilityZone: !Select [1, !Ref AvailabilityZones]
+      Tags:
+        - Key: Name
+          Value: GWLBe subnet 2
+        - Key: Network
+          Value: Private
+  GWLBeSubnet3:
+    Type: AWS::EC2::Subnet
+    Condition: 3AZs
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: !Ref GWLBeSubnet3CIDR
+      AvailabilityZone: !Select [2, !Ref AvailabilityZones]
+      Tags:
+        - Key: Name
+          Value: GWLBe subnet 3
+        - Key: Network
+          Value: Private
+  GWLBeSubnet4:
+    Type: AWS::EC2::Subnet
+    Condition: 4AZs
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: !Ref GWLBeSubnet4CIDR
+      AvailabilityZone: !Select [3, !Ref AvailabilityZones]
+      Tags:
+        - Key: Name
+          Value: GWLBe subnet 4
+        - Key: Network
+          Value: Private
+  GWLBeSubnet1RouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: GWLBe Subnet 1 Route Table
+        - Key: Network
+          Value: Private
+  GWLBeSubnet1NatGwDefaultRoute:
+    Type: AWS::EC2::Route
+    Properties:
+      DestinationCidrBlock: 0.0.0.0/0
+      NatGatewayId: !Ref NatGateway1
+      RouteTableId: !Ref GWLBeSubnet1RouteTable
+  GWLBeSubnet1RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref GWLBeSubnet1RouteTable
+      SubnetId: !Ref GWLBeSubnet1
+  GWLBeSubnet2RouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: GWLBe Subnet 2 Route Table
+        - Key: Network
+          Value: Private
+  GWLBeSubnet2NatGwDefaultRoute:
+    Type: AWS::EC2::Route
+    Properties:
+      DestinationCidrBlock: 0.0.0.0/0
+      NatGatewayId: !Ref NatGateway2
+      RouteTableId: !Ref GWLBeSubnet2RouteTable
+  GWLBeSubnet2RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref GWLBeSubnet2RouteTable
+      SubnetId: !Ref GWLBeSubnet2
+  GWLBeSubnet3RouteTable:
+    Type: AWS::EC2::RouteTable
+    Condition: 3AZs
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: GWLBe Subnet 3 Route Table
+        - Key: Network
+          Value: Private
+  GWLBeSubnet3NatGwDefaultRoute:
+    Type: AWS::EC2::Route
+    Condition: 3AZs
+    Properties:
+      DestinationCidrBlock: 0.0.0.0/0
+      NatGatewayId: !Ref NatGateway3
+      RouteTableId: !Ref GWLBeSubnet3RouteTable
+  GWLBeSubnet3RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Condition: 3AZs
+    Properties:
+      RouteTableId: !Ref GWLBeSubnet3RouteTable
+      SubnetId: !Ref GWLBeSubnet3
+  GWLBeSubnet4RouteTable:
+    Type: AWS::EC2::RouteTable
+    Condition: 4AZs
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: GWLBe Subnet 4 Route Table
+        - Key: Network
+          Value: Private
+  GWLBeSubnet4NatGwDefaultRoute:
+    Type: AWS::EC2::Route
+    Condition: 4AZs
+    Properties:
+      DestinationCidrBlock: 0.0.0.0/0
+      NatGatewayId: !Ref NatGateway4
+      RouteTableId: !Ref GWLBeSubnet4RouteTable
+  GWLBeSubnet4RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Condition: 4AZs
+    Properties:
+      RouteTableId: !Ref GWLBeSubnet4RouteTable
+      SubnetId: !Ref GWLBeSubnet4
+  NatGwSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: !Ref NatGwSubnet1CIDR
+      AvailabilityZone: !Select [0, !Ref AvailabilityZones]
+      Tags:
+        - Key: Name
+          Value: NAT subnet 1
+        - Key: Network
+          Value: Private
+  NatGwSubnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: !Ref NatGwSubnet2CIDR
+      AvailabilityZone: !Select [1, !Ref AvailabilityZones]
+      Tags:
+        - Key: Name
+          Value: NAT subnet 2
+        - Key: Network
+          Value: Private
+  NatGwSubnet3:
+    Type: AWS::EC2::Subnet
+    Condition: 3AZs
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: !Ref NatGwSubnet3CIDR
+      AvailabilityZone: !Select [2, !Ref AvailabilityZones]
+      Tags:
+        - Key: Name
+          Value: NAT subnet 3
+        - Key: Network
+          Value: Private
+  NatGwSubnet4:
+    Type: AWS::EC2::Subnet
+    Condition: 4AZs
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: !Ref NatGwSubnet4CIDR
+      AvailabilityZone: !Select [3, !Ref AvailabilityZones]
+      Tags:
+        - Key: Name
+          Value: NAT subnet 4
+        - Key: Network
+          Value: Private
+  NatGwSubnet1RouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: NAT Subnet 1 Route Table
+        - Key: Network
+          Value: Public
+  NatGwSubnet1NatGwDefaultRoute:
+    Type: AWS::EC2::Route
+    Properties:
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref IGWID
+      RouteTableId: !Ref NatGwSubnet1RouteTable
+  NatGwSubnet1RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref NatGwSubnet1RouteTable
+      SubnetId: !Ref NatGwSubnet1
+  NatGwSubnet2RouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: NAT Subnet 2 Route Table
+        - Key: Network
+          Value: Public
+  NatGwSubnet2NatGwDefaultRoute:
+    Type: AWS::EC2::Route
+    Properties:
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref IGWID
+      RouteTableId: !Ref NatGwSubnet2RouteTable
+  NatGwSubnet2RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref NatGwSubnet2RouteTable
+      SubnetId: !Ref NatGwSubnet2
+  NatGwSubnet3RouteTable:
+    Type: AWS::EC2::RouteTable
+    Condition: 3AZs
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: NAT Subnet 3 Route Table
+        - Key: Network
+          Value: Public
+  NatGwSubnet3NatGwDefaultRoute:
+    Type: AWS::EC2::Route
+    Condition: 3AZs
+    Properties:
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref IGWID
+      RouteTableId: !Ref NatGwSubnet3RouteTable
+  NatGwSubnet3RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Condition: 3AZs
+    Properties:
+      RouteTableId: !Ref NatGwSubnet3RouteTable
+      SubnetId: !Ref NatGwSubnet3
+  NatGwSubnet4RouteTable:
+    Type: AWS::EC2::RouteTable
+    Condition: 4AZs
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: NAT Subnet 4 Route Table
+        - Key: Network
+          Value: Public
+  NatGwSubnet4NatGwDefaultRoute:
+    Type: AWS::EC2::Route
+    Condition: 4AZs
+    Properties:
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref IGWID
+      RouteTableId: !Ref NatGwSubnet4RouteTable
+  NatGwSubnet4RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Condition: 4AZs
+    Properties:
+      RouteTableId: !Ref NatGwSubnet4RouteTable
+      SubnetId: !Ref NatGwSubnet4
+  GWLBStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/utils/vpc.yaml
+      TemplateURL: https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/gwlb/gwlb.yaml
       Parameters:
-        AvailabilityZones: !Join [',', !Ref AvailabilityZones]
-        NumberOfAZs: !Ref NumberOfAZs
-        VPCCIDR: !Ref VPCCIDR
-        PublicSubnet1CIDR: !Ref PublicSubnet1CIDR
-        PublicSubnet2CIDR: !Ref PublicSubnet2CIDR
-        PublicSubnet3CIDR: !Ref PublicSubnet3CIDR
-        PublicSubnet4CIDR: !Ref PublicSubnet4CIDR
-        CreatePrivateSubnets: false
-        CreateAttachmentSubnets: true
-        AttachmentSubnet1CIDR: !Ref TgwSubnet1CIDR
-        AttachmentSubnet2CIDR: !Ref TgwSubnet2CIDR
-        AttachmentSubnet3CIDR: !Ref TgwSubnet3CIDR
-        AttachmentSubnet4CIDR: !Ref TgwSubnet4CIDR
-  TgwGwlbStack:
-    Type: AWS::CloudFormation::Stack
-    Properties:
-      TemplateURL: https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/gwlb/tgw-gwlb.yaml
-      Parameters:
-        VPC: !GetAtt VPCStack.Outputs.VPCID
-        IGWID: !GetAtt VPCStack.Outputs.IGWID
-        AvailabilityZones: !Join [',', !Ref AvailabilityZones]
-        NumberOfAZs: !Ref NumberOfAZs
-        GatewaysSubnets: !Join
-          - ','
-          - - !GetAtt VPCStack.Outputs.PublicSubnet1ID
-            - !GetAtt VPCStack.Outputs.PublicSubnet2ID
-            - !If [3AZs, !GetAtt VPCStack.Outputs.PublicSubnet3ID, !Ref 'AWS::NoValue']
-            - !If [4AZs, !GetAtt VPCStack.Outputs.PublicSubnet4ID, !Ref 'AWS::NoValue']
-        TgwSubnet1Id: !GetAtt VPCStack.Outputs.AttachmentSubnet1ID
-        TgwSubnet2Id: !GetAtt VPCStack.Outputs.AttachmentSubnet2ID
-        TgwSubnet3Id: !If [3AZs, !GetAtt VPCStack.Outputs.AttachmentSubnet3ID, ""]
-        TgwSubnet4Id: !If [4AZs, !GetAtt VPCStack.Outputs.AttachmentSubnet4ID, ""]
-        NatGwSubnet1CIDR: !Ref NatGwSubnet1CIDR
-        NatGwSubnet2CIDR: !Ref NatGwSubnet2CIDR
-        NatGwSubnet3CIDR: !Ref NatGwSubnet3CIDR
-        NatGwSubnet4CIDR: !Ref NatGwSubnet4CIDR
-        GWLBeSubnet1CIDR: !Ref GWLBeSubnet1CIDR
-        GWLBeSubnet2CIDR: !Ref GWLBeSubnet2CIDR
-        GWLBeSubnet3CIDR: !Ref GWLBeSubnet3CIDR
-        GWLBeSubnet4CIDR: !Ref GWLBeSubnet4CIDR
+        VPC: !Ref VPC
+        GatewaysSubnets: !Join [',', !Ref GatewaysSubnets]
         KeyName: !Ref KeyName
         EnableVolumeEncryption: !Ref EnableVolumeEncryption
         VolumeType: !Ref VolumeType
@@ -585,6 +780,10 @@ Resources:
         ConfigurationTemplate: !Ref ConfigurationTemplate
         AdminEmail: !Ref AdminEmail
         Shell: !Ref Shell
+        GWLBName: !Ref GWLBName
+        TargetGroupName: !Ref TargetGroupName
+        AcceptConnectionRequired: false
+        CrossZoneLoadBalancing: !Ref CrossZoneLoadBalancing
         GatewayName: !Ref GatewayName
         GatewayInstanceType: !Ref GatewayInstanceType
         GatewaysMinSize: !Ref GatewaysMinSize
@@ -595,9 +794,6 @@ Resources:
         ControlGatewayOverPrivateOrPublicAddress: !Ref ControlGatewayOverPrivateOrPublicAddress
         AllocatePublicAddress: !Ref AllocatePublicAddress
         CloudWatch: !Ref CloudWatch
-        GWLBName: !Ref GWLBName
-        TargetGroupName: !Ref TargetGroupName
-        CrossZoneLoadBalancing: !Ref CrossZoneLoadBalancing
         ManagementDeploy: !Ref ManagementDeploy
         ManagementInstanceType: !Ref ManagementInstanceType
         ManagementVersion: !Ref ManagementVersion
@@ -606,54 +802,203 @@ Resources:
         AdminCIDR: !Ref AdminCIDR
         GatewayManagement: !Ref GatewayManagement
         GatewaysAddresses: !Ref GatewaysAddresses
+  GWLBe1:
+    DependsOn: [GWLBStack, GWLBeSubnet1]
+    Type: AWS::EC2::VPCEndpoint
+    Properties:
+      VpcId: !Ref VPC
+      VpcEndpointType: GatewayLoadBalancer
+      SubnetIds:
+        - !Ref GWLBeSubnet1
+      ServiceName: !GetAtt GWLBStack.Outputs.GWLBServiceName
+  GWLBe2:
+    DependsOn: [GWLBStack, GWLBeSubnet2]
+    Type: AWS::EC2::VPCEndpoint
+    Properties:
+      VpcId: !Ref VPC
+      VpcEndpointType: GatewayLoadBalancer
+      SubnetIds:
+        - !Ref GWLBeSubnet2
+      ServiceName: !GetAtt GWLBStack.Outputs.GWLBServiceName
+  GWLBe3:
+    DependsOn: [GWLBStack, GWLBeSubnet3]
+    Type: AWS::EC2::VPCEndpoint
+    Condition: 3AZs
+    Properties:
+      VpcId: !Ref VPC
+      VpcEndpointType: GatewayLoadBalancer
+      SubnetIds:
+        - !Ref GWLBeSubnet3
+      ServiceName: !GetAtt GWLBStack.Outputs.GWLBServiceName
+  GWLBe4:
+    DependsOn: [GWLBStack, GWLBeSubnet4]
+    Type: AWS::EC2::VPCEndpoint
+    Condition: 4AZs
+    Properties:
+      VpcId: !Ref VPC
+      VpcEndpointType: GatewayLoadBalancer
+      SubnetIds:
+        - !Ref GWLBeSubnet4
+      ServiceName: !GetAtt GWLBStack.Outputs.GWLBServiceName
+  TGWAttachmentSubnet1RouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: TGW Attachment Subnet 1 Route Table
+        - Key: Network
+          Value: Private
+  TGWAttachmentSubnet1GWLBeDefaultRoute:
+    Type: AWS::EC2::Route
+    Properties:
+      DestinationCidrBlock: 0.0.0.0/0
+      VpcEndpointId: !Ref GWLBe1
+      RouteTableId: !Ref TGWAttachmentSubnet1RouteTable
+  TGWAttachmentSubnet1RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref TGWAttachmentSubnet1RouteTable
+      SubnetId: !Ref TgwSubnet1Id
+  TGWAttachmentSubnet2RouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: TGW Attachment Subnet 2 Route Table
+        - Key: Network
+          Value: Private
+  TGWAttachmentSubnet2GWLBeDefaultRoute:
+    Type: AWS::EC2::Route
+    Properties:
+      DestinationCidrBlock: 0.0.0.0/0
+      VpcEndpointId: !Ref GWLBe2
+      RouteTableId: !Ref TGWAttachmentSubnet2RouteTable
+  TGWAttachmentSubnet2RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref TGWAttachmentSubnet2RouteTable
+      SubnetId: !Ref TgwSubnet2Id
+  TGWAttachmentSubnet3RouteTable:
+    Type: AWS::EC2::RouteTable
+    Condition: 3AZs
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: TGW Attachment Subnet 3 Route Table
+        - Key: Network
+          Value: Private
+  TGWAttachmentSubnet3GWLBeDefaultRoute:
+    Type: AWS::EC2::Route
+    Condition: 3AZs
+    Properties:
+      DestinationCidrBlock: 0.0.0.0/0
+      VpcEndpointId: !Ref GWLBe3
+      RouteTableId: !Ref TGWAttachmentSubnet3RouteTable
+  TGWAttachmentSubnet3RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Condition: 3AZs
+    Properties:
+      RouteTableId: !Ref TGWAttachmentSubnet3RouteTable
+      SubnetId: !Ref TgwSubnet3Id
+  TGWAttachmentSubnet4RouteTable:
+    Type: AWS::EC2::RouteTable
+    Condition: 4AZs
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: TGW Attachment Subnet 4 Route Table
+        - Key: Network
+          Value: Private
+  TGWAttachmentSubnet4GWLBeDefaultRoute:
+    Type: AWS::EC2::Route
+    Condition: 4AZs
+    Properties:
+      DestinationCidrBlock: 0.0.0.0/0
+      VpcEndpointId: !Ref GWLBe4
+      RouteTableId: !Ref TGWAttachmentSubnet4RouteTable
+  TGWAttachmentSubnet4RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Condition: 4AZs
+    Properties:
+      RouteTableId: !Ref TGWAttachmentSubnet4RouteTable
+      SubnetId: !Ref TgwSubnet4Id
+  NatGwPublicAddress1:
+    Type: AWS::EC2::EIP
+    Properties:
+      Domain: vpc
+  NatGwPublicAddress2:
+    Type: AWS::EC2::EIP
+    Properties:
+      Domain: vpc
+  NatGwPublicAddress3:
+    Type: AWS::EC2::EIP
+    Condition: 3AZs
+    Properties:
+      Domain: vpc
+  NatGwPublicAddress4:
+    Type: AWS::EC2::EIP
+    Condition: 4AZs
+    Properties:
+      Domain: vpc
+  NatGateway1:
+    DependsOn: [GWLBStack, NatGwSubnet1]
+    Type: AWS::EC2::NatGateway
+    Properties:
+      AllocationId: !GetAtt NatGwPublicAddress1.AllocationId
+      SubnetId: !Ref NatGwSubnet1
+      Tags:
+        - Key: Name
+          Value: NatGW1
+  NatGateway2:
+    DependsOn: [GWLBStack, NatGwSubnet2]
+    Type: AWS::EC2::NatGateway
+    Properties:
+      AllocationId: !GetAtt NatGwPublicAddress2.AllocationId
+      SubnetId: !Ref NatGwSubnet2
+      Tags:
+        - Key: Name
+          Value: NatGW2
+  NatGateway3:
+    DependsOn: [GWLBStack, NatGwSubnet3]
+    Type: AWS::EC2::NatGateway
+    Condition: 3AZs
+    Properties:
+      AllocationId: !GetAtt NatGwPublicAddress3.AllocationId
+      SubnetId: !Ref NatGwSubnet3
+      Tags:
+        - Key: Name
+          Value: NatGW3
+  NatGateway4:
+    DependsOn: [GWLBStack, NatGwSubnet4]
+    Type: AWS::EC2::NatGateway
+    Condition: 4AZs
+    Properties:
+      AllocationId: !GetAtt NatGwPublicAddress4.AllocationId
+      SubnetId: !Ref NatGwSubnet4
+      Tags:
+        - Key: Name
+          Value: NatGW4
 Outputs:
-  VPCID:
-    Description: VPC ID.
-    Value: !GetAtt VPCStack.Outputs.VPCID
   ManagementPublicAddress:
     Description: The public address of the management server.
-    Value: !GetAtt TgwGwlbStack.Outputs.ManagementPublicAddress
+    Value: !GetAtt GWLBStack.Outputs.ManagementPublicAddress
     Condition: DeployManagement
   ConfigurationTemplateName:
     Description: The name that represents the configuration template. Configurations required to automatically provision the Gateways in the Auto Scaling Group, such as what Security Policy to install and which Blades to enable, will be placed under this template name.
-    Value: !GetAtt TgwGwlbStack.Outputs.ConfigurationTemplateName
+    Value: !GetAtt GWLBStack.Outputs.ConfigurationTemplateName
   ControllerName:
     Description: The name that represents the controller. Configurations required to connect to your AWS environment, such as credentials and regions, will be placed under this controller name.
-    Value: !GetAtt TgwGwlbStack.Outputs.ControllerName
+    Value: !GetAtt GWLBStack.Outputs.ControllerName
   GWLBName:
     Description: Gateway Load Balancer Name.
     Value: !Ref GWLBName
   GWLBServiceName:
     Description: Gateway Load Balancer Service Name.
-    Value: !GetAtt TgwGwlbStack.Outputs.GWLBServiceName
-  TgwSubnet1ID:
-    Description: TGW subnet 1 ID in Availability Zone 1.
-    Value: !GetAtt VPCStack.Outputs.AttachmentSubnet1ID
-  TgwSubnet2ID:
-    Description: TGW subnet 2 ID in Availability Zone 2.
-    Value: !GetAtt VPCStack.Outputs.AttachmentSubnet2ID
-  TgwSubnet3ID:
-    Description: TGW subnet 3 ID in Availability Zone 3.
-    Value: !GetAtt VPCStack.Outputs.AttachmentSubnet3ID
-    Condition: 3AZs
-  TgwSubnet4ID:
-    Description: TGW subnet 4 ID in Availability Zone 4.
-    Value: !GetAtt VPCStack.Outputs.AttachmentSubnet4ID
-    Condition: 4AZs
-  TgwSubnet1CIDR:
-    Description: TGW subnet 1 CIDR in Availability Zone 1.
-    Value: !GetAtt VPCStack.Outputs.AttachmentSubnet1CIDR
-  TgwSubnet2CIDR:
-    Description: TGW subnet 2 CIDR in Availability Zone 2.
-    Value: !GetAtt VPCStack.Outputs.AttachmentSubnet2CIDR
-  TgwSubnet3CIDR:
-    Description: TGW subnet 3 CIDR in Availability Zone 3.
-    Value: !GetAtt VPCStack.Outputs.AttachmentSubnet3CIDR
-    Condition: 3AZs
-  TgwSubnet4CIDR:
-    Description: TGW subnet 4 CIDR in Availability Zone 4.
-    Value: !GetAtt VPCStack.Outputs.AttachmentSubnet4CIDR
-    Condition: 4AZs
+    Value: !GetAtt GWLBStack.Outputs.GWLBServiceName
 Rules:
   GatewayAddressAllocationRule:
     RuleCondition: !Equals [!Ref ControlGatewayOverPrivateOrPublicAddress, 'public'] 
