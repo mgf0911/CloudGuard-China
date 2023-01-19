@@ -14,7 +14,7 @@
 <!-- TOC-start -->
 <ul type="disc">
 <li>
-<div class="checkpoint_navigate" targetid="Auto Scaling Group">Security Gateways Auto Scaling Group for Gateway Load Balancer (GWLB) (Not work yet)</div>
+<div class="checkpoint_navigate" targetid="Auto Scaling Group">Security Gateways Auto Scaling Group for Gateway Load Balancer (GWLB)</div>
 </li>
 <li>
 <div class="checkpoint_navigate" targetid="Security Gateway">Security Gateway</div>
@@ -54,7 +54,7 @@
 </li>
 </ul>
 <!-- TOC-end -->
-<h3 id="Auto Scaling Group">Security Gateways Auto Scaling Group for Gateway Load Balancer (GWLB) (Not work yet)</h3>
+<h3 id="Auto Scaling Group">Security Gateways Auto Scaling Group for Gateway Load Balancer (GWLB)</h3>
 <table class="footnote" style="table-layout: fixed;" width="100%" cellspacing="2" cellpadding="4" border="1">
 <tbody>
 <tr class="SubTitle" style="text-align: center;" bgcolor="#d6dff0">
