@@ -62,7 +62,7 @@ Resources:
             - NotProvidedTrustedAccount
             - Effect: Allow
               Principal:
-                Service: [ec2.amazonaws.com]
+                Service: [ec2.amazonaws.com.cn]
               Action: ['sts:AssumeRole']
             - !Ref 'AWS::NoValue'
       Path: /
@@ -146,7 +146,7 @@ Resources:
                   Action:
                     - cloudformation:CreateStack
                     - cloudformation:DeleteStack
-                  Resource: 'arn:aws:cloudformation:*:*:stack/vpn-by-tag--*/*'
+                  Resource: 'arn:aws-cn:cloudformation:*:*:stack/vpn-by-tag--*/*'
                 - !Ref 'AWS::NoValue'
 Outputs:
   CMEIAMRole:
