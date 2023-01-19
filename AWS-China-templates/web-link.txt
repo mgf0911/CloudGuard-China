@@ -1,6 +1,0 @@
-https://cgi-cfts.s3.amazonaws.com/gwlb/amis-gwlb.yaml
-
-https://cgi-cfts.s3.amazonaws.com/utils/amis.yaml
-
-
-https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/
