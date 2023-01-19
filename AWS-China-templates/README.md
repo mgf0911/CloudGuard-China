@@ -14,7 +14,7 @@
 <!-- TOC-start -->
 <ul type="disc">
 <li>
-<div class="checkpoint_navigate" targetid="Auto Scaling Group">Security Gateways Auto Scaling Group for Gateway Load Balancer (GWLB)</div>
+<div class="checkpoint_navigate" targetid="Auto Scaling Group">Security Gateways Auto Scaling Group for Gateway Load Balancer (GWLB) (Not work yet)</div>
 </li>
 <li>
 <div class="checkpoint_navigate" targetid="Security Gateway">Security Gateway</div>
@@ -44,17 +44,17 @@
 <div class="checkpoint_navigate" targetid="Standalone Deployment">Security Management Server &amp; Security Gateway (Standalone Deployment)</div>
 </li>
 <li>
-<div class="checkpoint_navigate" targetid="CloudGuard Infinity Next Gateway">CloudGuard AppSec&nbsp;</div>
+<div class="checkpoint_navigate" targetid="CloudGuard Infinity Next Gateway">CloudGuard AppSec (Not in China AWS yet)&nbsp;</div>
 </li>
 <li>
-<div class="checkpoint_navigate" targetid="CloudGuard Infinity Next Gateway Auto Scaling Group">CloudGuard AppSec Auto Scaling Group</div>
+<div class="checkpoint_navigate" targetid="CloudGuard Infinity Next Gateway Auto Scaling Group">CloudGuard AppSec Auto Scaling Group (Not in China AWS yet)</div>
 </li>
 <li>
 <div class="checkpoint_navigate" targetid="General">General</div>
 </li>
 </ul>
 <!-- TOC-end -->
-<h3 id="Auto Scaling Group">Security Gateways Auto Scaling Group for Gateway Load Balancer (GWLB) （Not Work yet）</h3>
+<h3 id="Auto Scaling Group">Security Gateways Auto Scaling Group for Gateway Load Balancer (GWLB) (Not work yet)</h3>
 <table class="footnote" style="table-layout: fixed;" width="100%" cellspacing="2" cellpadding="4" border="1">
 <tbody>
 <tr class="SubTitle" style="text-align: center;" bgcolor="#d6dff0">
@@ -158,7 +158,7 @@
 </tbody>
 </table>
 <p>&nbsp;</p>
-<h3 id="Transit Gateway Auto Scaling Group">Security Gateways Auto Scaling Group for Transit Gateway (Not work yet)</h3>
+<h3 id="Transit Gateway Auto Scaling Group">Security Gateways Auto Scaling Group for Transit Gateway</h3>
 <table class="footnote" style="table-layout: fixed; width: 100%;" width="100%" cellspacing="2" cellpadding="4" border="1">
 <tbody>
 <tr class="SubTitle" style="text-align: center;" bgcolor="#d6dff0">
@@ -354,7 +354,7 @@
 </tbody>
 </table>
 <p></p>
-<h3 id="CloudGuard Infinity Next Gateway"><br />CloudGuard AppSec (Not in China AWS)</h3>
+<h3 id="CloudGuard Infinity Next Gateway"><br />CloudGuard AppSec (Not in China AWS yet)</h3>
 <table class="footnote" style="table-layout: fixed; width: 100%;" width="100%" cellspacing="2" cellpadding="4" border="1">
 <tbody>
 <tr class="SubTitle" style="text-align: center;" bgcolor="#d6dff0">
@@ -376,7 +376,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="CloudGuard Infinity Next Gateway Auto Scaling Group"><br />CloudGuard AppSec Auto Scaling Group (Not in China AWS)</h3>
+<h3 id="CloudGuard Infinity Next Gateway Auto Scaling Group"><br />CloudGuard AppSec Auto Scaling Group (Not in China AWS yet)</h3>
 <table class="footnote" style="table-layout: fixed; width: 100%;" width="100%" cellspacing="2" cellpadding="4" border="1">
 <tbody>
 <tr class="SubTitle" style="text-align: center;" bgcolor="#d6dff0">
