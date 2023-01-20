@@ -38,10 +38,10 @@
 <div class="checkpoint_navigate" targetid="Security Management Server">Security Management Server</div>
 </li>
 <li>
-<div class="checkpoint_navigate" targetid="Multi-Domain Management Server">Multi-Domain Management Server （Not in China AWS yet）</div>
+<div class="checkpoint_navigate" targetid="Multi-Domain Management Server">Multi-Domain Management Server （Not Work yet）</div>
 </li>
 <li>
-<div class="checkpoint_navigate" targetid="Standalone Deployment">Security Management Server &amp; Security Gateway (Standalone Deployment)</div>
+<div class="checkpoint_navigate" targetid="Standalone Deployment">Security Management Server &amp; Security Gateway (Standalone Deployment)（Not Work yet）</div>
 </li>
 <li>
 <div class="checkpoint_navigate" targetid="CloudGuard Infinity Next Gateway">CloudGuard AppSec (Not in China AWS yet)&nbsp;</div>
@@ -300,7 +300,7 @@
 </tbody>
 </table>
 <p>&nbsp;</p>
-<h3 id="Multi-Domain Management Server">Multi-Domain Management Server (Not in China AWS yet)</h3>
+<h3 id="Multi-Domain Management Server">Multi-Domain Management Server （Not Work yet）</h3>
 <table class="footnote" style="table-layout: fixed; width: 100%;" width="100%" cellspacing="2" cellpadding="4" border="1">
 <tbody>
 <tr class="SubTitle" style="text-align: center;" bgcolor="#d6dff0">
@@ -324,7 +324,7 @@
 </tbody>
 </table>
 <p></p>
-<h3 id="Standalone Deployment"><br />Security Management Server &amp; Security Gateway (Standalone Deployment)</h3>
+<h3 id="Standalone Deployment"><br />Security Management Server &amp; Security Gateway (Standalone Deployment)（Not Work yet）</h3>
 <table class="footnote" style="table-layout: fixed; width: 100%;" width="100%" cellspacing="2" cellpadding="4" border="1">
 <tbody>
 <tr class="SubTitle" style="text-align: center;" bgcolor="#d6dff0">
