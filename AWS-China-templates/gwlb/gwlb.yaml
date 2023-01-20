@@ -614,7 +614,7 @@ Outputs:
     Value: !Ref GWLBName
   GWLBServiceName:
     Description: Gateway Load Balancer Service Name.
-    Value: !Sub ['com.amazonaws.vpce.${AWS::Region}.${Service}', {Service: !Ref VpcEndpointService}]
+    Value: !Sub ['cn.com.amazonaws.vpce.${AWS::Region}.${Service}', {Service: !Ref VpcEndpointService}]
 Rules:
   GatewayAddressAllocationRule:
     RuleCondition: !Equals [!Ref ControlGatewayOverPrivateOrPublicAddress, 'public'] 
