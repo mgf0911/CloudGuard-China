@@ -40,7 +40,7 @@ Mappings:
       Value: R8120BYOLGW
   RegionMap:
     cn-northwest-1:
-      R8030BYOLMGMT: ami-0c0a2663b3b48e699
+      R8030BYOLMGMT: ami-0ff2ae71d5a0b4462
       R8030BYOLGW: ami-01e5747983e0881a9
       R8040BYOLMGMT: ami-078b96162d6f70aa8
       R8040BYOLGW: ami-0ec705421b7ef33d6
@@ -51,7 +51,7 @@ Mappings:
       R8120BYOLMGMT: ami-034f0a5461c0f4e42
       R8120BYOLGW: ami-0040e7b4ee3b1c819
     cn-north-1:
-      R8030BYOLMGMT: ami-0da9988235844e6e2
+      R8030BYOLMGMT: ami-0c1a427248cfd1936
       R8030BYOLGW: ami-0867e21301f6a5f63
       R8040BYOLMGMT: ami-0143512286ac9da90
       R8040BYOLGW: ami-08e87d6b5c5bbe3a2
