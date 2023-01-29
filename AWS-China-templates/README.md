@@ -6,6 +6,10 @@
 <p>You must accept the Software Terms of the relevant Check Point Product AMI in the <a href="https://awsmarketplace.amazonaws.cn/marketplace/">AWS Marketplace</a> at least once prior to launching the CloudFormation templates. It is not required to actually launch the instance from the Marketplace, but the agreement must be accepted from this location.此模板中的镜像使用“上海冠闵信息科技有限公司”发布的最新版本镜像文件，使用此模板前请先在AWS中国镜像市场订阅相关镜像</p>
 </li>
 <li>
+<p>国际版AWS使用的CloudFormation Templates请直接访问Check Point官网SK111013 <a href="https://supportcenter.checkpoint.com/supportcenter/portal?eventSubmit_doGoviewsolutiondetails=&solutionid=sk111013&partition=Basic&product=CloudGuard">Check Point SK111013</a>
+</p>
+</li>
+<li>
 <p>For R81.20 and higher versions, Gateway Load Balancer (GWLB) and Gateway images are unified. They use <strong>the same</strong> Product AMI in the AWS Marketplace.</p>
 </li>
 <li>Some stacks may "roll back" automatically after 1 hour, with an error "<em>WaitCondition timed out</em>". If this happens, please check Internet access is working, either through AWS (Internet Gateway (IGW) assigned to the VPC, routetables with a default route and assigned to the relevant subnet(s), and Elastic IP (EIP) assigned, etc), or through another method like external proxy, or route to on-prem, for example.&nbsp;<br /><br />&nbsp;</li>
