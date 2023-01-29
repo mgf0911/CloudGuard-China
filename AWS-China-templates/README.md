@@ -10,12 +10,12 @@
 </p>
 </li>
 <li>
+<p>If you encounter an error during use, you can contact the CP China SE team, or contact <href="mailto:zhenq@checkpoint.com">Me</a>如果使用时遇到报错可以联系CP中国SE团队，或联系 <href="mailto:zhenq@checkpoint.com">我</a>  <strong>the same</strong> Product AMI in the AWS Marketplace.</p>
+</li>
+<li>
 <p>For R81.20 and higher versions, Gateway Load Balancer (GWLB) and Gateway images are unified. They use <strong>the same</strong> Product AMI in the AWS Marketplace.</p>
 </li>
 <li>Some stacks may "roll back" automatically after 1 hour, with an error "<em>WaitCondition timed out</em>". If this happens, please check Internet access is working, either through AWS (Internet Gateway (IGW) assigned to the VPC, routetables with a default route and assigned to the relevant subnet(s), and Elastic IP (EIP) assigned, etc), or through another method like external proxy, or route to on-prem, for example.&nbsp;<br /><br />&nbsp;</li>
-<li>
-<p>If you encounter an error during use, you can contact the CP China SE team, or contact <a mailto="zhenq@checkpoint.com">Me</a>如果使用时遇到报错可以联系CP中国SE团队，或联系 <a mailto="zhenq@checkpoint.com">我</a>  <strong>the same</strong> Product AMI in the AWS Marketplace.</p>
-</li>
 </ul>
 <p><strong>Table of Contents</strong></p>
 <!-- TOC-start -->
