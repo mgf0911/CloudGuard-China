@@ -10,7 +10,7 @@
 </p>
 </li>
 <li>
-<p>If you encounter an error during use, you can contact the CP China SE team, or contact <href="mailto:zhenq@checkpoint.com">Me</a>如果使用时遇到报错可以联系CP中国SE团队，或联系 <href="mailto:zhenq@checkpoint.com">我</a>  <strong>the same</strong> Product AMI in the AWS Marketplace.</p>
+<p>If you encounter an error during use, you can contact the CP China SE team, or <a href="mailto:zhenq@checkpoint.com">Send Email</a>、如果使用时遇到报错可以联系CP中国SE团队，或 <a href="mailto:zhenq@checkpoint.com">发邮件</a>  <strong>the same</strong> Product AMI in the AWS Marketplace.</p>
 </li>
 <li>
 <p>For R81.20 and higher versions, Gateway Load Balancer (GWLB) and Gateway images are unified. They use <strong>the same</strong> Product AMI in the AWS Marketplace.</p>
