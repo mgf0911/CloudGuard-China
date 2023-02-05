@@ -16,6 +16,10 @@ Parameters:
     - R81.10-BYOL-GW
     - R81.20-BYOL-MGMT
     - R81.20-BYOL-GW
+    - R80.40-BYOL-NGTP
+    - R81-BYOL-NGTP
+    - R81.10-BYOL-NGTP
+    - R81.20-BYOL-NGTP
 Mappings:
   ConverterMap:
     R80.30-BYOL-MGMT:
@@ -38,6 +42,14 @@ Mappings:
       Value: R8120BYOLMGMT
     R81.20-BYOL-GW:
       Value: R8120BYOLGW
+    R80.40-BYOL-NGTP:
+      Value: R8040BYOLMGMT
+    R81-BYOL-NGTP:
+      Value: R81BYOLMGMT
+    R81.10-BYOL-NGTP:
+      Value: R8110BYOLMGMT
+    R81.20-BYOL-NGTP:
+      Value: R8120BYOLMGMT
   RegionMap:
     cn-northwest-1:
       R8030BYOLMGMT: ami-0ff2ae71d5a0b4462

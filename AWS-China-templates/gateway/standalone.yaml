@@ -184,12 +184,12 @@ Parameters:
   StandaloneVersion:
     Description: Standalone Version & License.
     Type: String
-    Default: R81.10-BYOL
+    Default: R81.10-BYOL-NGTP
     AllowedValues:
-      - R80.40-BYOL
-      - R81-BYOL
-      - R81.10-BYOL
-      - R81.20-BYOL
+      - R80.40-BYOL-NGTP
+      - R81-BYOL-NGTP
+      - R81.10-BYOL-NGTP
+      - R81.20-BYOL-NGTP
   Shell:
     Description: Change the admin shell to enable advanced command line configuration.
     Type: String
@@ -304,8 +304,7 @@ Resources:
     Properties:
       TemplateURL: https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/utils/amis.yaml
       Parameters:
- #       Version: !Ref StandaloneVersion
-        Version: !Join ['-', [!Ref ManagementVersion, MGMT]]
+        Version: !Ref StandaloneVersion
   ExternalNetworkInterface:
     Type: AWS::EC2::NetworkInterface
     Properties:
