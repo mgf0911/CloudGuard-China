@@ -304,7 +304,8 @@ Resources:
     Properties:
       TemplateURL: https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/utils/amis.yaml
       Parameters:
-        Version: !Ref StandaloneVersion
+ #       Version: !Ref StandaloneVersion
+        Version: !Join ['-', [!Ref ManagementVersion, MGMT]]
   ExternalNetworkInterface:
     Type: AWS::EC2::NetworkInterface
     Properties:
