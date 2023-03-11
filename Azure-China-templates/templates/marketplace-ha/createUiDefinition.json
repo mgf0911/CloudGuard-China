@@ -187,8 +187,8 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint",
-              "offer": "check-point-cg-r8040",
+              "publisher": "checkpoint-cn",
+              "offer": "cgi-gateway-r8040",
               "sku": "sg-byol"
             },
             "count": 2
@@ -269,8 +269,8 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint",
-              "offer": "check-point-cg-r8040",
+              "publisher": "checkpoint-cn",
+              "offer": "cgi-gateway-r8040",
               "sku": "sg-ngtp"
             },
             "count": 2
@@ -351,8 +351,8 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint",
-              "offer": "check-point-cg-r8040",
+              "publisher": "checkpoint-cn",
+              "offer": "cgi-gateway-r8040",
               "sku": "sg-ngtx"
             },
             "count": 2
@@ -433,8 +433,8 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint",
-              "offer": "check-point-cg-r81",
+              "publisher": "checkpoint-cn",
+              "offer": "cgi-gateway-r81",
               "sku": "sg-byol"
             },
             "count": 2
@@ -515,8 +515,8 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint",
-              "offer": "check-point-cg-r81",
+              "publisher": "checkpoint-cn",
+              "offer": "cgi-gateway-r81",
               "sku": "sg-ngtp"
             },
             "count": 2
@@ -597,8 +597,8 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint",
-              "offer": "check-point-cg-r81",
+              "publisher": "checkpoint-cn",
+              "offer": "cgi-gateway-r81",
               "sku": "sg-ngtx"
             },
             "count": 2
@@ -679,8 +679,8 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint",
-              "offer": "check-point-cg-r8110",
+              "publisher": "checkpoint-cn",
+              "offer": "cgi-gateway-r8110",
               "sku": "sg-byol"
             },
             "count": 2
@@ -761,8 +761,8 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint",
-              "offer": "check-point-cg-r8110",
+              "publisher": "checkpoint-cn",
+              "offer": "cgi-gateway-r8110",
               "sku": "sg-ngtp"
             },
             "count": 2
@@ -843,8 +843,8 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint",
-              "offer": "check-point-cg-r8110",
+              "publisher": "checkpoint-cn",
+              "offer": "cgi-gateway-r8110",
               "sku": "sg-ngtx"
             },
             "count": 2
@@ -925,8 +925,8 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint",
-              "offer": "check-point-cg-r8120",
+              "publisher": "checkpoint-cn",
+              "offer": "cgi-gateway-r8120",
               "sku": "sg-byol"
             },
             "count": 2
@@ -1007,8 +1007,8 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint",
-              "offer": "check-point-cg-r8120",
+              "publisher": "checkpoint-cn",
+              "offer": "cgi-gateway-r8120",
               "sku": "sg-ngtp"
             },
             "count": 2
@@ -1089,8 +1089,8 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint",
-              "offer": "check-point-cg-r8120",
+              "publisher": "checkpoint-cn",
+              "offer": "cgi-gateway-r8120",
               "sku": "sg-ngtx"
             },
             "count": 2
