@@ -187,7 +187,7 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint-cn",
+              "publisher": "sinoage",
               "offer": "cgi-gateway-r8040",
               "sku": "sg-byol"
             },
@@ -269,7 +269,7 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint-cn",
+              "publisher": "sinoage",
               "offer": "cgi-gateway-r8040",
               "sku": "sg-ngtp"
             },
@@ -351,7 +351,7 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint-cn",
+              "publisher": "sinoage",
               "offer": "cgi-gateway-r8040",
               "sku": "sg-ngtx"
             },
@@ -433,7 +433,7 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint-cn",
+              "publisher": "sinoage",
               "offer": "cgi-gateway-r81",
               "sku": "sg-byol"
             },
@@ -515,7 +515,7 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint-cn",
+              "publisher": "sinoage",
               "offer": "cgi-gateway-r81",
               "sku": "sg-ngtp"
             },
@@ -597,7 +597,7 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint-cn",
+              "publisher": "sinoage",
               "offer": "cgi-gateway-r81",
               "sku": "sg-ngtx"
             },
@@ -679,7 +679,7 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint-cn",
+              "publisher": "sinoage",
               "offer": "cgi-gateway-r8110",
               "sku": "sg-byol"
             },
@@ -761,7 +761,7 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint-cn",
+              "publisher": "sinoage",
               "offer": "cgi-gateway-r8110",
               "sku": "sg-ngtp"
             },
@@ -843,7 +843,7 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint-cn",
+              "publisher": "sinoage",
               "offer": "cgi-gateway-r8110",
               "sku": "sg-ngtx"
             },
@@ -925,8 +925,8 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint-cn",
-              "offer": "cgi-gateway-r8120",
+              "publisher": "sinoage",
+              "offer": "cgi-gateway-r81_20",
               "sku": "sg-byol"
             },
             "count": 2
@@ -1007,8 +1007,8 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint-cn",
-              "offer": "cgi-gateway-r8120",
+              "publisher": "sinoage",
+              "offer": "cgi-gateway-r81_20",
               "sku": "sg-ngtp"
             },
             "count": 2
@@ -1089,8 +1089,8 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint-cn",
-              "offer": "cgi-gateway-r8120",
+              "publisher": "sinoage",
+              "offer": "cgi-gateway-r81_20",
               "sku": "sg-ngtx"
             },
             "count": 2
