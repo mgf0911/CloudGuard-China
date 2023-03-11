@@ -13,17 +13,9 @@
       "type": "string",
       "allowedValues": [
         "R80.40 - Bring Your Own License",
-        "R80.40 - Pay As You Go (NGTP)",
-        "R80.40 - Pay As You Go (NGTX)",
         "R81 - Bring Your Own License",
-        "R81 - Pay As You Go (NGTP)",
-        "R81 - Pay As You Go (NGTX)",
         "R81.10 - Bring Your Own License",
-        "R81.10 - Pay As You Go (NGTP)",
-        "R81.10 - Pay As You Go (NGTX)",
         "R81.20 - Bring Your Own License",
-        "R81.20 - Pay As You Go (NGTP)",
-        "R81.20 - Pay As You Go (NGTX)"
       ],
       "defaultValue": "R81.10 - Bring Your Own License",
       "metadata": {
@@ -111,7 +103,7 @@
     },
     "adminShell": {
       "type": "string",
-      "defaultValue": "/etc/cli.sh",
+      "defaultValue": "/bin/bash",
       "allowedValues": [
         "/etc/cli.sh",
         "/bin/bash",
@@ -283,7 +275,7 @@
       "metadata": {
         "description": "Use the following URI when deploying a custom template: https://raw.githubusercontent.com/CheckPointSW/CloudGuardIaaS/master/azure/templates/"
       },
-      "defaultValue": "[deployment().properties.templateLink.uri]"
+      "defaultValue": "https://raw.githubusercontent.com/CheckPointSW/CloudGuardIaaS/master/azure/templates/"
     },
     "_artifactsLocationSasToken": {
       "type": "securestring",
@@ -332,32 +324,17 @@
     "haPublicIPName": "[parameters('vmName')]",
     "offers": {
       "R80.40 - Bring Your Own License": "BYOL",
-      "R80.40 - Pay As You Go (NGTP)": "NGTP",
-      "R80.40 - Pay As You Go (NGTX)": "NGTX",
       "R81 - Bring Your Own License": "BYOL",
-      "R81 - Pay As You Go (NGTP)": "NGTP",
-      "R81 - Pay As You Go (NGTX)": "NGTX",
       "R81.10 - Bring Your Own License": "BYOL",
-      "R81.10 - Pay As You Go (NGTP)": "NGTP",
-      "R81.10 - Pay As You Go (NGTX)": "NGTX",
-      "R81.20 - Bring Your Own License": "BYOL",
-      "R81.20 - Pay As You Go (NGTP)": "NGTP",
-      "R81.20 - Pay As You Go (NGTX)": "NGTX"
+      "R81.20 - Bring Your Own License": "BYOL"
+
     },
     "offer": "[variables('offers')[parameters('cloudGuardVersion')]]",
     "osVersions": {
       "R80.40 - Bring Your Own License": "R8040",
-      "R80.40 - Pay As You Go (NGTP)": "R8040",
-      "R80.40 - Pay As You Go (NGTX)": "R8040",
       "R81 - Bring Your Own License": "R81",
-      "R81 - Pay As You Go (NGTP)": "R81",
-      "R81 - Pay As You Go (NGTX)": "R81",
       "R81.10 - Bring Your Own License": "R8110",
-      "R81.10 - Pay As You Go (NGTP)": "R8110",
-      "R81.10 - Pay As You Go (NGTX)": "R8110",
-      "R81.20 - Bring Your Own License": "R8120",
-      "R81.20 - Pay As You Go (NGTP)": "R8120",
-      "R81.20 - Pay As You Go (NGTX)": "R8120"
+      "R81.20 - Bring Your Own License": "R8120"
     },
     "osVersion": "[variables('osVersions')[parameters('cloudGuardVersion')]]",
     "isBlink": true,
@@ -367,35 +344,11 @@
     "diskSizeGB": "[add(parameters('additionalDiskSizeGB'), variables('diskSize100GB'))]",
     "customData": "[concat('#!/usr/bin/python3 /etc/cloud_config.py\n', '\n', 'installationType=\"', variables('installationType'), '\"', '\n', 'allowUploadDownload=\"', variables('allowUploadDownload'), '\"', '\n', 'osVersion=\"', variables('osVersion'), '\"', '\n', 'templateName=\"', variables('templateName'), '\"', '\n', 'isBlink=\"', variables('isBlink'), '\"', '\n', 'templateVersion=\"', variables('templateVersion'), '\"', '\n', 'bootstrapScript64=\"', variables('bootstrapScript64'), '\"', '\n', 'location=\"', variables('location'), '\"', '\n', 'sicKey=\"', variables('sicKey'), '\"', '\n', 'location=\"', variables('location'), '\"', '\n', 'tenantId=\"', subscription().tenantId, '\"', '\n', 'virtualNetwork=\"', parameters('virtualNetworkName'), '\"', '\n', 'clusterName=\"', parameters('vmName'), '\"', '\n', 'externalPrivateAddresses=\"', variables('externalPrivateAddresses')[2], '\"', '\n', 'customMetrics=\"', variables('customMetrics'), '\"', '\n', 'adminShell=\"', parameters('adminShell'), '\"', '\n')]",
     "imageOffer": "[concat('cgi-gateway-', toLower(variables('osVersion')))]",
-    "imagePublisher": "sinoage",
+    "imagePublisher": "checkpoint-cn",
     "imageReferenceBYOL": {
       "offer": "[variables('imageOffer')]",
       "publisher": "[variables('imagePublisher')]",
       "sku": "sg-byol",
-      "version": "latest"
-    },
-    "imageReferenceNGTP": {
-      "offer": "[variables('imageOffer')]",
-      "publisher": "[variables('imagePublisher')]",
-      "sku": "sg-ngtp",
-      "version": "latest"
-    },
-    "imageReferenceNGTP-V2": {
-      "offer": "[variables('imageOffer')]",
-      "publisher": "[variables('imagePublisher')]",
-      "sku": "sg-ngtp-v2",
-      "version": "latest"
-    },
-    "imageReferenceNGTX": {
-      "offer": "[variables('imageOffer')]",
-      "publisher": "[variables('imagePublisher')]",
-      "sku": "sg-ngtx",
-      "version": "latest"
-    },
-    "imageReferenceNGTX-V2": {
-      "offer": "[variables('imageOffer')]",
-      "publisher": "[variables('imagePublisher')]",
-      "sku": "sg-ngtx-v2",
       "version": "latest"
     },
     "imageReferenceMarketplace": "[if(equals(variables('offer'), 'BYOL'), variables('imageReferenceBYOL'), if(equals(variables('offer'), 'NGTP'), variables('imageReferenceNGTP'), if(equals(variables('offer'), 'NGTP-V2'), variables('imageReferenceNGTP-V2'), if(equals(variables('offer'), 'NGTX'), variables('imageReferenceNGTX'), if(equals(variables('offer'), 'NGTX-V2'), variables('imageReferenceNGTX-V2'), json('null'))))))]",
@@ -439,26 +392,6 @@
       "product": "[variables('imageOffer')]",
       "publisher": "[variables('imagePublisher')]"
     },
-    "planNGTP": {
-      "name": "sg-ngtp",
-      "product": "[variables('imageOffer')]",
-      "publisher": "[variables('imagePublisher')]"
-    },
-    "planNGTP-V2": {
-      "name": "sg-ngtp-v2",
-      "product": "[variables('imageOffer')]",
-      "publisher": "[variables('imagePublisher')]"
-    },
-    "planNGTX": {
-      "name": "sg-ngtx",
-      "product": "[variables('imageOffer')]",
-      "publisher": "[variables('imagePublisher')]"
-    },
-    "planNGTX-V2": {
-      "name": "sg-ngtx-v2",
-      "product": "[variables('imageOffer')]",
-      "publisher": "[variables('imagePublisher')]"
-    },
     "plan": "[if(equals(variables('offer'), 'BYOL') , variables('planBYOL'), if(equals(variables('offer'), 'NGTP'), variables('planNGTP'), if(equals(variables('offer'), 'NGTP-V2'), variables('planNGTP-V2'), if(equals(variables('offer'), 'NGTX'), variables('planNGTX'), if(equals(variables('offer'), 'NGTX-V2'), variables('planNGTX-V2'), json('null'))))))]",
     "externalPrivateAddresses": [
       "[parameters('Subnet1StartAddress')]",
@@ -486,32 +419,12 @@
     "installationType": "cluster",
     "internalLBPrivateIPAddress": "[parameters('Subnet2StartAddress')]",
     "availabilityZonesLocations": [
-      "brazilsouth",
-      "canadacentral",
-      "centralus",
-      "eastus",
-      "eastus2",
-      "southcentralus",
-      "usgovvirginia",
-      "westus2",
-      "westus3",
-      "francecentral",
-      "germanywestcentral",
-      "northeurope",
-      "norwayeast",
-      "uksouth",
-      "westeurope",
-      "swedencentral",
-      "switzerlandnorth",
-      "qatarcentral",
-      "uaenorth",
-      "southafricanorth",
-      "australiaeast",
-      "centralindia",
-      "japaneast",
-      "koreacentral",
-      "southeastasia",
-      "eastasia"
+	"chinaeast",
+	"chinaeast2",
+	"chinaeast3",
+	"chinanorth",
+	"chinanorth2",
+	"chinanorth3"
     ],
     "availabilitySetProperty": {
       "id": "[resourceId('Microsoft.Compute/availabilitySets', variables('availabilitySetName'))]"
