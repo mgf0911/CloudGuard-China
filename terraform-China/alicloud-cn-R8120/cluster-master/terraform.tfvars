@@ -26,7 +26,7 @@ instance_tags = {
 }
 
 // --- Check Point Settings ---
-gateway_version = "R81-BYOL"
+gateway_version = "R8120-BYOL"
 admin_shell = "/bin/bash"
 gateway_SICKey = "12345678"
 gateway_password_hash = "$6$gfDlSm6XsewuNXlB$Wl85plVYvctRjDRo1ILBqoR3zALNEj2SionJxziwdG5qAL7kkS62pNKCr3Mbrz2CmVdjOD9srDHh9gyU6eeD2/"

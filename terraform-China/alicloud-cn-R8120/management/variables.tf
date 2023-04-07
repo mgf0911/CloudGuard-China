@@ -53,7 +53,7 @@ default = {}
 variable "version_license" {
   type = string
   description = "version and license"
-  default = "R81-BYOL"
+  default = "R8120-BYOL"
 }
 module "validate_management_version" {
   source = "../modules/common/version_license"

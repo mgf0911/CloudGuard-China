@@ -1,12 +1,12 @@
 locals {
   gw_versions = [
-    //"R81-PAYG-NGTP",
-   // "R81-PAYG-NGTX",
-    "R81-BYOL"
+    //"R8120-PAYG-NGTP",
+   // "R8120-PAYG-NGTX",
+    "R8120-BYOL"
   ]
   mgmt_versions = [
-    //"R81-PAYG",
-    "R81-BYOL"
+    //"R8120-PAYG",
+    "R8120-BYOL"
   ]
 }
 

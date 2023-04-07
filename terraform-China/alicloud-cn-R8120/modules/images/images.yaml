@@ -3,91 +3,91 @@ Parameters:
   Version:
     Description: Security Gateway or Management Server version
     Type: String
-    Default: R81-BYOL-GW
+    Default: R8120-BYOL-GW
     AllowedValues:
-      - R81-BYOL-GW
-      - R81-BYOL-MGMT
+      - R8120-BYOL-GW
+      - R8120-BYOL-MGMT
 Mappings:
   ConverterMap:
-    R81-BYOL-GW:
-      Value: R81BYOLGW
-    R81-BYOL-MGMT:
-      Value: R81BYOLMGMT
+    R8120-BYOL-GW:
+      Value: R8120BYOLGW
+    R8120-BYOL-MGMT:
+      Value: R8120BYOLMGMT
   RegionMap:
     cn-qingdao:
-      R81BYOLMGMT: m-m5egs31t8k4nb9ox0kvr
-      R81BYOLGW: m-m5ebxi1chvboipqe2c0q
+      R8120BYOLMGMT: m-m5egs31t8k4nb9ox0kvr
+      R8120BYOLGW: m-m5ebxi1chvboipqe2c0q
     cn-beijing:
-      R81BYOLMGMT: m-2ze1gis66vi42oggv9q1
-      R81BYOLGW: m-2zeax57aqymtb9ps5ha1
+      R8120BYOLMGMT: m-2ze1gis66vi42oggv9q1
+      R8120BYOLGW: m-2zeax57aqymtb9ps5ha1
     cn-zhangjiakou:
-      R81BYOLMGMT: m-8vb9kcsn8psoctvlo82o
-      R81BYOLGW: m-8vbapkkwv5fvbgiwvekk
+      R8120BYOLMGMT: m-8vb9kcsn8psoctvlo82o
+      R8120BYOLGW: m-8vbapkkwv5fvbgiwvekk
     cn-huhehaote:
-      R81BYOLMGMT: m-hp327b3yrp742w4i5oy9
-      R81BYOLGW: m-hp3gftn8fe0sgj63i6xf
+      R8120BYOLMGMT: m-hp327b3yrp742w4i5oy9
+      R8120BYOLGW: m-hp3gftn8fe0sgj63i6xf
     cn-wulanchabu:
-      R81BYOLMGMT: m-0jlgp0uzrky0hq8dy1ap
-      R81BYOLGW: m-0jl63r15xt68wgvpxpeu
+      R8120BYOLMGMT: m-0jlgp0uzrky0hq8dy1ap
+      R8120BYOLGW: m-0jl63r15xt68wgvpxpeu
     cn-hangzhou:
-      R81BYOLMGMT: m-bp15ph9032n5801pcu5f 
-      R81BYOLGW: m-bp1iyqy8v3rfriy2jasf
+      R8120BYOLMGMT: m-bp15ph9032n5801pcu5f 
+      R8120BYOLGW: m-bp1iyqy8v3rfriy2jasf
     cn-shanghai:
-      R81BYOLMGMT: m-uf6c2ktmbmo2ohyvpxxh
-      R81BYOLGW: m-uf62f4fl0urz2pq2gxp0
-#      R81BYOLGW: m-uf63zu4bo54pv2fez2k8
+      R8120BYOLMGMT: m-uf6c2ktmbmo2ohyvpxxh
+      R8120BYOLGW: m-uf62f4fl0urz2pq2gxp0
+#      R8120BYOLGW: m-uf63zu4bo54pv2fez2k8
     cn-shenzhen:
-      R81BYOLMGMT: m-wz9cdb3uxvpmgcl22bdu
-      R81BYOLGW: m-wz940kebd3v7t4fu3lf0
+      R8120BYOLMGMT: m-wz9cdb3uxvpmgcl22bdu
+      R8120BYOLGW: m-wz940kebd3v7t4fu3lf0
     cn-heyuan:
-      R81BYOLMGMT: m-f8z6u9cp6x7uou4kyfxh
-      R81BYOLGW: m-f8z6u9cp6x7up7xsqtra
+      R8120BYOLMGMT: m-f8z6u9cp6x7uou4kyfxh
+      R8120BYOLGW: m-f8z6u9cp6x7up7xsqtra
     cn-shenzhen:
-      R81BYOLMGMT: m-wz9cdb3uxvpmgcl22bdu
-      R81BYOLGW: m-wz940kebd3v7t4fu3lf0  
+      R8120BYOLMGMT: m-wz9cdb3uxvpmgcl22bdu
+      R8120BYOLGW: m-wz940kebd3v7t4fu3lf0  
     cn-guangzhou:
-      R81BYOLMGMT: m-7xvg38ie7472zuyaeao5
-      R81BYOLGW: m-7xvd4jxf1dpqnx5mxeva
+      R8120BYOLMGMT: m-7xvg38ie7472zuyaeao5
+      R8120BYOLGW: m-7xvd4jxf1dpqnx5mxeva
     cn-hongkong:
-      R81BYOLMGMT: m-j6c1s9q3xwyyt0mc4ciy
-      R81BYOLGW: m-j6c3uddjczlxee860ni9
+      R8120BYOLMGMT: m-j6c1s9q3xwyyt0mc4ciy
+      R8120BYOLGW: m-j6c3uddjczlxee860ni9
     cn-shanghai-finance-1:
-      R81BYOLMGMT: m-zm04991vqfw30yugj2n9
-      R81BYOLGW: m-zm0hxwfj1n4357tg4jkx
+      R8120BYOLMGMT: m-zm04991vqfw30yugj2n9
+      R8120BYOLGW: m-zm0hxwfj1n4357tg4jkx
     cn-shenzhen-finance-1:
-      R81BYOLMGMT: m-j5eiyqy8v3rfr54uqwyi
-      R81BYOLGW: m-j5eicoks7ni6yht6ej5p
+      R8120BYOLMGMT: m-j5eiyqy8v3rfr54uqwyi
+      R8120BYOLGW: m-j5eicoks7ni6yht6ej5p
     us-east-1:
-      R81BYOLMGMT: m-0xidfozf40stom47h5mq
-      R81BYOLGW: m-0xidfozf40stozxf9jgk
+      R8120BYOLMGMT: m-0xidfozf40stom47h5mq
+      R8120BYOLGW: m-0xidfozf40stozxf9jgk
     us-west-1:
-      R81BYOLMGMT: m-rj936qo3dhm8a28n62ap
-      R81BYOLGW: m-rj9dfozf40stozxf9jgl
+      R8120BYOLMGMT: m-rj936qo3dhm8a28n62ap
+      R8120BYOLGW: m-rj9dfozf40stozxf9jgl
     eu-central-1:
-      R81BYOLMGMT: m-gw8gepnq4hy2v2xw13r2
-      R81BYOLGW: m-gw8g4ezx2kj9a9xwa424
+      R8120BYOLMGMT: m-gw8gepnq4hy2v2xw13r2
+      R8120BYOLGW: m-gw8g4ezx2kj9a9xwa424
     ap-northeast-1:
-      R81BYOLMGMT: m-6we5wp2z00m0q431pipi
-      R81BYOLGW: m-6we07qk0bzmb5nbzocui
+      R8120BYOLMGMT: m-6we5wp2z00m0q431pipi
+      R8120BYOLGW: m-6we07qk0bzmb5nbzocui
     ap-southeast-1:
-      R81BYOLMGMT: m-t4nf9wvf9zlpc8yy6qvk
-      R81BYOLGW: m-t4n9mkdvozoh2gth02p2
+      R8120BYOLMGMT: m-t4nf9wvf9zlpc8yy6qvk
+      R8120BYOLGW: m-t4n9mkdvozoh2gth02p2
     ap-southeast-2:
-      R81BYOLMGMT: m-p0wa3ru61uo3w4xcr6hu
-      R81BYOLGW: m-p0wa3ru61uo3wgrjfick
+      R8120BYOLMGMT: m-p0wa3ru61uo3w4xcr6hu
+      R8120BYOLGW: m-p0wa3ru61uo3wgrjfick
     ap-southeast-3:
-      R81BYOLMGMT: m-8psg1t6lpip24kx1u41i
-      R81BYOLGW: m-8ps5ez843sfti6wqhnus
+      R8120BYOLMGMT: m-8psg1t6lpip24kx1u41i
+      R8120BYOLGW: m-8ps5ez843sfti6wqhnus
     ap-southeast-5:
-      R81BYOLMGMT: m-k1af9ch52gldy48mqnwj
-      R81BYOLGW: m-k1af9ch52gldyg2tezr9
+      R8120BYOLMGMT: m-k1af9ch52gldy48mqnwj
+      R8120BYOLGW: m-k1af9ch52gldyg2tezr9
     ap-south-1:
-      R81BYOLMGMT: m-a2d7hlbq7n86sl19g6fg
-      R81BYOLGW: m-a2d6nphykofytahs5htp
+      R8120BYOLMGMT: m-a2d7hlbq7n86sl19g6fg
+      R8120BYOLGW: m-a2d6nphykofytahs5htp
     eu-west-1:
-      R81BYOLMGMT: m-d7o38pmo5hr8hd41o8jf
-      R81BYOLGW: m-d7oevzi54plry4fe2dz4
+      R8120BYOLMGMT: m-d7o38pmo5hr8hd41o8jf
+      R8120BYOLGW: m-d7oevzi54plry4fe2dz4
     me-east-1:
-      R81BYOLMGMT: m-eb3d1c7ofnf8her5f9mt
-      R81BYOLGW: m-eb3ao67zqvys4sv0s58c
+      R8120BYOLMGMT: m-eb3d1c7ofnf8her5f9mt
+      R8120BYOLGW: m-eb3ao67zqvys4sv0s58c
     
