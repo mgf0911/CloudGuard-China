@@ -4,10 +4,10 @@ locals {
 
 
   //  Variables example:
-  //  version_license = "R81-BYOL-GW"
+  //  version_license = "R8110-BYOL-GW"
   //  RESULT:
-  //  version_license_key = "R81-BYOL-GW"
-  //  version_license_value = "R81BYOLGW"
+  //  version_license_key = "R8110-BYOL-GW"
+  //  version_license_value = "R8110BYOLGW"
 
   version_license_key = format("%s%s", var.version_license, var.chkp_type == "gateway" ? "-GW" : var.chkp_type == "management" ? "-MGMT" : "")
   version_license_value = local.images_yaml_converterMap[local.version_license_key]["Value"]

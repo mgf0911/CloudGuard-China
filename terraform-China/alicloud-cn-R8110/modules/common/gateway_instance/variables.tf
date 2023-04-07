@@ -20,7 +20,7 @@ resource "null_resource" "volume_size_too_small" {
 variable "gateway_version" {
   type = string
   description =  "Gateway version and license"
-  default = "R81-BYOL"
+  default = "R8110-BYOL"
 }
 variable "gateway_instance_type" {
   type = string
