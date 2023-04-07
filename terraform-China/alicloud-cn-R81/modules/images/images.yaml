@@ -35,7 +35,12 @@ Mappings:
     cn-shanghai:
       R81BYOLMGMT: m-uf6c2ktmbmo2ohyvpxxh
       R81BYOLGW: m-uf62f4fl0urz2pq2gxp0
-#      R81BYOLGW: m-uf63zu4bo54pv2fez2k8
+    cn-nanjing:
+      R81BYOLMGMT: 
+      R81BYOLGW: 
+    cn-fuzhou:
+      R81BYOLMGMT: 
+      R81BYOLGW: 
     cn-shenzhen:
       R81BYOLMGMT: m-wz9cdb3uxvpmgcl22bdu
       R81BYOLGW: m-wz940kebd3v7t4fu3lf0
@@ -45,6 +50,9 @@ Mappings:
     cn-guangzhou:
       R81BYOLMGMT: m-7xvg38ie7472zuyaeao5
       R81BYOLGW: m-7xvd4jxf1dpqnx5mxeva
+    cn-chengdu:
+      R81BYOLMGMT: 
+      R81BYOLGW: 
     cn-hongkong:
       R81BYOLMGMT: m-j6c1s9q3xwyyt0mc4ciy
       R81BYOLGW: m-j6c3uddjczlxee860ni9
