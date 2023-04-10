@@ -5,7 +5,7 @@ vpc_id = "vpc-uf6hvz422gmjuocdss4cz"
 vswitch_id = "vsw-uf609ic16psc10v86qf8q"
 
 // --- ECS Instances Configuration ---
-instance_name = "China-G7-MGMT-test"
+instance_name = "R8120-MGMT-test"
 instance_type = "ecs.g7.large"
 key_name = "SGM-CP-Key"
 allocate_and_associate_eip = true
