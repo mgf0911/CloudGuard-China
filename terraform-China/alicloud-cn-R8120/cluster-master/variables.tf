@@ -2,12 +2,12 @@
 variable "vpc_name" {
   type = string
   description = "The name of the VPC"
-  default = "China-G7-cluster-test"
+  default = "R8120-cluster-test"
 }
 variable "vpc_cidr" {
   type = string
   description = "The CIDR block of the VPC"
-  default = "10.88.0.0/16"
+  default = "10.99.0.0/16"
 }
 variable "cluster_vswitchs_map" {
   type = map(string)
@@ -30,7 +30,7 @@ variable "vswitchs_bit_length" {
 variable "gateway_name" {
   type = string
   description = "(Optional) The name tag of the Cluster's Security Gateway instances"
-  default = "China-G7-test-tf"
+  default = "R8120-test-tf"
 }
 variable "gateway_instance_type" {
   type = string

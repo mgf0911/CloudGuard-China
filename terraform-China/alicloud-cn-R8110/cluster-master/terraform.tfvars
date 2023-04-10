@@ -14,7 +14,7 @@ private_vswitchs_map = {
 vswitchs_bit_length = 8
 
 // --- ECS Instance Configuration ---
-gateway_name = "G7-China-Cluster-tf"
+gateway_name = "R8110-Cluster-tf"
 gateway_instance_type = "ecs.g7ne.large"
 key_name = "SGM-CP-Key"
 allocate_and_associate_eip = false

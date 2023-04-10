@@ -1,7 +1,7 @@
 //PLEASE refer to README.md for accepted values FOR THE VARIABLES BELOW
 
 // --- VPC Network Configuration ---
-vpc_cidr = "10.88.0.0/16"
+vpc_cidr = "10.99.0.0/16"
 cluster_vswitchs_map = {
   "cn-shanghai-m" = 1
 }
@@ -14,7 +14,7 @@ private_vswitchs_map = {
 vswitchs_bit_length = 8
 
 // --- ECS Instance Configuration ---
-gateway_name = "G7-China-Cluster-tf"
+gateway_name = "R8120-Cluster-tf"
 gateway_instance_type = "ecs.g7ne.large"
 key_name = "SGM-CP-Key"
 allocate_and_associate_eip = false
