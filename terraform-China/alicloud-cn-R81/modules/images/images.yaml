@@ -36,11 +36,11 @@ Mappings:
       R81BYOLMGMT: m-uf6c2ktmbmo2ohyvpxxh
       R81BYOLGW: m-uf62f4fl0urz2pq2gxp0
     cn-nanjing:
-      R81BYOLMGMT: 
-      R81BYOLGW: 
+      R81BYOLMGMT: m-gc7edjtnt2zuxncr71cr
+      R81BYOLGW: m-gc72ocyshbctg5sqkvzi
     cn-fuzhou:
-      R81BYOLMGMT: 
-      R81BYOLGW: 
+      R81BYOLMGMT: m-gw0edjtnt2zuxncr71cs
+      R81BYOLGW: m-gw02ocyshbctg5sqkvzj
     cn-shenzhen:
       R81BYOLMGMT: m-wz9cdb3uxvpmgcl22bdu
       R81BYOLGW: m-wz940kebd3v7t4fu3lf0
@@ -51,8 +51,8 @@ Mappings:
       R81BYOLMGMT: m-7xvg38ie7472zuyaeao5
       R81BYOLGW: m-7xvd4jxf1dpqnx5mxeva
     cn-chengdu:
-      R81BYOLMGMT: 
-      R81BYOLGW: 
+      R81BYOLMGMT: m-2vc1yhia0wov3b8y8cqk
+      R81BYOLGW: m-2vc1yhia0wov3l43smm5
     cn-hongkong:
       R81BYOLMGMT: m-j6c1s9q3xwyyt0mc4ciy
       R81BYOLGW: m-j6c3uddjczlxee860ni9
