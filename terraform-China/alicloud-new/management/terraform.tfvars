@@ -11,7 +11,7 @@ key_name = "key"
 allocate_and_associate_eip = true
 volume_size = 100
 disk_category = "cloud_essd"
-ram_role_name = "role_name"
+ram_role_name = ""
 instance_tags = {
   key1 = "value1"
   key2 = "value2"
@@ -20,7 +20,7 @@ instance_tags = {
 // --- Check Point Settings ---
 version_license = "R81-BYOL"
 admin_shell = "/bin/bash"
-password_hash = "12345678"
+password_hash = "$6$gfDlSm6XsewuNXlB$Wl85plVYvctRjDRo1ILBqoR3zALNEj2SionJxziwdG5qAL7kkS62pNKCr3Mbrz2CmVdjOD9srDHh9gyU6eeD2/"
 hostname = "mgmt-tf"
 
 // --- Security Management Server Settings ---
