@@ -31,9 +31,14 @@ resource "alicloud_ram_policy" "ram_policy" {
     "Statement": [
       {
         "Action": [
-          "ecs:*",
-          "vpc:*",
-          "eip:*"
+            "vpc:CreateRouteEntry",
+            "vpc:DeleteRouteEntry",
+            "vpc:DescribeRouteTableList",
+            "vpc:DescribeRouteEntryList",
+            "vpc:DescribeEipAddresses",
+            "vpc:AssociateEipAddress",
+            "vpc:UnassociateEipAddress",
+            "ecs:DescribeNetworkInterfaces"
         ],
         "Effect": "Allow",
         "Resource": ["*"]
