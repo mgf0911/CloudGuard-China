@@ -14,6 +14,7 @@ key_name = "key"
 allocate_and_associate_eip = false
 volume_size = 100
 disk_category = "cloud_efficiency"
+#disk_category = "cloud_essd"
 ram_role_name = ""
 instance_tags = {
   key1 = "value1"
@@ -21,7 +22,7 @@ instance_tags = {
 }
 
 // --- Check Point Settings ---
-gateway_version = "R81-BYOL"
+gateway_version = "R81.20-BYOL"
 admin_shell = "/bin/bash"
 gateway_SICKey = "12345678"
 gateway_password_hash = "$6$gfDlSm6XsewuNXlB$Wl85plVYvctRjDRo1ILBqoR3zALNEj2SionJxziwdG5qAL7kkS62pNKCr3Mbrz2CmVdjOD9srDHh9gyU6eeD2/"
