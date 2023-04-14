@@ -51,7 +51,7 @@ Mappings:
       R8120BYOLMGMT: m-eb3hpsiv7i6yueq6yc5e
       R8120BYOLGW: m-eb3c0fdwr84bz8dfv341
 #沙特（利雅得)
-    me-xxxx-1:
+    me-central-1:
       R81BYOLMGMT: m-l4vho5amsrwsdalbzhhy
       R81BYOLGW: m-l4vdi6xp6asa4p0zn4qz
       R8110BYOLMGMT: m-l4vi5uskxjvzfeh23bed
@@ -83,7 +83,7 @@ Mappings:
       R8120BYOLMGMT: 
       R8120BYOLGW: m-x3v49ilfp4t5ya2gb864
 #郑州（联通合营）
-    cn-xxxxxx-1:
+    cn-zhengzhou-jav:
       R81BYOLMGMT: m-5zl66caekmmipgn1gkmp
       R81BYOLGW: 
       R8110BYOLMGMT: 
@@ -203,7 +203,7 @@ Mappings:
       R8120BYOLMGMT: m-bp12v3yhxjqmjd1s6yzu
       R8120BYOLGW: m-bp1138nnkwnbgz3npcnr
 #阿里政务云
-    cn-xxxx-1:
+    cn-north-2:
       R81BYOLMGMT: m-c2ug1tewnjlo8v1jidbt
       R81BYOLGW: 
       R8110BYOLMGMT: 
