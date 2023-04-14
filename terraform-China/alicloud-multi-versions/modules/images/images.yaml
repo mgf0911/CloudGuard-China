@@ -75,7 +75,7 @@ Mappings:
       R8120BYOLMGMT: m-gw88atbbb0huopmyxebx
       R8120BYOLGW: m-gw8431kdok0hoj69jkgo
 #cn-zhengzhou-nebula-1
-    cn-zhengzhou-nebula-1
+    cn-zhengzhou-nebula-1:
       R81BYOLMGMT: m-x3v26rvhnzpd1k62zuaf
       R81BYOLGW: 
       R8110BYOLMGMT: 
@@ -203,7 +203,7 @@ Mappings:
       R8120BYOLMGMT: m-bp12v3yhxjqmjd1s6yzu
       R8120BYOLGW: m-bp1138nnkwnbgz3npcnr
 #阿里政务云
-    :
+    cn-xxxx-1:
       R81BYOLMGMT: m-c2ug1tewnjlo8v1jidbt
       R81BYOLGW: 
       R8110BYOLMGMT: 
