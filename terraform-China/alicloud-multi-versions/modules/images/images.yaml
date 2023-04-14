@@ -135,40 +135,84 @@ Mappings:
       R81BYOLMGMT: m-j5eiyqy8v3rfr54uqwyi
       R81BYOLGW: m-j5eicoks7ni6yht6ej5p
       R8110BYOLMGMT: m-j5e1hq1ql7vxsltw79z0
-      R8110BYOLGW: 
+      R8110BYOLGW: m-j5eis86lucn4v16xod35
       R8120BYOLMGMT: m-j5ecnf0ymr6xbiczwrhj
       R8120BYOLGW: m-j5e96nbc4ub5leicpvq3
     us-east-1:
       R81BYOLMGMT: m-0xidfozf40stom47h5mq
       R81BYOLGW: m-0xidfozf40stozxf9jgk
+      R8110BYOLMGMT: 
+      R8110BYOLGW: 
+      R8120BYOLMGMT: 
+      R8120BYOLGW: 
     us-west-1:
       R81BYOLMGMT: m-rj936qo3dhm8a28n62ap
       R81BYOLGW: m-rj9dfozf40stozxf9jgl
+      R8110BYOLMGMT: 
+      R8110BYOLGW: 
+      R8120BYOLMGMT: 
+      R8120BYOLGW: 
     eu-central-1:
       R81BYOLMGMT: m-gw8gepnq4hy2v2xw13r2
       R81BYOLGW: m-gw8g4ezx2kj9a9xwa424
+      R8110BYOLMGMT: 
+      R8110BYOLGW: 
+      R8120BYOLMGMT: 
+      R8120BYOLGW: 
     ap-northeast-1:
       R81BYOLMGMT: m-6we5wp2z00m0q431pipi
       R81BYOLGW: m-6we07qk0bzmb5nbzocui
+      R8110BYOLMGMT: 
+      R8110BYOLGW: 
+      R8120BYOLMGMT: 
+      R8120BYOLGW: 
     ap-southeast-1:
       R81BYOLMGMT: m-t4nf9wvf9zlpc8yy6qvk
       R81BYOLGW: m-t4n9mkdvozoh2gth02p2
+      R8110BYOLMGMT: 
+      R8110BYOLGW: 
+      R8120BYOLMGMT: 
+      R8120BYOLGW: 
     ap-southeast-2:
       R81BYOLMGMT: m-p0wa3ru61uo3w4xcr6hu
       R81BYOLGW: m-p0wa3ru61uo3wgrjfick
+      R8110BYOLMGMT: 
+      R8110BYOLGW: 
+      R8120BYOLMGMT: 
+      R8120BYOLGW: 
     ap-southeast-3:
       R81BYOLMGMT: m-8psg1t6lpip24kx1u41i
       R81BYOLGW: m-8ps5ez843sfti6wqhnus
+      R8110BYOLMGMT: 
+      R8110BYOLGW: 
+      R8120BYOLMGMT: 
+      R8120BYOLGW: 
     ap-southeast-5:
       R81BYOLMGMT: m-k1af9ch52gldy48mqnwj
       R81BYOLGW: m-k1af9ch52gldyg2tezr9
+      R8110BYOLMGMT: 
+      R8110BYOLGW: 
+      R8120BYOLMGMT: 
+      R8120BYOLGW: 
     ap-south-1:
       R81BYOLMGMT: m-a2d7hlbq7n86sl19g6fg
       R81BYOLGW: m-a2d6nphykofytahs5htp
+      R8110BYOLMGMT: 
+      R8110BYOLGW: 
+      R8120BYOLMGMT: 
+      R8120BYOLGW: 
     eu-west-1:
       R81BYOLMGMT: m-d7o38pmo5hr8hd41o8jf
       R81BYOLGW: m-d7oevzi54plry4fe2dz4
+      R8110BYOLMGMT: 
+      R8110BYOLGW: 
+      R8120BYOLMGMT: 
+      R8120BYOLGW: 
     me-east-1:
       R81BYOLMGMT: m-eb3d1c7ofnf8her5f9mt
       R81BYOLGW: m-eb3ao67zqvys4sv0s58c
-    
+      R8110BYOLMGMT: 
+      R8110BYOLGW: 
+      R8120BYOLMGMT: 
+      R8120BYOLGW: 
+          
