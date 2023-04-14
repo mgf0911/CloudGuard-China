@@ -26,7 +26,7 @@ Mappings:
     R81.20-BYOL-MGMT:
       Value: R8120BYOLMGMT
   RegionMap:
-//美国（硅谷）
+#美国（硅谷）
     us-west-1:
       R81BYOLMGMT: m-rj95xgeh5qxymjrsf8ws
       R81BYOLGW: m-rj9f9y7r0fsxenbnqo4o
@@ -34,7 +34,7 @@ Mappings:
       R8110BYOLGW: m-rj93du696t1pd11gapxw
       R8120BYOLMGMT: m-rj9f7125yi04kgkc9gmy
       R8120BYOLGW: m-rj92p2wme93cwk3bo8o8
-//美国（弗吉尼亚）
+#美国（弗吉尼亚）
     us-east-1:
       R81BYOLMGMT: m-0xi5xgeh5qxymjrsf8wr
       R81BYOLGW: m-0xidgaikhe0ouo1dmsal
@@ -42,7 +42,7 @@ Mappings:
       R8110BYOLGW: m-0xi3xmu46q5t89v6iid9
       R8120BYOLMGMT: m-0xi4uwxmfhhxx9pvsabk
       R8120BYOLGW: m-0xi7zx4j4f7xh2bhm7gu
-//阿联酋（迪拜）
+#阿联酋（迪拜）
     me-east-1:
       R81BYOLMGMT: m-eb3j84uoy04l1kys8ln2	
       R81BYOLGW: m-eb32k3q3yp9wu9p6ai2u
@@ -50,7 +50,7 @@ Mappings:
       R8110BYOLGW: m-eb37dq4stoxc3rxn4s7b
       R8120BYOLMGMT: m-eb3hpsiv7i6yueq6yc5e
       R8120BYOLGW: m-eb3c0fdwr84bz8dfv341
-//沙特（利雅得)
+#沙特（利雅得)
     me-xxxx-1:
       R81BYOLMGMT: m-l4vho5amsrwsdalbzhhy
       R81BYOLGW: m-l4vdi6xp6asa4p0zn4qz
@@ -58,7 +58,7 @@ Mappings:
       R8110BYOLGW: m-l4vas0miqowtyh7urbbe
       R8120BYOLMGMT: m-l4v3g2wbt5ur1sac3hw7
       R8120BYOLGW: m-l4va47ynxkyjbeowqgt7
-//英国（伦敦）
+#英国（伦敦）
     eu-west-1:
       R81BYOLMGMT: m-d7obcztg6wgp94m8gv9t
       R81BYOLGW: m-d7obcztg6wgp9ehe155e
@@ -66,7 +66,7 @@ Mappings:
       R8110BYOLGW: m-d7ob3hm25i7ozqpk00sw
       R8120BYOLMGMT: m-d7oip4gsrrbr83lnsuz5
       R8120BYOLGW: m-d7o6u150sztsz6h3pr5o
-//德国（法兰克福）
+#德国（法兰克福）
     eu-central-1:
       R81BYOLMGMT: m-gw8hm6kg77a1wd2d9m0e
       R81BYOLGW: m-gw8jfcr55yi169qfko3f
@@ -74,7 +74,7 @@ Mappings:
       R8110BYOLGW: m-gw84wl3whij973jsixt9
       R8120BYOLMGMT: m-gw88atbbb0huopmyxebx
       R8120BYOLGW: m-gw8431kdok0hoj69jkgo
-//cn-zhengzhou-nebula-1
+#cn-zhengzhou-nebula-1
     cn-zhengzhou-nebula-1
       R81BYOLMGMT: m-x3v26rvhnzpd1k62zuaf
       R81BYOLGW: 
@@ -82,7 +82,7 @@ Mappings:
       R8110BYOLGW: m-x3v26rvhnzpd1s27g26w
       R8120BYOLMGMT: 
       R8120BYOLGW: m-x3v49ilfp4t5ya2gb864
-//郑州（联通合营）
+#郑州（联通合营）
     cn-xxxxxx-1:
       R81BYOLMGMT: m-5zl66caekmmipgn1gkmp
       R81BYOLGW: 
@@ -90,7 +90,7 @@ Mappings:
       R8110BYOLGW: m-5zl66caekmmipoj5wsj6
       R8120BYOLMGMT: 
       R8120BYOLGW: m-5zl5thcp80dqgsobfm47
-//华北3（张家口）
+#华北3（张家口）
     cn-zhangjiakou:
       R81BYOLMGMT: m-8vb9kcsn8psoctvlo82o
       R81BYOLGW: m-8vbapkkwv5fvbgiwvekk
@@ -98,7 +98,7 @@ Mappings:
       R8110BYOLGW: m-8vbaffb29zqj3q5h439v
       R8120BYOLMGMT: m-8vb3d4eazr6xpdjjodsm
       R8120BYOLGW: m-8vbbxe687200xs6aicrs
-//华北6（乌兰察布）
+#华北6（乌兰察布）
     cn-wulanchabu:
       R81BYOLMGMT: m-0jlgp0uzrky0hq8dy1ap
       R81BYOLGW: m-0jl63r15xt68wgvpxpeu
@@ -106,7 +106,7 @@ Mappings:
       R8110BYOLGW: m-0jla94mn1mfw8mdpg8fv
       R8120BYOLMGMT: m-0jlfiypegsmgm37lql13
       R8120BYOLGW: m-0jla94mn1mfw8qbroce4
-//华南1（深圳）
+#华南1（深圳）
     cn-shenzhen:
       R81BYOLMGMT: m-wz9cdb3uxvpmgcl22bdu
       R81BYOLGW: m-wz940kebd3v7t4fu3lf0
@@ -114,7 +114,7 @@ Mappings:
       R8110BYOLGW: m-wz96auvn7i9kwy25ykyh
       R8120BYOLMGMT: m-wz94haimlfptrjzzc8fr
       R8120BYOLGW: m-wz90aa0n5r4di924anzu
-//华南 1 金融云
+#华南 1 金融云
     cn-shenzhen-finance-1:
       R81BYOLMGMT: m-j5eiyqy8v3rfr54uqwyi
       R81BYOLGW: m-j5eicoks7ni6yht6ej5p
@@ -122,7 +122,7 @@ Mappings:
       R8110BYOLGW: m-j5eis86lucn4v16xod35
       R8120BYOLMGMT: m-j5ecnf0ymr6xbiczwrhj
       R8120BYOLGW: m-j5e96nbc4ub5leicpvq3
-//华东 2 金融云
+#华东 2 金融云
     cn-shanghai-finance-1:
       R81BYOLMGMT: m-zm04991vqfw30yugj2n9
       R81BYOLGW: m-zm0hxwfj1n4357tg4jkx
@@ -130,7 +130,7 @@ Mappings:
       R8110BYOLGW: m-zm0bp07fvq983qwmv3nn
       R8120BYOLMGMT: m-j5ecnf0ymr6xbiczwrhj
       R8120BYOLGW: m-j5e96nbc4ub5leicpvq3
-//华东2（上海）
+#华东2（上海）
     cn-shanghai:
       R81BYOLMGMT: m-uf6c2ktmbmo2ohyvpxxh
       R81BYOLGW: m-uf62f4fl0urz2pq2gxp0
@@ -138,7 +138,7 @@ Mappings:
       R8110BYOLGW: m-uf68zarj41oos2ibq9s0
       R8120BYOLMGMT: m-uf69rfvwkcr9vywstb0p
       R8120BYOLGW: m-uf60fsr2aak17vl9js0m
-//华北1（青岛）
+#华北1（青岛）
     cn-qingdao:
       R81BYOLMGMT: m-m5egs31t8k4nb9ox0kvr
       R81BYOLGW: m-m5ebxi1chvboipqe2c0q
@@ -146,7 +146,7 @@ Mappings:
       R8110BYOLGW: m-m5ei6vq428gb15f0v1si
       R8120BYOLMGMT: m-m5e4ynpdo7et64m0eu2d
       R8120BYOLGW: m-m5ei6vq428gb19d335qr
-//华北 2 阿里政务云1
+#华北 2 阿里政务云1
     cn-north-2-gov-1:
       R81BYOLMGMT: 
       R81BYOLGW: 
@@ -154,7 +154,7 @@ Mappings:
       R8110BYOLGW: m-9dp7frecu55gvgcmk2oa
       R8120BYOLMGMT: 
       R8120BYOLGW: m-9dp8k4sigjnlewocf1w8
-//华东5（南京-本地地域）
+#华东5（南京-本地地域）
     cn-nanjing:
       R81BYOLMGMT: m-gc7edjtnt2zuxncr71cr
       R81BYOLGW: m-gc72ocyshbctg5sqkvzi
@@ -162,7 +162,7 @@ Mappings:
       R8110BYOLGW: m-gc7aapyq4mrjzugxpul8
       R8120BYOLMGMT: m-gc7hrj0g1rurjzht6lmw
       R8120BYOLGW: m-gc75jelw90qlh5djwa3c
-//华北5（呼和浩特）
+#华北5（呼和浩特）
     cn-huhehaote:
       R81BYOLMGMT: m-hp327b3yrp742w4i5oy9
       R81BYOLGW: m-hp3gftn8fe0sgj63i6xf
@@ -170,7 +170,7 @@ Mappings:
       R8110BYOLGW: m-hp31w6g98891pvpwmy25
       R8120BYOLMGMT: m-hp3fcuzt7lwqvx1qmfid
       R8120BYOLGW: m-hp3igr01qj5p9ujr0hh7
-//cn-huhehaote-nebula-1
+#cn-huhehaote-nebula-1
     cn-huhehaote-nebula-1:
       R81BYOLMGMT: m-i5u43ktbabsgajwp0j5q	
       R81BYOLGW: m-i5ugyta8loglibtda909
@@ -178,7 +178,7 @@ Mappings:
       R8110BYOLGW: m-i5uhx4akm9azi9psdiyd
       R8120BYOLMGMT: m-i5ui036mtqdmv8w76gry
       R8120BYOLGW: m-i5u34ni5a9pummph4b68
-//中国香港
+#中国香港
     cn-hongkong:
       R81BYOLMGMT: m-j6c1s9q3xwyyt0mc4ciy
       R81BYOLGW: m-j6c3uddjczlxee860ni9
@@ -186,7 +186,7 @@ Mappings:
       R8110BYOLGW: m-j6cfn9ofcorhkvjp43eu
       R8120BYOLMGMT: m-j6chhjvjs8ubz15yyiz3
       R8120BYOLGW: m-j6chz8f6iwjwnyqt5ejh
-//华南2（河源）
+#华南2（河源）
     cn-heyuan:
       R81BYOLMGMT: m-f8z6u9cp6x7uou4kyfxh
       R81BYOLGW: m-f8z6u9cp6x7up7xsqtra
@@ -194,7 +194,7 @@ Mappings:
       R8110BYOLGW: m-f8z0b7b4qmlz2lxxlfk5
       R8120BYOLMGMT: m-f8z80n1jmzbjvnbzy7ig
       R8120BYOLGW: m-f8z2hzdbx98hf46g5hch
-//华东1（杭州）
+#华东1（杭州）
     cn-hangzhou:
       R81BYOLMGMT: m-bp15ph9032n5801pcu5f 
       R81BYOLGW: m-bp1iyqy8v3rfriy2jasf
@@ -202,7 +202,7 @@ Mappings:
       R8110BYOLGW: m-bp1bvtilr0oq3r1u26fh
       R8120BYOLMGMT: m-bp12v3yhxjqmjd1s6yzu
       R8120BYOLGW: m-bp1138nnkwnbgz3npcnr
-//阿里政务云
+#阿里政务云
     :
       R81BYOLMGMT: m-c2ug1tewnjlo8v1jidbt
       R81BYOLGW: 
@@ -210,7 +210,7 @@ Mappings:
       R8110BYOLGW: m-c2u1ecjoll3m7bdlx3l5
       R8120BYOLMGMT: 
       R8120BYOLGW: m-c2uarvhq2d4zy6fw8t0b
-//华南3（广州）
+#华南3（广州）
     cn-guangzhou:
       R81BYOLMGMT: m-7xvg38ie7472zuyaeao5
       R81BYOLGW: m-7xvd4jxf1dpqnx5mxeva
@@ -218,7 +218,7 @@ Mappings:
       R8110BYOLGW: m-7xvc1dl5mf1pwosd7kf4
       R8120BYOLMGMT: m-7xvdtumramtnkffospuc
       R8120BYOLGW: m-7xv9f9dx39mgjh74itym
-//华东6（福州-本地地域）
+#华东6（福州-本地地域）
     cn-fuzhou:
       R81BYOLMGMT: m-gw0edjtnt2zuxncr71cs
       R81BYOLGW: m-gw02ocyshbctg5sqkvzj
@@ -226,7 +226,7 @@ Mappings:
       R8110BYOLGW: m-wz96auvn7i9kwy25ykyh
       R8120BYOLMGMT: m-gw05iae6j6kwarrad44y
       R8120BYOLGW: m-gw05r47dnodzw2q77dw9
-//西南1（成都）
+#西南1（成都）
     cn-chengdu:
       R81BYOLMGMT: m-2vc1yhia0wov3b8y8cqk
       R81BYOLGW: m-2vc1yhia0wov3l43smm5
@@ -234,7 +234,7 @@ Mappings:
       R8110BYOLGW: m-2vcda1yz54mjzscpmo7w
       R8120BYOLMGMT: m-2vc4onla0urq35ezhfhx	
       R8120BYOLGW: m-2vchh535pjfp89cnaond
-//华北2（北京）
+#华北2（北京）
     cn-beijing:
       R81BYOLMGMT: m-2ze1gis66vi42oggv9q1
       R81BYOLGW: m-2zeax57aqymtb9ps5ha1
@@ -242,7 +242,7 @@ Mappings:
       R8110BYOLGW: m-2ze51g7hf49okiu6qt3l
       R8120BYOLMGMT: m-2zee4umizunybtxktjf3
       R8120BYOLGW: m-2zeellip66bg3s76x1s7
-//新加坡
+#新加坡
     ap-southeast-1:
       R81BYOLMGMT: m-t4nfkfl0za0sllczpdlc
       R81BYOLGW: m-t4n28u28lrkjdu0irlgw
@@ -250,7 +250,7 @@ Mappings:
       R8110BYOLGW: m-t4n6stxrjglof7eo328c
       R8120BYOLMGMT: m-t4n6vgnmlxo854ow6xol
       R8120BYOLGW: m-t4nbgint8q6ynp9nd471
-//马来西亚（吉隆坡）
+#马来西亚（吉隆坡）
     ap-southeast-3:
       R81BYOLMGMT: m-8psbyqmzqmlpx98tzf93
       R81BYOLGW: m-8psbyqmzqmlpxj3zjp4p
@@ -258,7 +258,7 @@ Mappings:
       R8110BYOLGW: m-8psflhod8g1dzw7yycxb
       R8120BYOLMGMT: m-8psijecurflbgdr38nk8
       R8120BYOLGW: m-8psj915izeb4967iymmc
-//印度尼西亚（雅加达）
+#印度尼西亚（雅加达）
     ap-southeast-5:
       R81BYOLMGMT: m-k1a59t4efwq790wa4wy8
       R81BYOLGW: m-k1a59t4efwq79arfp6tu
@@ -266,7 +266,7 @@ Mappings:
       R8110BYOLGW: m-k1a5yudxaqa8qshxpxw9
       R8120BYOLMGMT: m-k1aascjmqlphtdc6w9hn
       R8120BYOLGW: m-k1achkho6qrbyp12kugv
-//澳大利亚（悉尼）
+#澳大利亚（悉尼）
     ap-southeast-2:
       R81BYOLMGMT: m-p0w0b9ujrpnnua3ufzme
       R81BYOLGW: m-p0wd4e6rostay66n0q4k
@@ -274,7 +274,7 @@ Mappings:
       R8110BYOLGW: m-p0w7i6v10v2k0564w20n
       R8120BYOLMGMT: m-p0wifdsgr9knfbjk2gym
       R8120BYOLGW: m-p0w4556r791pl5erq5pm
-//泰国（曼谷）
+#泰国（曼谷）
     ap-southeast-7:
       R81BYOLMGMT: m-0jod1und9ze7dgg55wqa
       R81BYOLGW: m-0joevsjjsbd2571wl4f1
@@ -282,7 +282,7 @@ Mappings:
       R8110BYOLGW: m-0jo8bx9zpll4fnz3qfly
       R8120BYOLMGMT: m-0jo40o7g7lu7zbvp5vnw
       R8120BYOLGW: m-0joaylh0d8thm97i7ecn
-//菲律宾（马尼拉）
+#菲律宾（马尼拉）
     ap-southeast-6:
       R81BYOLMGMT: m-5tsfwo6881n9g9vaowy4
       R81BYOLGW: m-5tsa54liiffujtln72rw
@@ -290,7 +290,7 @@ Mappings:
       R8110BYOLGW: m-5ts1uppiiw71bnvhnrlr
       R8120BYOLMGMT: m-5tsfanc4t9gi6n4asjfu
       R8120BYOLGW: m-5tsbmdpgmqcslke7bu5t
-//印度（孟买）
+#印度（孟买）
     ap-south-1:
       R81BYOLMGMT: m-a2daqvvzn7er8jhft64g
       R81BYOLGW: m-a2dcun47mahw30or6g9u
@@ -298,7 +298,7 @@ Mappings:
       R8110BYOLGW: m-a2diea5vv8sy89evipqq
       R8120BYOLMGMT: m-a2dhps4gidrj4y47kib0
       R8120BYOLGW: m-a2dan3de1wdqtddlyc08
-//日本（东京）
+#日本（东京）
     ap-northeast-1:
       R81BYOLMGMT: m-6we84mbluxc66ja9d2wx
       R81BYOLGW: m-6wec2jvw8gpge7qv3vvw
@@ -306,7 +306,7 @@ Mappings:
       R8110BYOLGW: m-6we2h10evr9l5lan17re
       R8120BYOLMGMT: m-6we3c0225dq0o30kwjpq	
       R8120BYOLGW: m-6we07dwkjcno68lfnxf0
-//韩国（首尔）
+#韩国（首尔）
     ap-northeast-2:
       R81BYOLMGMT: m-mj7c3au3ndsgioeyov5z
       R81BYOLGW: m-mj7c3au3ndsgiya4951k
