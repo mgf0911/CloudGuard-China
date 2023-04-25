@@ -16,6 +16,7 @@
         "R81 - Bring Your Own License",
         "R81.10 - Bring Your Own License",
         "R81.20 - Bring Your Own License"
+
       ],
       "defaultValue": "R81.10 - Bring Your Own License",
       "metadata": {
@@ -275,7 +276,7 @@
       "metadata": {
         "description": "Use the following URI when deploying a custom template: https://raw.githubusercontent.com/CheckPointSW/CloudGuardIaaS/master/azure/templates/"
       },
-      "defaultValue": "https://raw.githubusercontent.com/CheckPointSW/CloudGuardIaaS/master/azure/templates/"
+      "defaultValue": "[deployment().properties.templateLink.uri]"
     },
     "_artifactsLocationSasToken": {
       "type": "securestring",
@@ -295,6 +296,14 @@
         "Description": "Indicates whether CloudGuard Metrics will be used for Cluster members monitoring"
       }
     },
+    "smart1CloudTokenA": {
+      "type": "securestring",
+      "defaultValue": ""
+    },
+    "smart1CloudTokenB": {
+      "type": "securestring",
+      "defaultValue": ""
+    },
     "tagsByResource": {
       "type": "object",
       "defaultValue": {}
@@ -302,10 +311,6 @@
     "deployNewNSG": {
       "type": "bool",
       "defaultValue": true
-    },
-    "UseExistingNSG": {
-      "type": "bool",
-      "defaultValue": false
     },
     "ExistingNSG": {
       "type": "object",
@@ -318,7 +323,7 @@
   },
   "variables": {
     "templateName": "ha",
-    "templateVersion": "20230109",
+    "templateVersion": "20230124",
     "location": "[parameters('location')]",
     "elbPublicIPName": "frontend-lb-address",
     "haPublicIPName": "[parameters('vmName')]",
@@ -327,7 +332,6 @@
       "R81 - Bring Your Own License": "BYOL",
       "R81.10 - Bring Your Own License": "BYOL",
       "R81.20 - Bring Your Own License": "BYOL"
-
     },
     "offer": "[variables('offers')[parameters('cloudGuardVersion')]]",
     "osVersions": {
@@ -335,6 +339,7 @@
       "R81 - Bring Your Own License": "R81",
       "R81.10 - Bring Your Own License": "R8110",
       "R81.20 - Bring Your Own License": "R8120"
+
     },
     "osVersion": "[variables('osVersions')[parameters('cloudGuardVersion')]]",
     "isBlink": true,
@@ -343,12 +348,36 @@
     "diskSize100GB": 100,
     "diskSizeGB": "[add(parameters('additionalDiskSizeGB'), variables('diskSize100GB'))]",
     "customData": "[concat('#!/usr/bin/python3 /etc/cloud_config.py\n', '\n', 'installationType=\"', variables('installationType'), '\"', '\n', 'allowUploadDownload=\"', variables('allowUploadDownload'), '\"', '\n', 'osVersion=\"', variables('osVersion'), '\"', '\n', 'templateName=\"', variables('templateName'), '\"', '\n', 'isBlink=\"', variables('isBlink'), '\"', '\n', 'templateVersion=\"', variables('templateVersion'), '\"', '\n', 'bootstrapScript64=\"', variables('bootstrapScript64'), '\"', '\n', 'location=\"', variables('location'), '\"', '\n', 'sicKey=\"', variables('sicKey'), '\"', '\n', 'location=\"', variables('location'), '\"', '\n', 'tenantId=\"', subscription().tenantId, '\"', '\n', 'virtualNetwork=\"', parameters('virtualNetworkName'), '\"', '\n', 'clusterName=\"', parameters('vmName'), '\"', '\n', 'externalPrivateAddresses=\"', variables('externalPrivateAddresses')[2], '\"', '\n', 'customMetrics=\"', variables('customMetrics'), '\"', '\n', 'adminShell=\"', parameters('adminShell'), '\"', '\n')]",
-    "imageOffer": "[concat('cgi-gateway-', toLower(variables('osVersion')))]",
+    "imageOffer": "[concat('check-point-cg-', toLower(variables('osVersion')))]",
     "imagePublisher": "sinoage",
     "imageReferenceBYOL": {
       "offer": "[variables('imageOffer')]",
       "publisher": "[variables('imagePublisher')]",
       "sku": "sg-byol",
+      "version": "latest"
+    },
+    "imageReferenceNGTP": {
+      "offer": "[variables('imageOffer')]",
+      "publisher": "[variables('imagePublisher')]",
+      "sku": "sg-ngtp",
+      "version": "latest"
+    },
+    "imageReferenceNGTP-V2": {
+      "offer": "[variables('imageOffer')]",
+      "publisher": "[variables('imagePublisher')]",
+      "sku": "sg-ngtp-v2",
+      "version": "latest"
+    },
+    "imageReferenceNGTX": {
+      "offer": "[variables('imageOffer')]",
+      "publisher": "[variables('imagePublisher')]",
+      "sku": "sg-ngtx",
+      "version": "latest"
+    },
+    "imageReferenceNGTX-V2": {
+      "offer": "[variables('imageOffer')]",
+      "publisher": "[variables('imagePublisher')]",
+      "sku": "sg-ngtx-v2",
       "version": "latest"
     },
     "imageReferenceMarketplace": "[if(equals(variables('offer'), 'BYOL'), variables('imageReferenceBYOL'), if(equals(variables('offer'), 'NGTP'), variables('imageReferenceNGTP'), if(equals(variables('offer'), 'NGTP-V2'), variables('imageReferenceNGTP-V2'), if(equals(variables('offer'), 'NGTX'), variables('imageReferenceNGTX'), if(equals(variables('offer'), 'NGTX-V2'), variables('imageReferenceNGTX-V2'), json('null'))))))]",
@@ -392,6 +421,26 @@
       "product": "[variables('imageOffer')]",
       "publisher": "[variables('imagePublisher')]"
     },
+    "planNGTP": {
+      "name": "sg-ngtp",
+      "product": "[variables('imageOffer')]",
+      "publisher": "[variables('imagePublisher')]"
+    },
+    "planNGTP-V2": {
+      "name": "sg-ngtp-v2",
+      "product": "[variables('imageOffer')]",
+      "publisher": "[variables('imagePublisher')]"
+    },
+    "planNGTX": {
+      "name": "sg-ngtx",
+      "product": "[variables('imageOffer')]",
+      "publisher": "[variables('imagePublisher')]"
+    },
+    "planNGTX-V2": {
+      "name": "sg-ngtx-v2",
+      "product": "[variables('imageOffer')]",
+      "publisher": "[variables('imagePublisher')]"
+    },
     "plan": "[if(equals(variables('offer'), 'BYOL') , variables('planBYOL'), if(equals(variables('offer'), 'NGTP'), variables('planNGTP'), if(equals(variables('offer'), 'NGTP-V2'), variables('planNGTP-V2'), if(equals(variables('offer'), 'NGTX'), variables('planNGTX'), if(equals(variables('offer'), 'NGTX-V2'), variables('planNGTX-V2'), json('null'))))))]",
     "externalPrivateAddresses": [
       "[parameters('Subnet1StartAddress')]",
@@ -419,12 +468,32 @@
     "installationType": "cluster",
     "internalLBPrivateIPAddress": "[parameters('Subnet2StartAddress')]",
     "availabilityZonesLocations": [
-	"chinaeast",
-	"chinaeast2",
-	"chinaeast3",
-	"chinanorth",
-	"chinanorth2",
-	"chinanorth3"
+      "brazilsouth",
+      "canadacentral",
+      "centralus",
+      "eastus",
+      "eastus2",
+      "southcentralus",
+      "usgovvirginia",
+      "westus2",
+      "westus3",
+      "francecentral",
+      "germanywestcentral",
+      "northeurope",
+      "norwayeast",
+      "uksouth",
+      "westeurope",
+      "swedencentral",
+      "switzerlandnorth",
+      "qatarcentral",
+      "uaenorth",
+      "southafricanorth",
+      "australiaeast",
+      "centralindia",
+      "japaneast",
+      "koreacentral",
+      "southeastasia",
+      "eastasia"
     ],
     "availabilitySetProperty": {
       "id": "[resourceId('Microsoft.Compute/availabilitySets', variables('availabilitySetName'))]"
@@ -440,6 +509,10 @@
     "publicIPPrefixProperty": {
       "Id": "[variables('usepublicIPPrefix')]"
     },
+    "tokens":[
+      "[parameters('smart1CloudTokenA')]",
+      "[parameters('smart1CloudTokenB')]"
+    ],
     "prefixDependsOn": "[if(equals(parameters('publicIPPrefix'), 'yes'), if(equals(parameters('createNewIPPrefix'), 'yes'), variables('publicIPNewPrefixId'), variables('ipNewPrefixId')), variables('ipNewPrefixId'))]",
     "deployNewVnet": "[equals(parameters('vnetNewOrExisting'), 'new')]",
     "vnetRGName": "[if(variables('deployNewVnet'), resourceGroup().name, parameters('virtualNetworkExistingRGName'))]",
@@ -480,7 +553,7 @@
     {
       "type": "Microsoft.Storage/storageAccounts",
       "name": "[variables('storageAccountName')]",
-      "apiVersion": "2021-04-01",
+      "apiVersion": "2022-09-01",
       "properties": {
         "supportsHttpsTrafficOnly": true,
         "allowBlobPublicAccess": false,
@@ -822,12 +895,12 @@
       "plan": "[if(equals(parameters('sourceImageVhdUri'),'noCustomUri'), variables('plan'), json('null'))]",
       "identity": "[if(equals(parameters('managedSystemAssigned'), 'yes'), variables('identity'), json('null'))]",
       "properties": {
-        "UserData": "[base64(concat(variables('customData'), '\n', 'vnet=\"', if(equals(parameters('vnetNewOrExisting'), 'new'), reference('networkNewSetup').outputs.vnetAddressPrefixes.value[0], reference('networkExistingSetup').outputs.vnetAddressPrefixes.value[0]), '\"', '\n' ))]",
+        "UserData": "[base64(concat(variables('customData'), '\n', 'smart1CloudToken=\"', variables('tokens')[copyIndex()], '\"', '\n', 'vnet=\"', if(equals(parameters('vnetNewOrExisting'), 'new'), reference('networkNewSetup').outputs.vnetAddressPrefixes.value[0], reference('networkExistingSetup').outputs.vnetAddressPrefixes.value[0]), '\"', '\n' ))]",
         "availabilitySet": "[if(not(variables('useAZ')), variables('availabilitySetProperty'), json('null'))]",
         "diagnosticsProfile": {
           "bootDiagnostics": {
             "enabled": "true",
-            "storageUri": "[reference(resourceId('Microsoft.Storage/storageAccounts/', variables('storageAccountName')), '2021-04-01').primaryEndpoints.blob]"
+            "storageUri": "[reference(resourceId('Microsoft.Storage/storageAccounts/', variables('storageAccountName')), '2022-09-01').primaryEndpoints.blob]"
           }
         },
         "hardwareProfile": {
@@ -853,7 +926,7 @@
           "adminPassword": "[parameters('adminPassword')]",
           "adminUsername": "[concat('not','used')]",
           "computername": "[concat(toLower(parameters('vmName')), copyIndex(1))]",
-          "customData": "[base64(concat(variables('customData'), '\n', 'vnet=\"', if(equals(parameters('vnetNewOrExisting'), 'new'), reference('networkNewSetup').outputs.vnetAddressPrefixes.value[0], reference('networkExistingSetup').outputs.vnetAddressPrefixes.value[0]), '\"', '\n' ))]",
+          "customData": "[base64(concat(variables('customData'), '\n', 'smart1CloudToken=\"', variables('tokens')[copyIndex()], '\"', '\n', 'vnet=\"', if(equals(parameters('vnetNewOrExisting'), 'new'), reference('networkNewSetup').outputs.vnetAddressPrefixes.value[0], reference('networkExistingSetup').outputs.vnetAddressPrefixes.value[0]), '\"', '\n' ))]",
           "linuxConfiguration": "[variables('linuxConfiguration')]"
         },
         "storageProfile": {

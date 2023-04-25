@@ -187,8 +187,8 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "sinoage",
-              "offer": "cgi-gateway-r8040",
+              "publisher": "checkpoint",
+              "offer": "check-point-cg-r8040",
               "sku": "sg-byol"
             },
             "count": 2
@@ -269,8 +269,8 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "sinoage",
-              "offer": "cgi-gateway-r8040",
+              "publisher": "checkpoint",
+              "offer": "check-point-cg-r8040",
               "sku": "sg-ngtp"
             },
             "count": 2
@@ -351,8 +351,8 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "sinoage",
-              "offer": "cgi-gateway-r8040",
+              "publisher": "checkpoint",
+              "offer": "check-point-cg-r8040",
               "sku": "sg-ngtx"
             },
             "count": 2
@@ -433,8 +433,8 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "sinoage",
-              "offer": "cgi-gateway-r81",
+              "publisher": "checkpoint",
+              "offer": "check-point-cg-r81",
               "sku": "sg-byol"
             },
             "count": 2
@@ -515,8 +515,8 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "sinoage",
-              "offer": "cgi-gateway-r81",
+              "publisher": "checkpoint",
+              "offer": "check-point-cg-r81",
               "sku": "sg-ngtp"
             },
             "count": 2
@@ -597,8 +597,8 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "sinoage",
-              "offer": "cgi-gateway-r81",
+              "publisher": "checkpoint",
+              "offer": "check-point-cg-r81",
               "sku": "sg-ngtx"
             },
             "count": 2
@@ -679,8 +679,8 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "sinoage",
-              "offer": "cgi-gateway-r8110",
+              "publisher": "checkpoint",
+              "offer": "check-point-cg-r8110",
               "sku": "sg-byol"
             },
             "count": 2
@@ -761,8 +761,8 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "sinoage",
-              "offer": "cgi-gateway-r8110",
+              "publisher": "checkpoint",
+              "offer": "check-point-cg-r8110",
               "sku": "sg-ngtp"
             },
             "count": 2
@@ -843,8 +843,8 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "sinoage",
-              "offer": "cgi-gateway-r8110",
+              "publisher": "checkpoint",
+              "offer": "check-point-cg-r8110",
               "sku": "sg-ngtx"
             },
             "count": 2
@@ -925,8 +925,8 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "sinoage",
-              "offer": "cgi-gateway-r81_20",
+              "publisher": "checkpoint",
+              "offer": "check-point-cg-r8120",
               "sku": "sg-byol"
             },
             "count": 2
@@ -1007,8 +1007,8 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "sinoage",
-              "offer": "cgi-gateway-r81_20",
+              "publisher": "checkpoint",
+              "offer": "check-point-cg-r8120",
               "sku": "sg-ngtp"
             },
             "count": 2
@@ -1089,8 +1089,8 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "sinoage",
-              "offer": "cgi-gateway-r81_20",
+              "publisher": "checkpoint",
+              "offer": "check-point-cg-r8120",
               "sku": "sg-ngtx"
             },
             "count": 2
@@ -1400,6 +1400,62 @@
               "validationMessage": "Only alphanumeric characters, hyphens, spaces, periods, and colons are allowed."
             },
             "visible": "[equals(steps('chkp').createNewIPPrefix, 'no')]"
+          },
+          {
+            "name": "allowSmart1CloudConnection",
+            "type": "Microsoft.Common.OptionsGroup",
+            "label": "Quick connect to Smart-1 Cloud",
+            "defaultValue": "Yes",
+            "toolTip": "Automatically connect this Cluster to Smart-1 Cloud - Check Point's Security Management as a Service",
+             "constraints": {
+              "allowedValues": [
+                {
+                  "label": "Yes",
+                  "value": "yes"
+                },
+                {
+                  "label": "No",
+                  "value": "no"
+                }
+              ]
+            },
+            "visible": true
+          },
+          {
+            "name": "smart1CloudTokenTxt",
+            "type": "Microsoft.Common.TextBlock",
+            "options": {
+              "text": "Follow these instructions to quickly connect this Cluster to Smart-1 Cloud",
+              "link": {
+                "label": "SK180501 - Connecting CloudGuard Network Security Public Cloud Gateways to Smart-1 Cloud",
+                "uri": "https://supportcenter.checkpoint.com/supportcenter/portal?eventSubmit_doGoviewsolutiondetails=&solutionid=sk180501"
+              }
+            },
+            "visible": "[equals(steps('chkp').allowSmart1CloudConnection, 'yes')]"
+          },
+          {
+            "name": "Smart1CloudTokenA",
+            "type": "Microsoft.Common.TextBox",
+            "label": "Smart-1 Cloud Token Member A",
+            "toolTip": "Paste here the token copied from the Connect Gateway (Member A) screen in Smart-1 Cloud portal",
+            "constraints": {
+              "required": true,
+              "regex": "[\\S\\s]{5,}",
+              "validationMessage": "Smart1Cloud Token Should contain at lease 5 characters"
+            },
+            "visible": "[equals(steps('chkp').allowSmart1CloudConnection, 'yes')]"
+          },
+          {
+              "name": "Smart1CloudTokenB",
+              "type": "Microsoft.Common.TextBox",
+              "label": "Smart-1 Cloud Token Member B",
+              "toolTip": "Paste here the token copied from the Connect Gateway (Member B) screen in Smart-1 Cloud portal",
+              "constraints": {
+                "required": true,
+                "regex": "[\\S\\s]{5,}",
+                "validationMessage": "Smart1Cloud Token Should contain at lease 5 characters"
+              },
+              "visible": "[equals(steps('chkp').allowSmart1CloudConnection, 'yes')]"
           }
         ]
       },
@@ -1464,17 +1520,16 @@
             "name": "NSG",
             "type": "Microsoft.Common.OptionsGroup",
             "label": "Network Security Group",
-            "defaultValue": "{}",
-            "toolTip": "",
+            "toolTip": "Choose between using an existing NSG or using a new NSG",
             "constraints": {
               "allowedValues": [
                 {
                   "label": "Create new",
-                  "value": "new"
+                  "value": true
                 },
                 {
                   "label": "Existing NSG",
-                  "value": "exist"
+                  "value": false
                 }
               ],
               "required": true
@@ -1486,6 +1541,7 @@
             "type": "Microsoft.Solutions.ResourceSelector",
             "label": "Network Security Group",
             "defaultValue": "null",
+            "toolTip": "Choose an existing NSG",
             "resourceType": "Microsoft.Network/NetworkSecurityGroups",
             "options": {
               "filter": {
@@ -1496,21 +1552,21 @@
             "constraints": {
               "required": true
             },
-            "visible": "[equals(steps('network').NSG, 'exist')]"
+            "visible": "[equals(steps('network').NSG, false)]"
           },
           {
             "name": "NSGName",
             "type": "Microsoft.Common.TextBox",
             "label": "Name",
-            "defaultValue": "None",
-            "placeholder": "",
+            "defaultValue": "[concat(basics('clusterObjectNameUi') , '-nsg')]",
+            "toolTip": "Insert Name for the new NSG",
             "multiLine": false,
             "constraints": {
-              "required": "[equals(steps('network').NSG, 'new')]",
-              "regex": "^[a-z0-9A-Z]{1,30}$",
+              "required": "[steps('network').NSG]",
+              "regex": "^[a-z0-9A-Z-]{1,30}$",
               "validationMessage": "Only alphanumeric characters are allowed, and the name must be 1-30 characters long."
             },
-            "visible": "[equals(steps('network').NSG, 'new')]"
+            "visible": "[steps('network').NSG]"
           }
         ]
       },
@@ -1521,6 +1577,7 @@
           {
             "name": "tagsByResource",
             "type": "Microsoft.Common.TagsByResource",
+            "toolTip": "Create Azure tags for the new resources",
             "resources": [
               "Microsoft.Storage/storageAccounts",
               "Microsoft.Compute/availabilitySets",
@@ -1568,9 +1625,10 @@
       "createNewIPPrefix": "[steps('chkp').createNewIPPrefix]",
       "ipPrefixExistingResourceId": "[steps('chkp').ipPrefixExistingResourceId]",
       "adminShell": "[steps('chkp').adminShell]",
+      "smart1CloudTokenA": "[steps('chkp').Smart1CloudTokenA]",
+      "smart1CloudTokenB": "[steps('chkp').Smart1CloudTokenB]",
       "tagsByResource": "[steps('tags').tagsByResource]",
-      "deployNewNSG": "[equals(steps('network').NSG, 'new')]",
-      "UseExistingNSG": "[equals(steps('network').NSG, 'exist')]",
+      "deployNewNSG": "[steps('network').NSG]",
       "ExistingNSG": "[steps('network').nsgSelector]",
       "NewNsgName": "[steps('network').NSGName]"
     }
