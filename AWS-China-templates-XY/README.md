@@ -3,7 +3,7 @@
 <p><strong>Notes:</strong></p>
 <ul>
 <li>
-<p>You must accept the Software Terms of the relevant Check Point Product AMI in the <a href="https://awsmarketplace.amazonaws.cn/marketplace/">AWS Marketplace</a> at least once prior to launching the CloudFormation templates. It is not required to actually launch the instance from the Marketplace, but the agreement must be accepted from this location.此模板中的镜像使用“上海冠闵信息科技有限公司”发布的最新版本镜像文件，使用此模板前请先在AWS中国镜像市场订阅相关镜像</p>
+<p>You must accept the Software Terms of the relevant Check Point Product AMI in the <a href="https://awsmarketplace.amazonaws.cn/marketplace/">AWS Marketplace</a> at least once prior to launching the CloudFormation templates. It is not required to actually launch the instance from the Marketplace, but the agreement must be accepted from this location.此模板中的镜像使用“西云数据”发布的最新版本镜像文件，使用此模板前请先在AWS中国镜像市场订阅相关镜像，使用西云数据镜像部署的产品需要联系Check Point与AWS的销售已得到正确的许可证</p>
 </li>
 <li>
 <p>国际版AWS使用的CloudFormation Templates请直接访问Check Point官网SK111013 <a href="https://supportcenter.checkpoint.com/supportcenter/portal?eventSubmit_doGoviewsolutiondetails=&solutionid=sk111013&partition=Basic&product=CloudGuard">Check Point SK111013</a>
@@ -74,7 +74,7 @@
 <tr>
 <td style="vertical-align: top;">Deploys and configures an AWS Auto Scaling group configured for Gateway Load Balancer in a Centralized Security VPC.<br /><br />For more details, refer to <a href="https://sc1.checkpoint.com/documents/IaaS/WebAdminGuides/EN/CP_CloudGuard_Network_for_AWS_Centralized_Gateway_Load_Balancer/Default.htm">CloudGuard Network for AWS Centralized Gateway Load Balancer R80.40 Deployment Guide</a></td>
 <td>Creates a new VPC and deploys into it a Gateway Load Balancer, Check Point CloudGuard IaaS Security Gateway Auto Scaling Group, and optionally a Security Management Server.</td>
-<td style="text-align: center;">R81.20</td>
+<td style="text-align: center;">R81.20<br />R80.40</td>
 <td style="text-align: center;"><a href="https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/gwlb/gwlb-master.yaml"><img src="https://sc1.checkpoint.com/sc/images/download-m.png" alt="" width="16" height="16" /></a></td>
 <td style="text-align: center; width: 18%;"><a href="https://console.amazonaws.cn/cloudformation/home#/stacks/create/review?templateURL=https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/gwlb/gwlb-master.yaml"><img src="https://sc1.checkpoint.com/sc/SolutionsStatics/NEW_SK_NOID1460631718185/launch1604140412.png" alt="" width="144" height="27" /></a></td>
 </tr>
