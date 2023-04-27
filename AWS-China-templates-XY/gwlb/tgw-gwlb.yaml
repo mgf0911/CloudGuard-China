@@ -797,7 +797,7 @@ Resources:
   GWLBStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/gwlb/gwlb.yaml
+      TemplateURL: https://cgi-cfts-xy.s3.cn-northwest-1.amazonaws.com.cn/gwlb/gwlb.yaml
       Parameters:
         VPC: !Ref VPC
         GatewaysSubnets: !Join [',', !Ref GatewaysSubnets]

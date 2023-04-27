@@ -274,7 +274,7 @@ Resources:
   AMI:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/utils/amis.yaml
+      TemplateURL: https://cgi-cfts-xy.s3.cn-northwest-1.amazonaws.com.cn/utils/amis.yaml
       Parameters:
         Version: !Join ['-', [!Ref MDSVersion, MGMT]]
   MDSSecurityGroup:
@@ -335,7 +335,7 @@ Resources:
     Type: AWS::CloudFormation::Stack
     Condition: CreateRole
     Properties:
-      TemplateURL: https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/iam/cme-iam-role.yaml
+      TemplateURL: https://cgi-cfts-xy.s3.cn-northwest-1.amazonaws.com.cn/iam/cme-iam-role.yaml
       Parameters:
         Permissions: !Ref MDSPermissions
         STSRoles: !Join [',', !Ref MDSSTSRoles]

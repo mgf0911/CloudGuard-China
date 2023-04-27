@@ -325,6 +325,7 @@ Parameters:
     Default: R81.20-BYOL
     AllowedValues:
       - R81.20-BYOL
+      - R80.40-GWLB
   GatewayPasswordHash:
     Description: Admin user's password hash (use command "openssl passwd -6 PASSWORD" to get the PASSWORD's hash). (optional)
     Type: String
@@ -417,6 +418,7 @@ Parameters:
     Default: R81.20-BYOL
     AllowedValues:
       - R81.20-BYOL
+      - R80.40-GWLB
   ManagementPasswordHash:
     Description: Admin user's password hash (use command "openssl passwd -6 PASSWORD" to get the PASSWORD's hash). (optional)
     Type: String
@@ -451,7 +453,7 @@ Resources:
   VPCStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/utils/vpc.yaml
+      TemplateURL: https://cgi-cfts-xy.s3.cn-northwest-1.amazonaws.com.cn/utils/vpc.yaml
       Parameters:
         AvailabilityZones: !Join [',' , !Ref AvailabilityZones]
         NumberOfAZs: !Ref NumberOfAZs
@@ -464,7 +466,7 @@ Resources:
   GWLBStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/gwlb/gwlb.yaml
+      TemplateURL: https://cgi-cfts-xy.s3.cn-northwest-1.amazonaws.com.cn/gwlb/gwlb.yaml
       Parameters:
         VPC: !GetAtt VPCStack.Outputs.VPCID
         GatewaysSubnets: !Join
