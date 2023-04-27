@@ -66,9 +66,9 @@
 <tbody>
 <tr class="SubTitle" style="text-align: center;" bgcolor="#d6dff0">
 <td style="width: 35%;">Description</td>
-<td style="width: 25%;">Notes</td>
+<td style="width: 20%;">Notes</td>
 <td style="width: 12%;">Version</td>
-<td style="width: 10%;">CloudFormation Templat Download</td>
+<td style="width: 15%;">CloudFormation Templat Download</td>
 <td style="width: 18%;">Direct Launch</td>
 </tr>
 <tr>
