@@ -1,0 +1,386 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Create an Auto Scaling group of Check Point CloudGuard Infinity Gateways (14112021)
+Metadata:
+  AWS::CloudFormation::Interface:
+    ParameterGroups:
+      - Label:
+          default: VPC network settings
+        Parameters:
+          - AvailabilityZones
+          - NumberOfAZs
+          - VPCCIDR
+          - PublicSubnet1CIDR
+          - PublicSubnet2CIDR
+          - PublicSubnet3CIDR
+          - PublicSubnet4CIDR
+          - PrivateSubnet1CIDR
+          - PrivateSubnet2CIDR
+          - PrivateSubnet3CIDR
+          - PrivateSubnet4CIDR
+      - Label:
+          default: EC2 instance details
+        Parameters:
+          - AsgName
+          - GatewayInstanceType
+          - VolumeEncryption
+          - InboundSources
+          - KeyName
+          - EnableInstanceConnect
+          - GatewayPasswordHash
+      - Label:
+          default: Check Point Infinity Next Cloud
+        Parameters:
+          - InfinityToken
+          - FogAddress
+      - Label:
+          default: Auto Scaling Group settings
+        Parameters:
+          - LoadBalancerType
+          - GatewaysMinSize
+          - GatewaysMaxSize
+          - GatewayBootstrapScript
+          - AdminEmail
+      - Label:
+          default: HTTPS settings
+        Parameters:
+          - Certificates
+      - Label:
+          default: First certificate
+        Parameters:
+          - FirstCertificateArn
+          - FirstPrivateKeyArn
+      - Label:
+          default: Second certificate (optional)
+        Parameters:
+          - SecondCertificateArn
+          - SecondPrivateKeyArn
+    ParameterLabels:
+      AvailabilityZones:
+        default: Availability Zones
+      NumberOfAZs:
+        default: Number of AZs
+      VPCCIDR:
+        default: VPC CIDR
+      PublicSubnet1CIDR:
+        default: Public Subnet 1
+      PublicSubnet2CIDR:
+        default: Public Subnet 2
+      PublicSubnet3CIDR:
+        default: Public Subnet 3
+      PublicSubnet4CIDR:
+        default: Public Subnet 4
+      PrivateSubnet1CIDR:
+        default: Private Subnet 1
+      PrivateSubnet2CIDR:
+        default: Private Subnet 2
+      PrivateSubnet3CIDR:
+        default: Private Subnet 3
+      PrivateSubnet4CIDR:
+        default: Private Subnet 4
+      AsgName:
+        default: Auto Scaling Group name
+      InboundSources:
+        default: Allow access from
+      KeyName:
+        default: Key name
+      InfinityToken:
+        default: Infinity Next Agent Token
+      EnableInstanceConnect:
+        default: Enable EC2 Instance Connect
+      GatewayPasswordHash:
+        default: Gateway's Password hash (optional)
+      FogAddress:
+        default: Fog address (optional)
+      AdminEmail:
+        default: Administrator email address (optional)
+      GatewayInstanceType:
+        default: Gateway's instance type
+      VolumeEncryption:
+        default: Volume encryption
+      LoadBalancerType:
+        default: Type of the Load Balancer
+      GatewaysMinSize:
+        default: Initial number of gateways
+      GatewaysMaxSize:
+        default: Maximum number of gateways
+      GatewayBootstrapScript:
+        default: Bootstrap script (optional)
+      Certificates:
+        default: Certificates
+      FirstCertificateArn:
+        default: Certificate ARN
+      FirstPrivateKeyArn:
+        default: Secret ARN that contains the private key
+      SecondCertificateArn:
+        default: Certificate ARN
+      SecondPrivateKeyArn:
+        default: Secret ARN that contains the private key
+Parameters:
+  AvailabilityZones:
+    Description: List of Availability Zones (AZs) to use for the subnets in the VPC. Select at least two
+    Type: List<AWS::EC2::AvailabilityZone::Name>
+    MinLength: 2
+  NumberOfAZs:
+    Description: Number of Availability Zones to use in the VPC. This must match your selections in the list of Availability Zones parameter
+    Type: Number
+    Default: 2
+    MinValue: 2
+    MaxValue: 4
+  VPCCIDR:
+    Description: CIDR block for the VPC. Please note that the following CIDR range 172.16.0.0/12 is used by the Infinity Next Gateway for internal container communication
+    Type: String
+    Default: 10.0.0.0/16
+    AllowedPattern: '^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(1[6-9]|2[0-8]))$'
+    ConstraintDescription: CIDR block parameter must be in the form x.x.x.x/16-28
+  PublicSubnet1CIDR:
+    Description: CIDR block for public subnet 1 located in the 1st Availability Zone
+    Type: String
+    Default: 10.0.10.0/24
+    AllowedPattern: '^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(1[6-9]|2[0-8]))$'
+    ConstraintDescription: CIDR block parameter must be in the form x.x.x.x/16-28
+  PublicSubnet2CIDR:
+    Description: CIDR block for public subnet 2 located in the 2nd Availability Zone
+    Type: String
+    Default: 10.0.20.0/24
+    AllowedPattern: '^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(1[6-9]|2[0-8]))$'
+    ConstraintDescription: CIDR block parameter must be in the form x.x.x.x/16-28
+  PublicSubnet3CIDR:
+    Description: CIDR block for public subnet 3 located in the 3rd Availability Zone
+    Type: String
+    Default: 10.0.30.0/24
+    AllowedPattern: '^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(1[6-9]|2[0-8]))$'
+    ConstraintDescription: CIDR block parameter must be in the form x.x.x.x/16-28
+  PublicSubnet4CIDR:
+    Description: CIDR block for public subnet 4 located in the 4th Availability Zone
+    Type: String
+    Default: 10.0.40.0/24
+    AllowedPattern: '^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(1[6-9]|2[0-8]))$'
+    ConstraintDescription: CIDR block parameter must be in the form x.x.x.x/16-28
+  PrivateSubnet1CIDR:
+    Description: CIDR block for private subnet 1 located in the 1st Availability Zone
+    Type: String
+    Default: 10.0.11.0/24
+    AllowedPattern: '^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(1[6-9]|2[0-8]))$'
+    ConstraintDescription: CIDR block parameter must be in the form x.x.x.x/16-28
+  PrivateSubnet2CIDR:
+    Description: CIDR block for private subnet 2 located in the 2nd Availability Zone
+    Type: String
+    Default: 10.0.21.0/24
+    AllowedPattern: '^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(1[6-9]|2[0-8]))$'
+    ConstraintDescription: CIDR block parameter must be in the form x.x.x.x/16-28
+  PrivateSubnet3CIDR:
+    Description: CIDR block for private subnet 3 located in the 3rd Availability Zone
+    Type: String
+    Default: 10.0.31.0/24
+    AllowedPattern: '^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(1[6-9]|2[0-8]))$'
+    ConstraintDescription: CIDR block parameter must be in the form x.x.x.x/16-28
+  PrivateSubnet4CIDR:
+    Description: CIDR block for private subnet 4 located in the 4th Availability Zone
+    Type: String
+    Default: 10.0.41.0/24
+    AllowedPattern: '^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(1[6-9]|2[0-8]))$'
+    ConstraintDescription: CIDR block parameter must be in the form x.x.x.x/16-28
+  AsgName:
+    Description: This will determine the hostname prefix of the VM
+    Type: String
+    Default: Check-Point-Infinty-Next-Asg
+  InboundSources:
+    Description: Specify the client IP addresses that can reach your instance. Can be IP address range in CIDR notation (e.g. for any source use 0.0.0.0/0)
+    Type: String
+    Default: 0.0.0.0/0
+    AllowedPattern: '^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$'
+    ConstraintDescription: Only CIDR notation is allowed i.e. X.X.X.X/X
+  KeyName:
+    Description: The EC2 Key Pair to allow SSH access to the instances created by this stack
+    Type: AWS::EC2::KeyPair::KeyName
+    MinLength: 1
+    ConstraintDescription: Must be the name of an existing EC2 KeyPair
+  InfinityToken:
+    Description: 'Token can be obtained by logging in to Infinity Portal "https://portal.checkpoint.com/" -> INFINITY POLICY -> CLOUD -> Profiles'
+    Type: String
+    AllowedPattern: '^cp-(([a-z0-9A-Z-]{72,72})|([a-z0-9A-Z-]{75,75}))$'
+    ConstraintDescription: Token should begin with 'cp-' and must be 75 or 78 characters long
+    NoEcho: true
+  EnableInstanceConnect:
+    Description: Enable SSH connection over AWS web console
+    Type: String
+    Default: false
+    AllowedValues:
+      - true
+      - false
+  GatewayPasswordHash:
+    Description: User is set to 'admin' (use command "openssl passwd -6 PASSWORD" to get the password's hash)
+    Type: String
+    Default: ''
+    AllowedPattern: '^[\$\./a-zA-Z0-9]*$'
+    NoEcho: true
+  FogAddress:
+    Type: String
+    Default: ''
+  AdminEmail:
+    Description: An email address to notify about scaling events
+    Type: String
+    Default: ''
+    AllowedPattern: '^(([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?))?$'
+    ConstraintDescription: Must be a valid email address
+  GatewayInstanceType:
+    Type: String
+    Default: c5.xlarge
+    AllowedValues:
+      - c5.large
+      - c5.xlarge
+      - c5.2xlarge
+      - c5.4xlarge
+      - c5.9xlarge
+      - c5.18xlarge
+      - m5.large
+      - m5.xlarge
+      - m5.2xlarge
+      - m5.4xlarge
+      - m5.8xlarge
+      - m5.12xlarge
+    ConstraintDescription: Must be a valid EC2 instance type
+  VolumeEncryption:
+    Description: Encrypt instances volume with default AWS KMS key
+    Type: String
+    Default: false
+    AllowedValues:
+      - true
+      - false
+  LoadBalancerType:
+    Type: String
+    Default: network
+    AllowedValues:
+      - network
+      - application
+  GatewaysMinSize:
+    Type: Number
+    Default: 2
+    MinValue: 1
+  GatewaysMaxSize:
+    Type: Number
+    Default: 10
+    MinValue: 1
+  GatewayBootstrapScript:
+    Description: An optional script with semicolon (;) separated commands to run on the initial boot
+    Type: String
+    Default: ''
+    NoEcho: true
+  Certificates:
+    Description: When using HTTPS certificates, provide both certficate and private key ARNs.
+    Type: String
+    Default: HTTP
+    AllowedValues:
+      - HTTP
+      - HTTPS
+  FirstCertificateArn:
+    Description: Certificate ARN can be obtained from the AWS Certificate Manager
+    Type: String
+    Default: ''
+    AllowedPattern: '^$|(arn:[\w+=\/,.@-]+:[\w+=\/,.@-]+:[\w+=\/,.@-]*:[0-9]+:[\w+=,.@-]+(\/[\w+=,.@-]+)*)'
+    ConstraintDescription: Must be a valid Amazon Resource Name (ARN)
+  FirstPrivateKeyArn:
+    Description: Secret ARN can be obtained from the AWS Secrets Manager
+    Type: String
+    Default: ''
+    AllowedPattern: '^$|(arn:[\w+=\/,.@-]+:[\w+=\/,.@-]+:[\w+=\/,.@-]*:[0-9]+:[\w+=,.@-]+:[\w+=,.@-]+)'
+    ConstraintDescription: Must be a valid Amazon Resource Name (ARN)
+  SecondCertificateArn:
+    Description: Certificate ARN can be obtained from the AWS Certificate Manager
+    Type: String
+    Default: ''
+    AllowedPattern: '^$|(arn:[\w+=\/,.@-]+:[\w+=\/,.@-]+:[\w+=\/,.@-]*:[0-9]+:[\w+=,.@-]+(\/[\w+=,.@-]+)*)'
+    ConstraintDescription: Must be a valid Amazon Resource Name (ARN)
+  SecondPrivateKeyArn:
+    Description: Secret ARN can be obtained from the AWS Secrets Manager
+    Type: String
+    Default: ''
+    AllowedPattern: '^$|(arn:[\w+=\/,.@-]+:[\w+=\/,.@-]+:[\w+=\/,.@-]*:[0-9]+:[\w+=,.@-]+:[\w+=,.@-]+)'
+    ConstraintDescription: Must be a valid Amazon Resource Name (ARN)
+Conditions:
+  4AZs: !Equals [!Ref NumberOfAZs, 4]
+  3AZs: !Or [!Equals [!Ref NumberOfAZs, 3], !Condition 4AZs]
+Rules:
+  NoHttpsCertificates:
+    RuleCondition:
+      Fn::Equals: [!Ref Certificates, HTTP]
+    Assertions:
+      - Assert:
+          Fn::Equals: [!Ref FirstCertificateArn, '']
+        AssertDescription: "Certificates and secrets arn should be only provided when using HTTPS certificates"
+      - Assert:
+          Fn::Equals: [!Ref FirstPrivateKeyArn, '']
+        AssertDescription: "Certificates and secrets arn should be only provided when using HTTPS certificates"
+      - Assert:
+          Fn::Equals: [!Ref SecondCertificateArn, '']
+        AssertDescription: "Certificates and secrets arn should be only provided when using HTTPS certificates"
+      - Assert:
+          Fn::Equals: [!Ref SecondPrivateKeyArn, '']
+        AssertDescription: "Certificates and secrets arn should be only provided when using HTTPS certificates"
+  MandatoryCertificateArn:
+    RuleCondition:
+      Fn::Not: [!Equals [!Ref Certificates, HTTP]]
+    Assertions:
+      - Assert:
+          Fn::Not: [!Equals [!Ref FirstCertificateArn, '']]
+        AssertDescription: "Please provide a certificate arn"
+  MandatoryPrivateKeyArn:
+    RuleCondition:
+      Fn::Not: [!Equals [!Ref Certificates, HTTP]]
+    Assertions:
+      - Assert:
+          Fn::Not: [!Equals [!Ref FirstPrivateKeyArn, '']]
+        AssertDescription: "Please provide a secret arn"
+Resources:
+  VPCStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/utils/vpc.yaml
+      Parameters:
+        AvailabilityZones: !Join [',' , !Ref AvailabilityZones]
+        NumberOfAZs: !Ref NumberOfAZs
+        VPCCIDR: !Ref VPCCIDR
+        PublicSubnet1CIDR: !Ref PublicSubnet1CIDR
+        PublicSubnet2CIDR: !Ref PublicSubnet2CIDR
+        PublicSubnet3CIDR: !Ref PublicSubnet3CIDR
+        PublicSubnet4CIDR: !Ref PublicSubnet4CIDR
+        PrivateSubnet1CIDR: !Ref PrivateSubnet1CIDR
+        PrivateSubnet2CIDR: !Ref PrivateSubnet2CIDR
+        PrivateSubnet3CIDR: !Ref PrivateSubnet3CIDR
+        PrivateSubnet4CIDR: !Ref PrivateSubnet4CIDR
+  MainStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/waap/waap-autoscale.yaml
+      Parameters:
+        VPC: !GetAtt VPCStack.Outputs.VPCID
+        GatewaysSubnets: !Join
+          - ','
+          - - !GetAtt VPCStack.Outputs.PublicSubnet1ID
+            - !GetAtt VPCStack.Outputs.PublicSubnet2ID
+            - !If [3AZs, !GetAtt VPCStack.Outputs.PublicSubnet3ID, !Ref 'AWS::NoValue']
+            - !If [4AZs, !GetAtt VPCStack.Outputs.PublicSubnet4ID, !Ref 'AWS::NoValue']
+        AsgName: !Ref AsgName
+        InboundSources: !Ref InboundSources
+        KeyName: !Ref KeyName
+        InfinityToken: !Ref InfinityToken
+        EnableInstanceConnect: !Ref EnableInstanceConnect
+        GatewayPasswordHash: !Ref GatewayPasswordHash
+        FogAddress: !Ref FogAddress
+        AdminEmail: !Ref AdminEmail
+        GatewayInstanceType: !Ref GatewayInstanceType
+        VolumeEncryption: !Ref VolumeEncryption
+        LoadBalancerType: !Ref LoadBalancerType
+        LoadBalancerScheme: external
+        GatewaysMinSize: !Ref GatewaysMinSize
+        GatewaysMaxSize: !Ref GatewaysMaxSize
+        GatewayBootstrapScript: !Ref GatewayBootstrapScript
+        Certificates: !Ref Certificates
+        FirstCertificateArn: !Ref FirstCertificateArn
+        FirstPrivateKeyArn: !Ref FirstPrivateKeyArn
+        SecondCertificateArn: !Ref SecondCertificateArn
+        SecondPrivateKeyArn: !Ref SecondPrivateKeyArn
+Outputs:
+  URL:
+    Description: The URL of the Elastic Load Balancer
+    Value: !GetAtt MainStack.Outputs.URL

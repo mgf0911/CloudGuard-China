@@ -1,0 +1,771 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Create an Auto Scaling group of Check Point CloudGuard Infinity Gateways (14112021)
+Metadata:
+  AWS::CloudFormation::Interface:
+    ParameterGroups:
+      - Label:
+          default: VPC network settings
+        Parameters:
+          - VPC
+          - GatewaysSubnets
+      - Label:
+          default: EC2 instance details
+        Parameters:
+          - AsgName
+          - GatewayInstanceType
+          - VolumeEncryption
+          - InboundSources
+          - KeyName
+          - EnableInstanceConnect
+          - GatewayPasswordHash
+      - Label:
+          default: Check Point Infinity Next Cloud
+        Parameters:
+          - InfinityToken
+          - FogAddress
+      - Label:
+          default: Auto Scaling Group settings
+        Parameters:
+          - LoadBalancerType
+          - LoadBalancerScheme
+          - GatewaysMinSize
+          - GatewaysMaxSize
+          - GatewayBootstrapScript
+          - AdminEmail
+      - Label:
+          default: HTTPS settings
+        Parameters:
+          - Certificates
+      - Label:
+          default: First certificate
+        Parameters:
+          - FirstCertificateArn
+          - FirstPrivateKeyArn
+      - Label:
+          default: Second certificate (optional)
+        Parameters:
+          - SecondCertificateArn
+          - SecondPrivateKeyArn
+    ParameterLabels:
+      VPC:
+        default: VPC
+      GatewaysSubnets:
+        default: Gateways subnets
+      AsgName:
+        default: Auto Scaling Group name
+      InboundSources:
+        default: Allow access from
+      KeyName:
+        default: Key name
+      InfinityToken:
+        default: Infinity Next Agent Token
+      EnableInstanceConnect:
+        default: Enable EC2 Instance Connect
+      GatewayPasswordHash:
+        default: Gateway's Password hash (optional)
+      FogAddress:
+        default: Fog address (optional)
+      AdminEmail:
+        default: Administrator email address (optional)
+      GatewayInstanceType:
+        default: Gateway's instance type
+      VolumeEncryption:
+        default: Volume encryption
+      LoadBalancerType:
+        default: Type of the Load Balancer
+      LoadBalancerScheme:
+        default: Scheme of the Load Balancer
+      GatewaysMinSize:
+        default: Initial number of gateways
+      GatewaysMaxSize:
+        default: Maximum number of gateways
+      GatewayBootstrapScript:
+        default: Bootstrap script (optional)
+      Certificates:
+        default: Certificates
+      FirstCertificateArn:
+        default: Certificate ARN
+      FirstPrivateKeyArn:
+        default: Secret ARN that contains the private key
+      SecondCertificateArn:
+        default: Certificate ARN
+      SecondPrivateKeyArn:
+        default: Secret ARN that contains the private key
+Parameters:
+  VPC:
+    Description: Select an existing VPC
+    Type: AWS::EC2::VPC::Id
+    MinLength: 1
+    ConstraintDescription: You must select a VPC
+  GatewaysSubnets:
+    Description: Select at least 2 subnets in the VPC. Please note that the following CIDR range 172.16.0.0/12 is used by the Infinity Next Gateway for internal container communication
+    Type: List<AWS::EC2::Subnet::Id>
+    MinLength: 2
+  AsgName:
+    Description: This will determine the hostname prefix of the VM
+    Type: String
+    Default: Check-Point-Infinty-Next-Asg
+  InboundSources:
+    Description: Specify the client IP addresses that can reach your instance. Can be IP address range in CIDR notation (e.g. for any source use 0.0.0.0/0)
+    Type: String
+    Default: 0.0.0.0/0
+    AllowedPattern: '^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$'
+    ConstraintDescription: Only CIDR notation is allowed i.e. X.X.X.X/X
+  KeyName:
+    Description: The EC2 Key Pair to allow SSH access to the instances created by this stack
+    Type: AWS::EC2::KeyPair::KeyName
+    MinLength: 1
+    ConstraintDescription: Must be the name of an existing EC2 KeyPair
+  InfinityToken:
+    Description: 'Token can be obtained by logging in to Infinity Portal "https://portal.checkpoint.com/" -> INFINITY POLICY -> CLOUD -> Profiles'
+    Type: String
+    AllowedPattern: '^cp-(([a-z0-9A-Z-]{72,72})|([a-z0-9A-Z-]{75,75}))$'
+    ConstraintDescription: Token should begin with 'cp-' and must be 75 or 78 characters long
+    NoEcho: true
+  EnableInstanceConnect:
+    Description: Enable SSH connection over AWS web console
+    Type: String
+    Default: false
+    AllowedValues:
+      - true
+      - false
+  GatewayPasswordHash:
+    Description: User is set to 'admin' (use command "openssl passwd -6 PASSWORD" to get the password's hash)
+    Type: String
+    Default: ''
+    AllowedPattern: '^[\$\./a-zA-Z0-9]*$'
+    NoEcho: true
+  FogAddress:
+    Type: String
+    Default: ''
+  AdminEmail:
+    Description: An email address to notify about scaling events
+    Type: String
+    Default: ''
+    AllowedPattern: '^(([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?))?$'
+    ConstraintDescription: Must be a valid email address
+  GatewayInstanceType:
+    Type: String
+    Default: c5.xlarge
+    AllowedValues:
+      - c5.large
+      - c5.xlarge
+      - c5.2xlarge
+      - c5.4xlarge
+      - c5.9xlarge
+      - c5.18xlarge
+      - m5.large
+      - m5.xlarge
+      - m5.2xlarge
+      - m5.4xlarge
+      - m5.8xlarge
+      - m5.12xlarge
+    ConstraintDescription: Must be a valid EC2 instance type
+  LoadBalancerScheme:
+    Description: Choose whether you want an internal or external load balancer
+    Type: String
+    Default: external
+    AllowedValues:
+      - external
+      - internal
+  VolumeEncryption:
+    Description: Encrypt instances volume with default AWS KMS key
+    Type: String
+    Default: false
+    AllowedValues:
+      - true
+      - false
+  LoadBalancerType:
+    Type: String
+    Default: network
+    AllowedValues:
+      - network
+      - application
+  GatewaysMinSize:
+    Type: Number
+    Default: 2
+    MinValue: 1
+  GatewaysMaxSize:
+    Type: Number
+    Default: 10
+    MinValue: 1
+  GatewayBootstrapScript:
+    Description: An optional script with semicolon (;) separated commands to run on the initial boot
+    Type: String
+    Default: ''
+    NoEcho: true
+  Certificates:
+    Description: When using HTTPS certificates, provide both certficate and private key ARNs.
+    Type: String
+    Default: HTTP
+    AllowedValues:
+      - HTTP
+      - HTTPS
+  FirstCertificateArn:
+    Description: Certificate ARN can be obtained from the AWS Certificate Manager
+    Type: String
+    Default: ''
+    AllowedPattern: '^$|(arn:[\w+=\/,.@-]+:[\w+=\/,.@-]+:[\w+=\/,.@-]*:[0-9]+:[\w+=,.@-]+(\/[\w+=,.@-]+)*)'
+    ConstraintDescription: Must be a valid Amazon Resource Name (ARN)
+  FirstPrivateKeyArn:
+    Description: Secret ARN can be obtained from the AWS Secrets Manager
+    Type: String
+    Default: ''
+    AllowedPattern: '^$|(arn:[\w+=\/,.@-]+:[\w+=\/,.@-]+:[\w+=\/,.@-]*:[0-9]+:[\w+=,.@-]+:[\w+=,.@-]+)'
+    ConstraintDescription: Must be a valid Amazon Resource Name (ARN)
+  SecondCertificateArn:
+    Description: Certificate ARN can be obtained from the AWS Certificate Manager
+    Type: String
+    Default: ''
+    AllowedPattern: '^$|(arn:[\w+=\/,.@-]+:[\w+=\/,.@-]+:[\w+=\/,.@-]*:[0-9]+:[\w+=,.@-]+(\/[\w+=,.@-]+)*)'
+    ConstraintDescription: Must be a valid Amazon Resource Name (ARN)
+  SecondPrivateKeyArn:
+    Description: Secret ARN can be obtained from the AWS Secrets Manager
+    Type: String
+    Default: ''
+    AllowedPattern: '^$|(arn:[\w+=\/,.@-]+:[\w+=\/,.@-]+:[\w+=\/,.@-]*:[0-9]+:[\w+=,.@-]+:[\w+=,.@-]+)'
+    ConstraintDescription: Must be a valid Amazon Resource Name (ARN)
+Conditions:
+  ProvidedAdminEmail: !Not [!Equals [!Ref AdminEmail, '']]
+  IsHttps: !Not [!Equals [!Ref Certificates, HTTP]]
+  IsSecondCertArn: !Not [!Equals [!Ref SecondCertificateArn, '']]
+  IsNLB: !Equals [!Ref LoadBalancerType, 'network']
+  IsNLBAndHttps: !And [!Condition IsNLB, !Condition IsHttps]
+  IsALB: !Equals [!Ref LoadBalancerType, 'application']
+  IsALBAndHttps: !And [!Condition IsALB, !Condition IsHttps]
+  IsALBAndSecondCert: !And [!Condition IsALBAndHttps, !Condition IsSecondCertArn]
+  IsInternalLoadBalancer: !Equals [!Ref LoadBalancerScheme, internal]
+  ProvideUSFogAddress: !And [!Equals [!Ref FogAddress, ''], !Equals [!Select [0, !Split ['cp-us-', !Ref InfinityToken]], '']]
+Rules:
+  NoHttpsCertificates:
+    RuleCondition:
+      Fn::Equals: [!Ref Certificates, HTTP]
+    Assertions:
+      - Assert:
+          Fn::Equals: [!Ref FirstCertificateArn, '']
+        AssertDescription: "Certificates and secrets arn should be only provided when using HTTPS certificates"
+      - Assert:
+          Fn::Equals: [!Ref FirstPrivateKeyArn, '']
+        AssertDescription: "Certificates and secrets arn should be only provided when using HTTPS certificates"
+      - Assert:
+          Fn::Equals: [!Ref SecondCertificateArn, '']
+        AssertDescription: "Certificates and secrets arn should be only provided when using HTTPS certificates"
+      - Assert:
+          Fn::Equals: [!Ref SecondPrivateKeyArn, '']
+        AssertDescription: "Certificates and secrets arn should be only provided when using HTTPS certificates"
+  MandatoryCertificateArn:
+    RuleCondition:
+      Fn::Not: [!Equals [!Ref Certificates, HTTP]]
+    Assertions:
+      - Assert:
+          Fn::Not: [!Equals [!Ref FirstCertificateArn, '']]
+        AssertDescription: "Please provide a certificate arn"
+  MandatoryPrivateKeyArn:
+    RuleCondition:
+      Fn::Not: [!Equals [!Ref Certificates, HTTP]]
+    Assertions:
+      - Assert:
+          Fn::Not: [!Equals [!Ref FirstPrivateKeyArn, '']]
+        AssertDescription: "Please provide a secret arn"
+Resources:
+  AMI:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/waap/waap-amis.yaml
+  NotificationTopic:
+    Type: AWS::SNS::Topic
+    Condition: ProvidedAdminEmail
+    Properties:
+      Subscription:
+        - Endpoint: !Ref AdminEmail
+          Protocol: email
+  NetworkLoadBalancer:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Condition: IsNLB
+    Properties:
+      IpAddressType: ipv4
+      Type: !Ref LoadBalancerType
+      Scheme: !If [IsInternalLoadBalancer, internal, internet-facing]
+      Subnets: !Ref GatewaysSubnets
+      LoadBalancerAttributes:
+        - Key: load_balancing.cross_zone.enabled
+          Value: 'false'
+  NLBTargetGroup80:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Condition: IsNLB
+    Properties:
+      VpcId: !Ref VPC
+      Protocol: TCP
+      Port: 80
+      TargetType: instance
+      HealthCheckProtocol: TCP
+      HealthCheckPort: '8117'
+      HealthyThresholdCount: 3
+      UnhealthyThresholdCount: 3
+      HealthCheckIntervalSeconds: 10
+      TargetGroupAttributes:
+        - Key: deregistration_delay.connection_termination.enabled
+          Value: 'true'
+        - Key: proxy_protocol_v2.enabled
+          Value: 'false'
+        - Key: preserve_client_ip.enabled
+          Value: 'true'
+        - Key: stickiness.enabled
+          Value: 'true'
+        - Key: stickiness.type
+          Value: source_ip
+  NLBListener80:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Condition: IsNLB
+    Properties:
+      DefaultActions:
+        - Type: forward
+          TargetGroupArn: !Ref NLBTargetGroup80
+      LoadBalancerArn: !Ref NetworkLoadBalancer
+      Protocol: TCP
+      Port: 80
+  NLBTargetGroup443:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Condition: IsNLBAndHttps
+    Properties:
+      VpcId: !Ref VPC
+      Protocol: TCP
+      Port: 443
+      TargetType: instance
+      HealthCheckProtocol: TCP
+      HealthCheckPort: '8117'
+      HealthyThresholdCount: 3
+      UnhealthyThresholdCount: 3
+      HealthCheckIntervalSeconds: 10
+      TargetGroupAttributes:
+        - Key: deregistration_delay.connection_termination.enabled
+          Value: 'true'
+        - Key: proxy_protocol_v2.enabled
+          Value: 'false'
+        - Key: preserve_client_ip.enabled
+          Value: 'true'
+        - Key: stickiness.enabled
+          Value: 'true'
+        - Key: stickiness.type
+          Value: source_ip
+  NLBListener443:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Condition: IsNLBAndHttps
+    Properties:
+      DefaultActions:
+        - Type: forward
+          TargetGroupArn: !Ref NLBTargetGroup443
+      LoadBalancerArn: !Ref NetworkLoadBalancer
+      Protocol: TCP
+      Port: 443
+  ApplicationLoadBalancer:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Condition: IsALB
+    Properties:
+      IpAddressType: ipv4
+      Type: !Ref LoadBalancerType
+      Scheme: !If [IsInternalLoadBalancer, internal, internet-facing]
+      Subnets: !Ref GatewaysSubnets
+      SecurityGroups:
+        - !Ref ALBSecurityGroup
+      LoadBalancerAttributes:
+        - Key: routing.http.xff_client_port.enabled
+          Value: 'true'
+        - Key: routing.http2.enabled
+          Value: 'true'
+        - Key: routing.http.drop_invalid_header_fields.enabled
+          Value: 'false'
+        - Key: routing.http.x_amzn_tls_version_and_cipher_suite.enabled
+          Value: 'false'
+        - Key: waf.fail_open.enabled
+          Value: 'false'
+        - Key: idle_timeout.timeout_seconds
+          Value: '60'
+        - Key: routing.http.desync_mitigation_mode
+          Value: defensive
+  ALBTargetGroup80:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Condition: IsALB
+    Properties:
+      VpcId: !Ref VPC
+      Protocol: HTTP
+      Port: 80
+      TargetType: instance
+      HealthCheckProtocol: HTTP
+      HealthCheckPort: '8117'
+      HealthyThresholdCount: 3
+      UnhealthyThresholdCount: 3
+      HealthCheckIntervalSeconds: 10
+      TargetGroupAttributes:
+        - Key: stickiness.enabled
+          Value: 'true'
+        - Key: stickiness.type
+          Value: lb_cookie
+  ALBListener80:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Condition: IsALB
+    Properties:
+      DefaultActions:
+        - Type: forward
+          TargetGroupArn: !Ref ALBTargetGroup80
+      LoadBalancerArn: !Ref ApplicationLoadBalancer
+      Protocol: HTTP
+      Port: 80
+  ALBTargetGroup443:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Condition: IsALBAndHttps
+    Properties:
+      VpcId: !Ref VPC
+      Protocol: HTTPS
+      Port: 443
+      TargetType: instance
+      HealthCheckProtocol: HTTP
+      HealthCheckPort: '8117'
+      HealthyThresholdCount: 3
+      UnhealthyThresholdCount: 3
+      HealthCheckIntervalSeconds: 10
+      TargetGroupAttributes:
+        - Key: stickiness.enabled
+          Value: 'true'
+        - Key: stickiness.type
+          Value: lb_cookie
+  ALBListener443:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Condition: IsALBAndHttps
+    Properties:
+      DefaultActions:
+        - Type: forward
+          TargetGroupArn: !Ref ALBTargetGroup443
+      LoadBalancerArn: !Ref ApplicationLoadBalancer
+      Protocol: HTTPS
+      Port: 443
+      Certificates:
+        - CertificateArn: !Ref FirstCertificateArn
+      SslPolicy: ELBSecurityPolicy-TLS-1-2-Ext-2018-06
+  ALBListener443SecondCertificate:
+    Type: AWS::ElasticLoadBalancingV2::ListenerCertificate
+    Condition: IsALBAndSecondCert
+    Properties:
+      Certificates:
+        - CertificateArn: !Ref SecondCertificateArn
+      ListenerArn: !Ref ALBListener443
+  ALBSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Condition: IsALB
+    Properties:
+      Tags:
+        - Key: Name
+          Value: !Join ['-', [!Ref 'AWS::StackName', ALBSecurityGroup]]
+      GroupDescription: ALB security group
+      VpcId: !Ref VPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: !Ref InboundSources
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          CidrIp: !Ref InboundSources
+  InstancesSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      Tags:
+        - Key: Name
+          Value: !Join ['-', [!Ref 'AWS::StackName', InstanceSecurityGroup]]
+      GroupDescription: Instance security group
+      VpcId: !Ref VPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: !Ref InboundSources
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          CidrIp: !Ref InboundSources
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: !Ref InboundSources
+        - IpProtocol: tcp
+          FromPort: 30443
+          ToPort: 30443
+          CidrIp: !Ref InboundSources
+        - IpProtocol: tcp
+          FromPort: 8117
+          ToPort: 8117
+          CidrIp: 0.0.0.0/0
+  GatewayGroup:
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      AutoScalingGroupName: !Ref AsgName
+      VPCZoneIdentifier: !Ref GatewaysSubnets
+      LaunchConfigurationName: !Ref GatewayLaunchConfig
+      MinSize: !Ref GatewaysMinSize
+      MaxSize: !Ref GatewaysMaxSize
+      TargetGroupARNs:
+        - !If [IsALB, !Ref ALBTargetGroup80, !Ref NLBTargetGroup80]
+        - !If [IsALBAndHttps, !Ref ALBTargetGroup443, !If [IsNLBAndHttps, !Ref NLBTargetGroup443, !Ref 'AWS::NoValue']]
+      HealthCheckGracePeriod: 960
+      HealthCheckType: ELB
+      NotificationConfiguration: !If
+        - ProvidedAdminEmail
+        - TopicARN: !Ref NotificationTopic
+          NotificationTypes:
+            - autoscaling:EC2_INSTANCE_LAUNCH
+            - autoscaling:EC2_INSTANCE_LAUNCH_ERROR
+            - autoscaling:EC2_INSTANCE_TERMINATE
+            - autoscaling:EC2_INSTANCE_TERMINATE_ERROR
+        - !Ref 'AWS::NoValue'
+      Tags:
+        - Key: Name
+          Value: !Join ['-', [!Ref AsgName, instance]]
+          PropagateAtLaunch: true
+  GatewayLaunchConfig:
+    Type: AWS::AutoScaling::LaunchConfiguration
+    Properties:
+      AssociatePublicIpAddress: true
+      KeyName: !Ref KeyName
+      ImageId: !GetAtt AMI.Outputs.ImageId
+      SecurityGroups:
+        - !Ref InstancesSecurityGroup
+      InstanceType: !Ref GatewayInstanceType
+      BlockDeviceMappings:
+        - DeviceName: '/dev/xvda'
+          Ebs:
+            Encrypted: !Ref VolumeEncryption
+            VolumeType: gp2
+            VolumeSize: 100
+      IamInstanceProfile: !If [IsHttps, !Ref InstanceProfile, !Ref 'AWS::NoValue']
+      UserData:
+        'Fn::Base64':
+          !Join
+          - |+
+
+          - - '#!/bin/bash'
+            - 'set -e'
+            - 'logfile=/var/log/aws-user-data.log'
+            - '> ${logfile}'
+            - 'exec 1>>${logfile} 2>>${logfile}'
+            - 'run_clish_command() {'
+            - '    echo "Locking database"'
+            - '    clish -c "lock database override" -s || true'
+            - '    echo "$1"'
+            - '    clish -c "$2" -s'
+            - '    return $?'
+            - '}'
+            - 'run_clish_command_with_retry() {'
+            - '    local retry=0'
+            - '    local max_retries=3'
+            - '    local retry_interval=1'
+            - '    until [ ${retry} -ge ${max_retries} ]'
+            - '    do'
+            - '        run_clish_command "$1" "$2" && break'
+            - '        retry=$[${retry}+1]'
+            - '        echo "Retrying [${retry}/${max_retries}] in ${retry_interval}s"'
+            - '        sleep ${retry_interval}'
+            - '    done'
+            - '    if [ ${retry} -ge ${max_retries} ]; then'
+            - '        echo "Failed after ${max_retries} attempts!"'
+            - '    fi'
+            - '}'
+            - 'echo -e "\nStarting user-data\n"'
+            - 'echo "Setting up parameters"'
+            - !Sub 'pwd_hash=''${GatewayPasswordHash}'' ; eic=${EnableInstanceConnect}'
+            - !Sub ['fog=${Fog}', {Fog: !If [ProvideUSFogAddress, 'https://inext-agents-us.cloud.ngen.checkpoint.com', !Ref FogAddress]}]
+            - 'hostname=`curl_cli --connect-timeout 10 http://169.254.169.254/latest/meta-data/instance-id`'
+            - !Join ['', ['token="$(echo ', 'Fn::Base64': !Ref InfinityToken, ' | base64 -d)"']]
+            - !Join ['', ['bootstrap="$(echo ', 'Fn::Base64': !Ref GatewayBootstrapScript, ' | base64 -d)"']]
+            - 'echo "Updating cloud-version file"'
+            - 'template="waap autoscale"'
+            - 'echo "Updating cloud-version file"'
+            - 'echo "template_name: ${template}" >> /etc/cloud-version'
+            - 'echo "template_version: 20211114" >> /etc/cloud-version'
+            - 'if [[ -z ${pwd_hash} ]]; then'
+            - '    echo "Generating random password hash"'
+            - '    pwd_hash="$(dd if=/dev/urandom count=1 2>/dev/null | sha1sum | cut -c -28)"'
+            - 'fi'
+            - 'run_clish_command_with_retry "Setting admin shell to /bin/bash" "set user admin shell /bin/bash"'
+            - 'if [[ -n ${hostname} ]]; then'
+            - '   run_clish_command_with_retry "Setting hostname to ${hostname}" "set hostname ${hostname}"'
+            - 'fi'
+            - 'sic=""'
+            - 'echo "Starting First Time Wizard"'
+            - 'blink_config -s "gateway_cluster_member=false&ftw_sic_key=${sic}&upload_info=false&download_info=false&admin_hash=${pwd_hash}"'
+            - 'run_clish_command_with_retry "Setting admin password" "set user admin password-hash ${pwd_hash}"'
+            - 'if ${eic}; then'
+            - '    echo "Enabling ec2 instance connect"'
+            - '    if [[ -d "/etc/ec2-instance-connect" ]]; then'
+            - '        ec2-instance-connect-config on'
+            - '    else'
+            - '        echo "Could not enable eic, /etc/ec2-instance-connect was not found"'
+            - '    fi'
+            - 'fi'
+            - 'if [[ -n ${bootstrap} ]]; then'
+            - '    echo "Invoking bootstrap script"'
+            - '    eval ${bootstrap}'
+            - 'fi'
+            - 'echo -e "\nRun the following command: cpnano -s\n" >> /etc/motd'
+            - 'echo "Running WAAP init"'
+            - '/opt/CPWAAP/init_waap.sh'
+            - 'echo "Start the WAAP agent"'
+            - 'echo "Using fog address: ${fog}"'
+            - 'install_command=""'
+            - 'if [[ -n ${fog} ]]; then'
+            - '    install_command="/opt/CPWAAP/agent/cp-nano-egg --install --token ${token} --fog ${fog}"'
+            - 'else'
+            - '    install_command="/opt/CPWAAP/agent/cp-nano-egg --install --token ${token}"'
+            - 'fi'
+            - 'script_name=zzzz_install_appsec'
+            - 'launch_on_reboot=/etc/init.d/${script_name}'
+            - 'cat <<EOF > ${launch_on_reboot}'
+            - '#!/bin/sh'
+            - '# chkconfig: 2345 99 99'
+            - '# description: AppSec agent download and installation'
+            - 'logfile=/var/log/aws-user-data.log'
+            - 'exec 1>>${logfile} 2>>${logfile}'
+            - '. /opt/CPshared/5.0/tmp/.CPprofile.sh'
+            - '${install_command}'
+            - 'echo -e "\nRun the following command: cpnano -s\n" >> /etc/motd'
+            - 'chkconfig --del ${launch_on_reboot}'
+            - 'shred -zun1 ${launch_on_reboot}'
+            - 'EOF'
+            - 'chmod u+rwx ${launch_on_reboot}'
+            - 'chkconfig --add ${launch_on_reboot}'
+            - 'reboot'
+  GatewayScaleUpPolicy:
+    Type: AWS::AutoScaling::ScalingPolicy
+    Properties:
+      PolicyType: SimpleScaling
+      AdjustmentType: ChangeInCapacity
+      AutoScalingGroupName: !Ref GatewayGroup
+      Cooldown: '300'
+      ScalingAdjustment: 1
+  GatewayScaleDownPolicy:
+    Type: AWS::AutoScaling::ScalingPolicy
+    Properties:
+      PolicyType: SimpleScaling
+      AdjustmentType: ChangeInCapacity
+      AutoScalingGroupName: !Ref GatewayGroup
+      Cooldown: '300'
+      ScalingAdjustment: -1
+  CPUAlarmHigh:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmDescription: Scale-up if CPU > 80% for 10 minutes
+      MetricName: CPUUtilization
+      Namespace: AWS/EC2
+      Statistic: Average
+      Period: 300
+      EvaluationPeriods: 2
+      Threshold: 80
+      AlarmActions:
+        - !Ref GatewayScaleUpPolicy
+      Dimensions:
+        - Name: AutoScalingGroupName
+          Value: !Ref GatewayGroup
+      ComparisonOperator: GreaterThanThreshold
+  CPUAlarmLow:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmDescription: Scale-down if CPU < 60% for 10 minutes
+      MetricName: CPUUtilization
+      Namespace: AWS/EC2
+      Statistic: Average
+      Period: 300
+      EvaluationPeriods: 2
+      Threshold: 60
+      AlarmActions:
+        - !Ref GatewayScaleDownPolicy
+      Dimensions:
+        - Name: AutoScalingGroupName
+          Value: !Ref GatewayGroup
+      ComparisonOperator: LessThanThreshold
+  IamRole:
+    Type: AWS::IAM::Role
+    Condition: IsHttps
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+            - ec2.amazonaws.com.cn
+          Action:
+          - sts:AssumeRole
+      Path: "/"
+  GetSecretsPolicy:
+    Type: AWS::IAM::Policy
+    Condition: IsHttps
+    Properties:
+      PolicyName: !Join ['-', [!Ref 'AWS::StackName', GetSecretsPolicy]]
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Action:
+            - 'secretsmanager:DescribeSecret'
+            - 'secretsmanager:GetSecretValue'
+          Resource:
+            - !Ref FirstPrivateKeyArn
+            - !If [IsSecondCertArn, !Ref SecondPrivateKeyArn, !Ref 'AWS::NoValue']
+      Roles:
+      - !Ref IamRole
+  ListSecretsPolicy:
+    Type: AWS::IAM::Policy
+    Condition: IsHttps
+    Properties:
+      PolicyName: !Join ['-', [!Ref 'AWS::StackName', ListSecretsPolicy]]
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Action:
+            - 'secretsmanager:ListSecrets'
+          Resource: "*"
+      Roles:
+      - !Ref IamRole
+  GetCertificatesPolicy:
+    Type: AWS::IAM::Policy
+    Condition: IsHttps
+    Properties:
+      PolicyName: !Join ['-', [!Ref 'AWS::StackName', GetCertificatesPolicy]]
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Action:
+            - 'acm:DescribeCertificate'
+            - 'acm:GetCertificate'
+          Resource:
+            - !Ref FirstCertificateArn
+            - !If [IsSecondCertArn, !Ref SecondCertificateArn, !Ref 'AWS::NoValue']
+      Roles:
+      - !Ref IamRole
+  ListCertificatesPolicy:
+    Type: AWS::IAM::Policy
+    Condition: IsHttps
+    Properties:
+      PolicyName: !Join ['-', [!Ref 'AWS::StackName', ListCertificatesPolicy]]
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Action:
+            - 'acm:ListCertificates'
+          Resource: "*"
+      Roles:
+      - !Ref IamRole
+  InstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Condition: IsHttps
+    Properties:
+      Path: /
+      Roles:
+        - !Ref IamRole
+Outputs:
+  URL:
+    Description: The URL of the Elastic Load Balancer
+    Value: !If [IsALB, !GetAtt ApplicationLoadBalancer.DNSName, !GetAtt NetworkLoadBalancer.DNSName]
