@@ -4,18 +4,18 @@ Parameters:
   Version:
     Description: Security Gateway version
     Type: String
-    Default: R80.40-BYOL-GW
+    Default: R80.40-GWLB-GW
     AllowedValues:
-    - R80.40-BYOL-GW
+    - R80.40-GWLB-GW
 Mappings:
   ConverterMap:
-    R80.40-BYOL-GW:
+    R80.40-GWLB-GW:
       Value: R8040BYOLGW
   RegionMap:
     cn-northwest-1:
-      R8040BYOLGW: ami-0ac3de5e02318dbb9
+      R8040BYOLGW: ami-0eeb50ab0f1fe55ef
     cn-north-1:
-      R8040BYOLGW: ami-03e84cc92d6d806d9
+      R8040BYOLGW: ami-0deba415b41b8c85a
 Resources:
   DummyHandle:
     Type: AWS::CloudFormation::WaitConditionHandle

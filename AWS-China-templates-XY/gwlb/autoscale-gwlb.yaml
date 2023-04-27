@@ -217,7 +217,7 @@ Parameters:
     Type: String
     Default: R81.20-BYOL
     AllowedValues:
-      - R80.40-BYOL
+      - R80.40-GWLB
       - R81.20-BYOL
   Shell:
     Description: Change the admin shell to enable advanced command line configuration.
@@ -305,7 +305,7 @@ Conditions:
   ProvidedTargetGroups: !Not [!Equals [!Ref GatewaysTargetGroups, '']]
   EnableCloudWatch: !Equals [!Ref CloudWatch, true]
   CreateELB: !Not [!Equals [!Ref ELBType, none]]
-  isR8040: !Or [!Equals [!Ref GatewayVersion,R80.40-BYOL], !Equals [!Ref GatewayVersion, R80.40-PAYG-NGTP], !Equals [!Ref GatewayVersion,R80.40-PAYG-NGTX]]
+  isR8040: !Or [!Equals [!Ref GatewayVersion,R80.40-GWLB], !Equals [!Ref GatewayVersion, R80.40-PAYG-NGTP], !Equals [!Ref GatewayVersion,R80.40-PAYG-NGTX]]
 Resources:
   ChkpGatewayRole:
     Type: AWS::IAM::Role
