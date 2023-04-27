@@ -434,6 +434,7 @@ Parameters:
     Default: R81.20-BYOL
     AllowedValues:
       - R81.20-BYOL
+      - R80.40-GWLB
   GatewayPasswordHash:
     Description: Admin user's password hash (use command "openssl passwd -6 PASSWORD" to get the PASSWORD's hash). (optional)
     Type: String
@@ -525,8 +526,8 @@ Parameters:
     Type: String
     Default: R81.20-BYOL
     AllowedValues:
-      - R80.40-GWLB
       - R81.20-BYOL
+      - R80.40-GWLB
   ManagementPasswordHash:
     Description: Admin user's password hash (use command "openssl passwd -6 PASSWORD" to get the PASSWORD's hash). (optional)
     Type: String
