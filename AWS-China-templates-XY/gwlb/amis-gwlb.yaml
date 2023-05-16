@@ -13,9 +13,9 @@ Mappings:
       Value: R8040BYOLGW
   RegionMap:
     cn-northwest-1:
-      R8040BYOLGW: ami-0eeb50ab0f1fe55ef
+      R8040BYOLGW: ami-03271fe043b221c12
     cn-north-1:
-      R8040BYOLGW: ami-0deba415b41b8c85a
+      R8040BYOLGW: ami-01cf4ad65da54bdc6
 Resources:
   DummyHandle:
     Type: AWS::CloudFormation::WaitConditionHandle
