@@ -13,10 +13,17 @@
       "type": "string",
       "allowedValues": [
         "R80.40 - Bring Your Own License",
+        "R80.40 - Pay As You Go (NGTP)",
+        "R80.40 - Pay As You Go (NGTX)",
         "R81 - Bring Your Own License",
+        "R81 - Pay As You Go (NGTP)",
+        "R81 - Pay As You Go (NGTX)",
         "R81.10 - Bring Your Own License",
-        "R81.20 - Bring Your Own License"
-
+        "R81.10 - Pay As You Go (NGTP)",
+        "R81.10 - Pay As You Go (NGTX)",
+        "R81.20 - Bring Your Own License",
+        "R81.20 - Pay As You Go (NGTP)",
+        "R81.20 - Pay As You Go (NGTX)"
       ],
       "defaultValue": "R81.10 - Bring Your Own License",
       "metadata": {
@@ -104,7 +111,7 @@
     },
     "adminShell": {
       "type": "string",
-      "defaultValue": "/bin/bash",
+      "defaultValue": "/etc/cli.sh",
       "allowedValues": [
         "/etc/cli.sh",
         "/bin/bash",
@@ -329,17 +336,32 @@
     "haPublicIPName": "[parameters('vmName')]",
     "offers": {
       "R80.40 - Bring Your Own License": "BYOL",
+      "R80.40 - Pay As You Go (NGTP)": "NGTP",
+      "R80.40 - Pay As You Go (NGTX)": "NGTX",
       "R81 - Bring Your Own License": "BYOL",
+      "R81 - Pay As You Go (NGTP)": "NGTP",
+      "R81 - Pay As You Go (NGTX)": "NGTX",
       "R81.10 - Bring Your Own License": "BYOL",
-      "R81.20 - Bring Your Own License": "BYOL"
+      "R81.10 - Pay As You Go (NGTP)": "NGTP",
+      "R81.10 - Pay As You Go (NGTX)": "NGTX",
+      "R81.20 - Bring Your Own License": "BYOL",
+      "R81.20 - Pay As You Go (NGTP)": "NGTP",
+      "R81.20 - Pay As You Go (NGTX)": "NGTX"
     },
     "offer": "[variables('offers')[parameters('cloudGuardVersion')]]",
     "osVersions": {
       "R80.40 - Bring Your Own License": "R8040",
+      "R80.40 - Pay As You Go (NGTP)": "R8040",
+      "R80.40 - Pay As You Go (NGTX)": "R8040",
       "R81 - Bring Your Own License": "R81",
+      "R81 - Pay As You Go (NGTP)": "R81",
+      "R81 - Pay As You Go (NGTX)": "R81",
       "R81.10 - Bring Your Own License": "R8110",
-      "R81.20 - Bring Your Own License": "R8120"
-
+      "R81.10 - Pay As You Go (NGTP)": "R8110",
+      "R81.10 - Pay As You Go (NGTX)": "R8110",
+      "R81.20 - Bring Your Own License": "R8120",
+      "R81.20 - Pay As You Go (NGTP)": "R8120",
+      "R81.20 - Pay As You Go (NGTX)": "R8120"
     },
     "osVersion": "[variables('osVersions')[parameters('cloudGuardVersion')]]",
     "isBlink": true,
@@ -349,7 +371,7 @@
     "diskSizeGB": "[add(parameters('additionalDiskSizeGB'), variables('diskSize100GB'))]",
     "customData": "[concat('#!/usr/bin/python3 /etc/cloud_config.py\n', '\n', 'installationType=\"', variables('installationType'), '\"', '\n', 'allowUploadDownload=\"', variables('allowUploadDownload'), '\"', '\n', 'osVersion=\"', variables('osVersion'), '\"', '\n', 'templateName=\"', variables('templateName'), '\"', '\n', 'isBlink=\"', variables('isBlink'), '\"', '\n', 'templateVersion=\"', variables('templateVersion'), '\"', '\n', 'bootstrapScript64=\"', variables('bootstrapScript64'), '\"', '\n', 'location=\"', variables('location'), '\"', '\n', 'sicKey=\"', variables('sicKey'), '\"', '\n', 'location=\"', variables('location'), '\"', '\n', 'tenantId=\"', subscription().tenantId, '\"', '\n', 'virtualNetwork=\"', parameters('virtualNetworkName'), '\"', '\n', 'clusterName=\"', parameters('vmName'), '\"', '\n', 'externalPrivateAddresses=\"', variables('externalPrivateAddresses')[2], '\"', '\n', 'customMetrics=\"', variables('customMetrics'), '\"', '\n', 'adminShell=\"', parameters('adminShell'), '\"', '\n')]",
     "imageOffer": "[concat('check-point-cg-', toLower(variables('osVersion')))]",
-    "imagePublisher": "sinoage",
+    "imagePublisher": "checkpoint",
     "imageReferenceBYOL": {
       "offer": "[variables('imageOffer')]",
       "publisher": "[variables('imagePublisher')]",
