@@ -188,7 +188,7 @@
             "osPlatform": "Linux",
             "imageReference": {
               "publisher": "sinoage",
-              "offer": "checkpoint-cloudguard-iaas",
+              "offer": "checkpoint-cloudguard--iaas",
               "sku": "cgi-gateway-r8040"
             },
             "count": 2
@@ -270,7 +270,7 @@
             "osPlatform": "Linux",
             "imageReference": {
               "publisher": "sinoage",
-              "offer": "checkpoint-cloudguard-iaas",
+              "offer": "checkpoint-cloudguard--iaas",
               "sku": "cgi-gateway-r8040"
             },
             "count": 2
@@ -352,7 +352,7 @@
             "osPlatform": "Linux",
             "imageReference": {
               "publisher": "sinoage",
-              "offer": "checkpoint-cloudguard-iaas",
+              "offer": "checkpoint-cloudguard--iaas",
               "sku": "cgi-gateway-r8040"
             },
             "count": 2
@@ -434,7 +434,7 @@
             "osPlatform": "Linux",
             "imageReference": {
               "publisher": "sinoage",
-              "offer": "checkpoint-cloudguard-iaas",
+              "offer": "checkpoint-cloudguard--iaas",
               "sku": "cgi-gateway-r81"
             },
             "count": 2
@@ -516,7 +516,7 @@
             "osPlatform": "Linux",
             "imageReference": {
               "publisher": "sinoage",
-              "offer": "checkpoint-cloudguard-iaas",
+              "offer": "checkpoint-cloudguard--iaas",
               "sku": "cgi-gateway-r81"
             },
             "count": 2
@@ -598,7 +598,7 @@
             "osPlatform": "Linux",
             "imageReference": {
               "publisher": "sinoage",
-              "offer": "checkpoint-cloudguard-iaas",
+              "offer": "checkpoint-cloudguard--iaas",
               "sku": "cgi-gateway-r81"
             },
             "count": 2
@@ -680,7 +680,7 @@
             "osPlatform": "Linux",
             "imageReference": {
               "publisher": "sinoage",
-              "offer": "checkpoint-cloudguard-iaas",
+              "offer": "checkpoint-cloudguard--iaas",
               "sku": "cgi-gateway-r8110"
             },
             "count": 2
@@ -762,7 +762,7 @@
             "osPlatform": "Linux",
             "imageReference": {
               "publisher": "sinoage",
-              "offer": "checkpoint-cloudguard-iaas",
+              "offer": "checkpoint-cloudguard--iaas",
               "sku": "cgi-gateway-r8110"
             },
             "count": 2
@@ -844,7 +844,7 @@
             "osPlatform": "Linux",
             "imageReference": {
               "publisher": "sinoage",
-              "offer": "checkpoint-cloudguard-iaas",
+              "offer": "checkpoint-cloudguard--iaas",
               "sku": "cgi-gateway-r8110"
             },
             "count": 2
@@ -926,7 +926,7 @@
             "osPlatform": "Linux",
             "imageReference": {
               "publisher": "sinoage",
-              "offer": "checkpoint-cloudguard-iaas",
+              "offer": "checkpoint-cloudguard--iaas",
               "sku": "cgi-gateway-r8120"
             },
             "count": 2
@@ -1008,7 +1008,7 @@
             "osPlatform": "Linux",
             "imageReference": {
               "publisher": "sinoage",
-              "offer": "checkpoint-cloudguard-iaas",
+              "offer": "checkpoint-cloudguard--iaas",
               "sku": "cgi-gateway-r8120"
             },
             "count": 2
@@ -1090,7 +1090,7 @@
             "osPlatform": "Linux",
             "imageReference": {
               "publisher": "sinoage",
-              "offer": "checkpoint-cloudguard-iaas",
+              "offer": "checkpoint-cloudguard--iaas",
               "sku": "cgi-gateway-r8120"
             },
             "count": 2
