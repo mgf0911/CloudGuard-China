@@ -281,7 +281,7 @@
     "_artifactsLocation": {
       "type": "string",
       "metadata": {
-        "description": "Use the following URI when deploying a custom template: https://raw.githubusercontent.com/CheckPointSW/CloudGuardIaaS/master/azure/templates/"
+        "description": "Use the following URI when deploying a custom template: https://azure.s3.cn-northwest-1.amazonaws.com.cn/"
       },
       "defaultValue": "[deployment().properties.templateLink.uri]"
     },
@@ -371,7 +371,7 @@
     "diskSizeGB": "[add(parameters('additionalDiskSizeGB'), variables('diskSize100GB'))]",
     "customData": "[concat('#!/usr/bin/python3 /etc/cloud_config.py\n', '\n', 'installationType=\"', variables('installationType'), '\"', '\n', 'allowUploadDownload=\"', variables('allowUploadDownload'), '\"', '\n', 'osVersion=\"', variables('osVersion'), '\"', '\n', 'templateName=\"', variables('templateName'), '\"', '\n', 'isBlink=\"', variables('isBlink'), '\"', '\n', 'templateVersion=\"', variables('templateVersion'), '\"', '\n', 'bootstrapScript64=\"', variables('bootstrapScript64'), '\"', '\n', 'location=\"', variables('location'), '\"', '\n', 'sicKey=\"', variables('sicKey'), '\"', '\n', 'location=\"', variables('location'), '\"', '\n', 'tenantId=\"', subscription().tenantId, '\"', '\n', 'virtualNetwork=\"', parameters('virtualNetworkName'), '\"', '\n', 'clusterName=\"', parameters('vmName'), '\"', '\n', 'externalPrivateAddresses=\"', variables('externalPrivateAddresses')[2], '\"', '\n', 'customMetrics=\"', variables('customMetrics'), '\"', '\n', 'adminShell=\"', parameters('adminShell'), '\"', '\n')]",
     "imageOffer": "[concat('check-point-cg-', toLower(variables('osVersion')))]",
-    "imagePublisher": "checkpoint",
+    "imagePublisher": "sinoage",
     "imageReferenceBYOL": {
       "offer": "[variables('imageOffer')]",
       "publisher": "[variables('imagePublisher')]",
@@ -566,7 +566,7 @@
       "properties": {
         "mode": "Incremental",
         "template": {
-          "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
           "contentVersion": "1.0.0.0",
           "resources": []
         }
