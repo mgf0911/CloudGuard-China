@@ -379,30 +379,30 @@
       "sku": "sg-byol",
       "version": "latest"
     },
-//    "imageReferenceNGTP": {
-//      "offer": "[variables('imageOffer')]",
-//      "publisher": "[variables('imagePublisher')]",
-//      "sku": "sg-ngtp",
-//      "version": "81.20.627"
-//    },
-//    "imageReferenceNGTP-V2": {
-//      "offer": "[variables('imageOffer')]",
-//      "publisher": "[variables('imagePublisher')]",
-//      "sku": "sg-ngtp-v2",
-//      "version": "81.20.627"
-//    },
-//    "imageReferenceNGTX": {
-//      "offer": "[variables('imageOffer')]",
-//      "publisher": "[variables('imagePublisher')]",
-//      "sku": "sg-ngtx",
-//      "version": "81.20.627"
-//    },
-//    "imageReferenceNGTX-V2": {
-//      "offer": "[variables('imageOffer')]",
-//      "publisher": "[variables('imagePublisher')]",
-//      "sku": "sg-ngtx-v2",
-//      "version": "latest"
-//    },
+    "imageReferenceNGTP": {
+      "offer": "[variables('imageOffer')]",
+      "publisher": "[variables('imagePublisher')]",
+      "sku": "sg-ngtp",
+      "version": "latest"
+    },
+    "imageReferenceNGTP-V2": {
+      "offer": "[variables('imageOffer')]",
+      "publisher": "[variables('imagePublisher')]",
+      "sku": "sg-ngtp-v2",
+      "version": "latest"
+    },
+    "imageReferenceNGTX": {
+      "offer": "[variables('imageOffer')]",
+      "publisher": "[variables('imagePublisher')]",
+      "sku": "sg-ngtx",
+      "version": "latest"
+    },
+    "imageReferenceNGTX-V2": {
+      "offer": "[variables('imageOffer')]",
+      "publisher": "[variables('imagePublisher')]",
+      "sku": "sg-ngtx-v2",
+      "version": "latest"
+    },
     "imageReferenceMarketplace": "[if(equals(variables('offer'), 'BYOL'), variables('imageReferenceBYOL'), if(equals(variables('offer'), 'NGTP'), variables('imageReferenceNGTP'), if(equals(variables('offer'), 'NGTP-V2'), variables('imageReferenceNGTP-V2'), if(equals(variables('offer'), 'NGTX'), variables('imageReferenceNGTX'), if(equals(variables('offer'), 'NGTX-V2'), variables('imageReferenceNGTX-V2'), json('null'))))))]",
     "customImage": "customImage",
     "imageReferenceCustomUri": {
