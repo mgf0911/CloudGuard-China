@@ -541,7 +541,7 @@
       "tags": "[ if(contains(parameters('tagsByResource'), 'Microsoft.Network/publicIPPrefixes'), parameters('tagsByResource')['Microsoft.Network/publicIPPrefixes'], json('{}')) ]"
     },
     {
-      "apiVersion": "2020-06-01",
+     "apiVersion": "2020-06-01",
       "name": "pid-6f13b00a-7546-4ab2-be9f-c66815cc6c8b-partnercenter",
       "type": "Microsoft.Resources/deployments",
       "properties": {
