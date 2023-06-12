@@ -187,7 +187,7 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint",
+              "publisher": "sinoage",
               "offer": "check-point-cg-r8040",
               "sku": "sg-byol"
             },
@@ -269,7 +269,7 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint",
+              "publisher": "sinoage",
               "offer": "check-point-cg-r8040",
               "sku": "sg-ngtp"
             },
@@ -351,7 +351,7 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint",
+              "publisher": "sinoage",
               "offer": "check-point-cg-r8040",
               "sku": "sg-ngtx"
             },
@@ -433,7 +433,7 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint",
+              "publisher": "sinoage",
               "offer": "check-point-cg-r81",
               "sku": "sg-byol"
             },
@@ -515,7 +515,7 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint",
+              "publisher": "sinoage",
               "offer": "check-point-cg-r81",
               "sku": "sg-ngtp"
             },
@@ -597,7 +597,7 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint",
+              "publisher": "sinoage",
               "offer": "check-point-cg-r81",
               "sku": "sg-ngtx"
             },
@@ -679,7 +679,7 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint",
+              "publisher": "sinoage",
               "offer": "check-point-cg-r8110",
               "sku": "sg-byol"
             },
@@ -761,7 +761,7 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint",
+              "publisher": "sinoage",
               "offer": "check-point-cg-r8110",
               "sku": "sg-ngtp"
             },
@@ -843,7 +843,7 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint",
+              "publisher": "sinoage",
               "offer": "check-point-cg-r8110",
               "sku": "sg-ngtx"
             },
@@ -925,7 +925,7 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint",
+              "publisher": "sinoage",
               "offer": "check-point-cg-r8120",
               "sku": "sg-byol"
             },
@@ -1007,7 +1007,7 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint",
+              "publisher": "sinoage",
               "offer": "check-point-cg-r8120",
               "sku": "sg-ngtp"
             },
@@ -1089,7 +1089,7 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint",
+              "publisher": "sinoage",
               "offer": "check-point-cg-r8120",
               "sku": "sg-ngtx"
             },
@@ -1099,7 +1099,7 @@
             "name": "adminShell",
             "type": "Microsoft.Common.DropDown",
             "label": "Default shell for the admin user",
-            "defaultValue": "/etc/cli.sh",
+            "defaultValue": "/bin/bash",
             "toolTip": "The default shell for the admin user",
             "constraints": {
               "allowedValues": [
@@ -1166,7 +1166,7 @@
             "label": "Availability options",
             "defaultValue": "Availability Set",
             "toolTip": "Use replicated Cluster VMs in Availability Set or Availability Zones. Note that the load balancers and their IP addresses will be zone redundant in any case.",
-            "visible": "[contains(' australiaeast brazilsouth canadacentral centralus eastasia eastus eastus2 francecentral germanywestcentral japaneast koreacentral northeurope norwayeast southafricanorth southcentralus southeastasia swedencentral uksouth usgovvirginia westeurope westus2 westus3 switzerlandnorth qatarcentral centralindia uaenorth ', concat(' ', location(), ' '))]",
+            "visible": "[contains(' chinaeast chinaeast2 chinaeast3 chinanorth chinanorth2 chinanorth3 ', concat(' ', location(), ' '))]",
             "constraints": {
               "allowedValues": [
                 {
