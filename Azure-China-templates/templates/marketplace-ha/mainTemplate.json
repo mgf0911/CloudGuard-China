@@ -13,17 +13,17 @@
       "type": "string",
       "allowedValues": [
         "R80.40 - Bring Your Own License",
-//        "R80.40 - Pay As You Go (NGTP)",
-//        "R80.40 - Pay As You Go (NGTX)",
+        "R80.40 - Pay As You Go (NGTP)",
+        "R80.40 - Pay As You Go (NGTX)",
         "R81 - Bring Your Own License",
-//        "R81 - Pay As You Go (NGTP)",
-//        "R81 - Pay As You Go (NGTX)",
+        "R81 - Pay As You Go (NGTP)",
+        "R81 - Pay As You Go (NGTX)",
         "R81.10 - Bring Your Own License",
-//       "R81.10 - Pay As You Go (NGTP)",
-//       "R81.10 - Pay As You Go (NGTX)",
-        "R81.20 - Bring Your Own License"
-//       "R81.20 - Pay As You Go (NGTP)",
-//       "R81.20 - Pay As You Go (NGTX)"
+        "R81.10 - Pay As You Go (NGTP)",
+        "R81.10 - Pay As You Go (NGTX)",
+        "R81.20 - Bring Your Own License",
+        "R81.20 - Pay As You Go (NGTP)",
+        "R81.20 - Pay As You Go (NGTX)"
       ],
       "defaultValue": "R81.10 - Bring Your Own License",
       "metadata": {
@@ -111,7 +111,7 @@
     },
     "adminShell": {
       "type": "string",
-      "defaultValue": "/bin/bash",
+      "defaultValue": "/etc/cli.sh",
       "allowedValues": [
         "/etc/cli.sh",
         "/bin/bash",
@@ -281,10 +281,9 @@
     "_artifactsLocation": {
       "type": "string",
       "metadata": {
-        "description": "Use the following URI when deploying a custom template: https://azure.s3.cn-northwest-1.amazonaws.com.cn/"
+        "description": "Use the following URI when deploying a custom template: https://raw.githubusercontent.com/CheckPointSW/CloudGuardIaaS/master/azure/templates/"
       },
-//      "defaultValue": "[deployment().properties.templateLink.uri]"
-      "defaultValue": "https://azure.s3.cn-northwest-1.amazonaws.com.cn/"
+      "defaultValue": "[deployment().properties.templateLink.uri]"
     },
     "_artifactsLocationSasToken": {
       "type": "securestring",
@@ -372,7 +371,7 @@
     "diskSizeGB": "[add(parameters('additionalDiskSizeGB'), variables('diskSize100GB'))]",
     "customData": "[concat('#!/usr/bin/python3 /etc/cloud_config.py\n', '\n', 'installationType=\"', variables('installationType'), '\"', '\n', 'allowUploadDownload=\"', variables('allowUploadDownload'), '\"', '\n', 'osVersion=\"', variables('osVersion'), '\"', '\n', 'templateName=\"', variables('templateName'), '\"', '\n', 'isBlink=\"', variables('isBlink'), '\"', '\n', 'templateVersion=\"', variables('templateVersion'), '\"', '\n', 'bootstrapScript64=\"', variables('bootstrapScript64'), '\"', '\n', 'location=\"', variables('location'), '\"', '\n', 'sicKey=\"', variables('sicKey'), '\"', '\n', 'location=\"', variables('location'), '\"', '\n', 'tenantId=\"', subscription().tenantId, '\"', '\n', 'virtualNetwork=\"', parameters('virtualNetworkName'), '\"', '\n', 'clusterName=\"', parameters('vmName'), '\"', '\n', 'externalPrivateAddresses=\"', variables('externalPrivateAddresses')[2], '\"', '\n', 'customMetrics=\"', variables('customMetrics'), '\"', '\n', 'adminShell=\"', parameters('adminShell'), '\"', '\n')]",
     "imageOffer": "[concat('check-point-cg-', toLower(variables('osVersion')))]",
-    "imagePublisher": "servinet",
+    "imagePublisher": "checkpoint",
     "imageReferenceBYOL": {
       "offer": "[variables('imageOffer')]",
       "publisher": "[variables('imagePublisher')]",
@@ -491,12 +490,32 @@
     "installationType": "cluster",
     "internalLBPrivateIPAddress": "[parameters('Subnet2StartAddress')]",
     "availabilityZonesLocations": [
-      "chinaeast",
-      "chinaeast2",
-      "chinaeast3",
-      "chinanorth",
-      "chinanorth2",
-      "chinanorth3"
+      "brazilsouth",
+      "canadacentral",
+      "centralus",
+      "eastus",
+      "eastus2",
+      "southcentralus",
+      "usgovvirginia",
+      "westus2",
+      "westus3",
+      "francecentral",
+      "germanywestcentral",
+      "northeurope",
+      "norwayeast",
+      "uksouth",
+      "westeurope",
+      "swedencentral",
+      "switzerlandnorth",
+      "qatarcentral",
+      "uaenorth",
+      "southafricanorth",
+      "australiaeast",
+      "centralindia",
+      "japaneast",
+      "koreacentral",
+      "southeastasia",
+      "eastasia"
     ],
     "availabilitySetProperty": {
       "id": "[resourceId('Microsoft.Compute/availabilitySets', variables('availabilitySetName'))]"
@@ -541,13 +560,13 @@
       "tags": "[ if(contains(parameters('tagsByResource'), 'Microsoft.Network/publicIPPrefixes'), parameters('tagsByResource')['Microsoft.Network/publicIPPrefixes'], json('{}')) ]"
     },
     {
-     "apiVersion": "2020-06-01",
+      "apiVersion": "2020-06-01",
       "name": "pid-6f13b00a-7546-4ab2-be9f-c66815cc6c8b-partnercenter",
       "type": "Microsoft.Resources/deployments",
       "properties": {
-       "mode": "Incremental",
+        "mode": "Incremental",
         "template": {
-          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
           "contentVersion": "1.0.0.0",
           "resources": []
         }
