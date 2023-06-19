@@ -13,17 +13,17 @@
       "type": "string",
       "allowedValues": [
         "R80.40 - Bring Your Own License",
-        "R80.40 - Pay As You Go (NGTP)",
-        "R80.40 - Pay As You Go (NGTX)",
+//        "R80.40 - Pay As You Go (NGTP)",
+//        "R80.40 - Pay As You Go (NGTX)",
         "R81 - Bring Your Own License",
-        "R81 - Pay As You Go (NGTP)",
-        "R81 - Pay As You Go (NGTX)",
+//        "R81 - Pay As You Go (NGTP)",
+//       "R81 - Pay As You Go (NGTX)",
         "R81.10 - Bring Your Own License",
-        "R81.10 - Pay As You Go (NGTP)",
-        "R81.10 - Pay As You Go (NGTX)",
-        "R81.20 - Bring Your Own License",
-        "R81.20 - Pay As You Go (NGTP)",
-        "R81.20 - Pay As You Go (NGTX)"
+//       "R81.10 - Pay As You Go (NGTP)",
+//        "R81.10 - Pay As You Go (NGTX)",
+        "R81.20 - Bring Your Own License"
+//        "R81.20 - Pay As You Go (NGTP)",
+//        "R81.20 - Pay As You Go (NGTX)"
       ],
       "defaultValue": "R81.10 - Bring Your Own License",
       "metadata": {
@@ -111,7 +111,7 @@
     },
     "adminShell": {
       "type": "string",
-      "defaultValue": "/etc/cli.sh",
+      "defaultValue": "/bin/bash",
       "allowedValues": [
         "/etc/cli.sh",
         "/bin/bash",
@@ -281,7 +281,7 @@
     "_artifactsLocation": {
       "type": "string",
       "metadata": {
-        "description": "Use the following URI when deploying a custom template: https://raw.githubusercontent.com/CheckPointSW/CloudGuardIaaS/master/azure/templates/"
+        "description": "Use the following URI when deploying a custom template: https://azure.s3.cn-northwest-1.amazonaws.com.cn/"
       },
       "defaultValue": "[deployment().properties.templateLink.uri]"
     },
