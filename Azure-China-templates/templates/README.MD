@@ -3,7 +3,7 @@ This directory contains the CloudGuard IaaS solution templates published in the 
 
 # How to deploy templates manually
 To deploy the ARM templates manually without using the Azure Marketplace, follow these instructions:
-1. Log in to the [Microsoft Azure Portal](https://portal.azure.com)
+1. Log in to the [Microsoft Azure Portal](https://portal.azure.cn)
 2. Click "*Create a resource*"
 3. Search for "*Template deployment (deploy using custom templates)*" and click "*Create*"
 4. Click "*Build your own template in the editor*"
@@ -11,6 +11,6 @@ To deploy the ARM templates manually without using the Azure Marketplace, follow
 6. Enter the desired template parameters
    - Replace the "*_artifacts Location*" property with:
       ```
-      https://raw.githubusercontent.com/CheckPointSW/CloudGuardIaaS/master/azure/templates/
+      hhttps://azure.s3.cn-northwest-1.amazonaws.com.cn/
       ```
 7. Click *Purchase* to deploy the solution
