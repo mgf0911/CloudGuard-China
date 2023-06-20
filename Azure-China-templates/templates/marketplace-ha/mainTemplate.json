@@ -475,7 +475,7 @@
       "product": "[variables('imageOffer')]",
       "publisher": "[variables('imagePublisher')]"
     },
-    "plan": "[if(equals(variables('offer'), 'BYOL') , variables('planBYOL'), if(equals(variables('offer'), 'NGTP'), variables('planNGTP'), if(equals(variables('offer'), 'NGTP-V2'), variables('planNGTP-V2'), if(equals(variables('offer'), 'NGTX'), variables('planNGTX'), if(equals(variables('offer'), 'NGTX-V2'), variables('planNGTX-V2'), json('null'))))))]",
+//    "plan": "[if(equals(variables('offer'), 'BYOL') , variables('planBYOL'), if(equals(variables('offer'), 'NGTP'), variables('planNGTP'), if(equals(variables('offer'), 'NGTP-V2'), variables('planNGTP-V2'), if(equals(variables('offer'), 'NGTX'), variables('planNGTX'), if(equals(variables('offer'), 'NGTX-V2'), variables('planNGTX-V2'), json('null'))))))]",
     "roleDefinitionId": "[if(equals(parameters('role'), 'Contributor'), subscriptionResourceId('Microsoft.Authorization/roleDefinitions/', 'b24988ac-6180-42a0-ab88-20f7382dd24c'), parameters('role'))]",
     "identity": "[json('{\"type\": \"SystemAssigned\"}')]",
     "subnet2PrivateAddresses": [
@@ -994,7 +994,7 @@
         "name": "virtualMachineCopy",
         "count": "[variables('count')]"
       },
-      "plan": "[if(equals(parameters('sourceImageVhdUri'),'noCustomUri'), variables('plan'), json('null'))]",
+//      "plan": "[if(equals(parameters('sourceImageVhdUri'),'noCustomUri'), variables('plan'), json('null'))]",
       "identity": "[if(equals(parameters('managedSystemAssigned'), 'yes'), variables('identity'), json('null'))]",
       "properties": {
         "UserData": "[base64(concat(variables('customData'), '\n','smart1CloudToken=\"', variables('tokens')[copyIndex()], '\"', '\n', 'Vips=\"', string(variables('VipsInformationForCloudConfig')), '\"', '\n','externalPrivateAddresses=\"', variables('externalPrivateAddresses')[2], '\"', '\n', 'vnet=\"', if(equals(parameters('vnetNewOrExisting'), 'new'), reference('networkNewSetup').outputs.vnetAddressPrefixes.value[0], reference('networkExistingSetup').outputs.vnetAddressPrefixes.value[0]), '\"', '\n' ))]",
