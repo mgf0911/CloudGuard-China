@@ -638,7 +638,7 @@
       ],
       "location": "[variables('location')]",
       "name": "[parameters('vmName')]",
-      "plan": "[if(equals(parameters('sourceImageVhdUri'),'noCustomUri'), variables('plan'), json('null'))]",
+//      "plan": "[if(equals(parameters('sourceImageVhdUri'),'noCustomUri'), variables('plan'), json('null'))]",
       "identity": "[variables('identity')]",
       "properties": {
         "UserData": "[variables('customData64')]",
