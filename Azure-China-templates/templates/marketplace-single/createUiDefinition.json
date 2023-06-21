@@ -206,7 +206,7 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint",
+              "publisher": "sinoage",
               "offer": "check-point-cg-r8040",
               "sku": "sg-byol"
             },
@@ -307,7 +307,7 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint",
+              "publisher": "sinoage",
               "offer": "check-point-cg-r8040",
               "sku": "sg-ngtp"
             },
@@ -408,7 +408,7 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint",
+              "publisher": "sinoage",
               "offer": "check-point-cg-r8040",
               "sku": "sg-ngtx"
             },
@@ -509,7 +509,7 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint",
+              "publisher": "sinoage",
               "offer": "check-point-cg-r81",
               "sku": "sg-byol"
             },
@@ -610,7 +610,7 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint",
+              "publisher": "sinoage",
               "offer": "check-point-cg-r81",
               "sku": "sg-ngtp"
             },
@@ -711,7 +711,7 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint",
+              "publisher": "sinoage",
               "offer": "check-point-cg-r81",
               "sku": "sg-ngtx"
             },
@@ -812,7 +812,7 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint",
+              "publisher": "sinoage",
               "offer": "check-point-cg-r8110",
               "sku": "sg-byol"
             },
@@ -913,7 +913,7 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint",
+              "publisher": "sinoage",
               "offer": "check-point-cg-r8110",
               "sku": "sg-ngtp"
             },
@@ -1014,7 +1014,7 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint",
+              "publisher": "sinoage",
               "offer": "check-point-cg-r8110",
               "sku": "sg-ngtx"
             },
@@ -1115,7 +1115,7 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint",
+              "publisher": "sinoage",
               "offer": "check-point-cg-r8120",
               "sku": "sg-byol"
             },
@@ -1216,7 +1216,7 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint",
+              "publisher": "sinoage",
               "offer": "check-point-cg-r8120",
               "sku": "sg-ngtp"
             },
@@ -1317,7 +1317,7 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint",
+              "publisher": "sinoage",
               "offer": "check-point-cg-r8120",
               "sku": "sg-ngtx"
             },

@@ -114,7 +114,7 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint",
+              "publisher": "sinoage",
               "offer": "check-point-cg-r8040",
               "sku": "mgmt-byol"
             },
@@ -142,7 +142,7 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint",
+              "publisher": "sinoage",
               "offer": "check-point-cg-r8040",
               "sku": "mgmt-25"
             },
@@ -170,7 +170,7 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint",
+              "publisher": "sinoage",
               "offer": "check-point-cg-r81",
               "sku": "mgmt-byol"
             },
@@ -198,7 +198,7 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint",
+              "publisher": "sinoage",
               "offer": "check-point-cg-r81",
               "sku": "mgmt-25"
             },
@@ -226,7 +226,7 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint",
+              "publisher": "sinoage",
               "offer": "check-point-cg-r8110",
               "sku": "mgmt-byol"
             },
@@ -254,7 +254,7 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint",
+              "publisher": "sinoage",
               "offer": "check-point-cg-r8110",
               "sku": "mgmt-25"
             },

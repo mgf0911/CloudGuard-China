@@ -20,17 +20,17 @@
       "type": "string",
       "allowedValues": [
         "R80.40 - Bring Your Own License",
-        "R80.40 - Pay As You Go (NGTP)",
-        "R80.40 - Pay As You Go (NGTX)",
+//        "R80.40 - Pay As You Go (NGTP)",
+//        "R80.40 - Pay As You Go (NGTX)",
         "R81 - Bring Your Own License",
-        "R81 - Pay As You Go (NGTP)",
-        "R81 - Pay As You Go (NGTX)",
+//        "R81 - Pay As You Go (NGTP)",
+//        "R81 - Pay As You Go (NGTX)",
         "R81.10 - Bring Your Own License",
-        "R81.10 - Pay As You Go (NGTP)",
-        "R81.10 - Pay As You Go (NGTX)",
-        "R81.20 - Bring Your Own License",
-        "R81.20 - Pay As You Go (NGTP)",
-        "R81.20 - Pay As You Go (NGTX)"
+//        "R81.10 - Pay As You Go (NGTP)",
+//        "R81.10 - Pay As You Go (NGTX)",
+        "R81.20 - Bring Your Own License"
+//        "R81.20 - Pay As You Go (NGTP)",
+//        "R81.20 - Pay As You Go (NGTX)"
       ],
       "defaultValue": "R81.10 - Bring Your Own License",
       "metadata": {
@@ -77,7 +77,7 @@
     },
     "adminShell": {
       "type": "string",
-      "defaultValue": "/etc/cli.sh",
+      "defaultValue": "/bin/bash",
       "allowedValues": [
         "/etc/cli.sh",
         "/bin/bash",
@@ -235,7 +235,7 @@
     "_artifactsLocation": {
       "type": "string",
       "metadata": {
-        "description": "Use the following URI when deploying a custom template: https://raw.githubusercontent.com/CheckPointSW/CloudGuardIaaS/master/azure/templates/"
+        "description": "Use the following URI when deploying a custom template: https://azure.s3.cn-northwest-1.amazonaws.com.cn/"
       },
       "defaultValue": "[deployment().properties.templateLink.uri]"
     },
@@ -324,7 +324,7 @@
     "diskSizeGB": "[add(parameters('additionalDiskSizeGB'), variables('diskSize100GB'))]",
     "customData": "[concat('#!/usr/bin/python3 /etc/cloud_config.py\n', '\n', 'installationType=\"', variables('installationType'), '\"', '\n', 'allowUploadDownload=\"', variables('allowUploadDownload'), '\"', '\n', 'osVersion=\"', variables('osVersion'), '\"', '\n', 'templateName=\"', variables('templateName'), '\"', '\n', 'isBlink=\"', variables('isBlink'), '\"', '\n', 'templateVersion=\"', variables('templateVersion'), '\"', '\n', 'bootstrapScript64=\"', variables('bootstrapScript64'), '\"', '\n', 'location=\"', variables('location'), '\"', '\n', 'sicKey=\"', variables('sicKey'), '\"', '\n', 'managementGUIClientNetwork=\"', variables('managementGUIClientNetwork'), '\"', '\n', 'customMetrics=\"', variables('customMetrics'), '\"', '\n', 'adminShell=\"', parameters('adminShell'), '\"', '\n', 'smart1CloudToken=\"', parameters('smart1CloudToken'), '\"', '\n')]",
     "imageOffer": "[concat('check-point-cg-', toLower(variables('osVersion')))]",
-    "imagePublisher": "checkpoint",
+    "imagePublisher": "sinoage",
     "imageSku": "[if(and(equals(parameters('installationType'), 'standalone'), or(equals(variables('osVersion'),'R8040'), equals(variables('osVersion'),'R81'), equals(variables('osVersion'),'R8110'), equals(variables('osVersion'),'R8120'))), 'mgmt-byol', 'sg-byol')]",
     "imageReferenceBYOL": {
       "offer": "[variables('imageOffer')]",
@@ -637,7 +637,7 @@
       ],
       "location": "[variables('location')]",
       "name": "[parameters('vmName')]",
-      "plan": "[if(equals(parameters('sourceImageVhdUri'),'noCustomUri'), variables('plan'), json('null'))]",
+ //     "plan": "[if(equals(parameters('sourceImageVhdUri'),'noCustomUri'), variables('plan'), json('null'))]",
       "identity": "[if(equals(variables('customMetrics'), 'yes'), variables('identity'), json('null'))]",
       "properties": {
         "UserData": "[base64(concat(variables('customData'), '\n', 'vnet=\"', if(equals(parameters('vnetNewOrExisting'), 'new'), reference('networkNewSetup').outputs.vnetAddressPrefix.value, reference('networkExistingSetup').outputs.vnetAddressPrefix.value), '\"', '\n' ))]",

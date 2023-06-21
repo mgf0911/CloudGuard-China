@@ -210,7 +210,7 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "checkpoint",
+              "publisher": "sinoage",
               "offer": "infinity-gw",
               "sku": "sg-byol"
             },
