@@ -111,7 +111,7 @@
     },
     "adminShell": {
       "type": "string",
-      "defaultValue": "/etc/cli.sh",
+      "defaultValue": "/bin/bash",
       "allowedValues": [
         "/etc/cli.sh",
         "/bin/bash",

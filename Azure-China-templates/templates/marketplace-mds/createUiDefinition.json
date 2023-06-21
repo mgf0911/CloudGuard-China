@@ -246,7 +246,7 @@
             "name": "adminShell",
             "type": "Microsoft.Common.DropDown",
             "label": "Default shell for the admin user",
-            "defaultValue": "/etc/cli.sh",
+            "defaultValue": "/bin/bash",
             "toolTip": "The default shell for the admin user",
             "constraints": {
               "allowedValues": [
