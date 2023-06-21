@@ -214,7 +214,7 @@
     "diskSizeGB": "[variables('diskSize100GB')]",
     "customData": "[concat('#!/usr/bin/python3 /etc/cloud_config.py\n', '\n', 'installationType=\"', variables('installationType'), '\"', '\n', 'allowUploadDownload=\"', variables('allowUploadDownload'), '\"', '\n', 'osVersion=\"', variables('osVersion'), '\"', '\n', 'templateName=\"', variables('templateName'), '\"', '\n', 'isBlink=\"', variables('isBlink'), '\"', '\n', 'templateVersion=\"', variables('templateVersion'), '\"', '\n', 'bootstrapScript64=\"', variables('bootstrapScript64'), '\"', '\n', 'location=\"', variables('location'), '\"', '\n', 'sicKey=\"', '', '\"', '\n','waapAgentToken =\"', variables('waapAgentToken'), '\"', '\n', 'waapAgentFog =\"', variables('waapAgentFog'), '\"', '\n')]",
     "imageOffer": "infinity-gw",
-    "imagePublisher": "checkpoint",
+    "imagePublisher": "sinoage",
     "imageSku": "infinity-img",
     "imageReferenceBYOL": {
       "offer": "[variables('imageOffer')]",

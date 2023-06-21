@@ -268,7 +268,7 @@
     "imageOfferR81": "check-point-cg-r81",
     "imageOfferR8110": "check-point-cg-r8110",
     "imageOffer": "[concat(variables(concat('imageOffer', variables('osVersion'))), parameters('preview'))]",
-    "imagePublisher": "checkpoint",
+    "imagePublisher": "sinoage",
     "imageReferenceBYOL": {
       "offer": "[variables('imageOffer')]",
       "publisher": "[variables('imagePublisher')]",
