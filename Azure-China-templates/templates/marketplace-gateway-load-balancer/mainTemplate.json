@@ -20,11 +20,11 @@
       "type": "string",
       "allowedValues": [
         "R81.10 - Bring Your Own License",
-        "R81.10 - Pay As You Go (NGTP)",
-        "R81.10 - Pay As You Go (NGTX)",
-        "R81.20 - Bring Your Own License",
-        "R81.20 - Pay As You Go (NGTP)",
-        "R81.20 - Pay As You Go (NGTX)"
+//        "R81.10 - Pay As You Go (NGTP)",
+//        "R81.10 - Pay As You Go (NGTX)",
+        "R81.20 - Bring Your Own License"
+//        "R81.20 - Pay As You Go (NGTP)",
+//        "R81.20 - Pay As You Go (NGTX)"
       ],
       "defaultValue": "R81.10 - Bring Your Own License",
       "metadata": {
@@ -299,7 +299,7 @@
     "_artifactsLocation": {
       "type": "string",
       "metadata": {
-        "description": "Use the following URI when deploying a custom template: https://raw.githubusercontent.com/CheckPointSW/CloudGuardIaaS/master/azure/templates/"
+        "description": "Use the following URI when deploying a custom template: https://azure.s3.cn-northwest-1.amazonaws.com.cn/"
       },
       "defaultValue": "[deployment().properties.templateLink.uri]"
     },
@@ -529,6 +529,12 @@
       "japaneast",
       "koreacentral",
       "southeastasia",
+      "chinaeast",
+      "chinaeast2",
+      "chinaeast3",
+      "chinanorth",
+      "chinanorth2",
+      "chinanorth3",
       "eastasia"
     ],
     "availabilityZonesProperty": "[range(1, parameters('availabilityZonesNum'))]",
@@ -781,7 +787,7 @@
         "tier": "Standard",
         "capacity": "[parameters('instanceCount')]"
       },
-      "plan": "[if(equals(parameters('sourceImageVhdUri'),'noCustomUri'), variables('plan'), json('null'))]",
+//      "plan": "[if(equals(parameters('sourceImageVhdUri'),'noCustomUri'), variables('plan'), json('null'))]",
       "properties": {
         "upgradePolicy": {
           "mode": "Manual"
