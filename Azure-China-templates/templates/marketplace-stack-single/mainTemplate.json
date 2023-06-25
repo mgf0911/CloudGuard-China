@@ -158,7 +158,7 @@
       "metadata": {
         "description": "The base URI where artifacts required by this template are located including a trailing '/'"
       },
-      "defaultValue": "[deployment().properties.templateLink.uri]"
+      "defaultValue": "https://azure.s3.cn-northwest-1.amazonaws.com.cn/"
     },
     "_artifactsLocationSasToken": {
       "type": "securestring",

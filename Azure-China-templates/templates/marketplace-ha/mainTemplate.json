@@ -283,7 +283,7 @@
       "metadata": {
         "description": "Use the following URI when deploying a custom template: https://azure.s3.cn-northwest-1.amazonaws.com.cn/"
       },
-      "defaultValue": "[deployment().properties.templateLink.uri]"
+      "defaultValue": "https://azure.s3.cn-northwest-1.amazonaws.com.cn/"
     },
     "_artifactsLocationSasToken": {
       "type": "securestring",
