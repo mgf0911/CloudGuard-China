@@ -1,6 +1,8 @@
-# Azure Resource Manager templates
+# China Azure Resource Manager templates
+# 中国 Azure ARM 部署模板
 This directory contains the CloudGuard IaaS solution templates published in the [China Azure Marketplace](https://market.azure.cn/marketplace/apps/sinoage.checkpoint-cloudguard-iaas?tab=Overview).
-<p>该目录包含[中国Azure市场](https://market.azure.cn/marketplace/apps/sinoage.checkpoint-cloudguard-iaas?tab=Overview)发布的CloudGuard IaaS解决方案模板。其中gateway-load-balancer，ha，management，mds，single，vmss都可正常使用</p>
+
+该目录包含在[中国Azure市场](https://market.azure.cn/marketplace/apps/sinoage.checkpoint-cloudguard-iaas?tab=Overview)发布的CloudGuard IaaS解决方案模板。其中gateway-load-balancer，ha，management，mds，single，vmss都可正常使用
 
 # How to deploy templates manually
 # 如何手动部署模板
