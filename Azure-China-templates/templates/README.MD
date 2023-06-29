@@ -22,7 +22,7 @@ To deploy the ARM templates manually without using the Azure Marketplace, follow
    <p>选择资源组，输入所需的模板参数，当验证方式为password 时 Admin Password为必填项，Sic Key也为必填项</p>
    - Replace the "*_artifacts Location*" property with:
       ```
-      hhttps://azure.s3.cn-northwest-1.amazonaws.com.cn/
+      https://azure.s3.cn-northwest-1.amazonaws.com.cn/
       ```
 7. Click *Purchase* to deploy the solution
    <p>单击*购买*以部署解决方案</p>
