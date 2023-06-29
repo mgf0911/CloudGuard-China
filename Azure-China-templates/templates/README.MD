@@ -13,11 +13,11 @@ To deploy the ARM templates manually without using the Azure Marketplace, follow
 3. Search for "*Template deployment (deploy using custom templates)*" and click "*Create*"
    <p>搜索“*模板部署（使用自定义模板部署）*”，点击“*创建*”</p>
 4. Click "*Build your own template in the editor*"
-   <p>单击“*在编辑器中构建您自己的模板*”</p>
+   <p>点击“*在编辑器中生成自己的模板*”</p>
 5. Load the "*mainTemplate.json*" file of the desired template and click "*Save*"
-   <p>加载所需模板的“*mainTemplate.json*”文件，然后单击“*保存*”</p>
+   <p>点击“*加载文件*”加载所需模板的“*mainTemplate.json*”文件，然后点击“*保存*”</p>
 6. Enter the desired template parameters
-   <p>输入所需的模板参数(此模板已默认填写)</p>
+   <p>选择资源组，输入所需的模板参数，当验证方式为password 时 Admin Password为必填项，Sic Key也为必填项</p>
    - Replace the "*_artifacts Location*" property with:
       ```
       hhttps://azure.s3.cn-northwest-1.amazonaws.com.cn/
