@@ -7,7 +7,7 @@ This directory contains the CloudGuard IaaS solution templates published in the 
 To deploy the ARM templates manually without using the Azure Marketplace, follow these instructions:
 要在不使用 Azure 市场的情况下手动部署 ARM 模板，请按照以下说明操作：
 1. Log in to the [Microsoft China Azure Portal](https://portal.azure.cn)
-   <p>登录【微软中国Azure门户】(https://portal.azure.cn)</p>
+   <p>登录[微软中国Azure门户](https://portal.azure.cn)</p>
 2. Click "*Create a resource*"
    <p>点击“*创建资源*”</p>
 3. Search for "*Template deployment (deploy using custom templates)*" and click "*Create*"
