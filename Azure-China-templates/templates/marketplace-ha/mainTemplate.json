@@ -298,7 +298,7 @@
         "no",
         "yes"
       ],
-      "defaultValue": "no",
+      "defaultValue": "yes",
       "metadata": {
         "Description": "Indicates whether CloudGuard Metrics will be used for Cluster members monitoring"
       }
