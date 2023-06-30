@@ -4,13 +4,16 @@ Check Point CloudGuard Network (formerly known as CloudGuard IaaS) China reposit
 The repository contains:
 
 * Solution/CloudFormation templates
-* Terraform modules
+* AWS-China CloudFormation 部署模板
+* Terraform modules for Aliyun China
+* 中国阿里云Terraform 部署脚本
 * Tools and scripts that can be used with CloudGuard for Public Cloud solutions
-* Deprecated Solution/CloudFormation templates
+* 一些其它的CloudGuard 公有云脚本，未经修改与总部国际Github一致
 * Community-supported content
+* AWS，Azure国际版 maintenance_mode 以及阿里云maintenance_mode 文件
 
 ## Related Products and Solutions
-* CloudGuard Network Security for Azure-China (Not ready)
+* CloudGuard Network Security for Azure-China (Part ready)
 * CloudGuard Network Security  for AWS-China (Part ready)
 * CloudGuard Network Security for GCP
 * CloudGuard Network Security  for Azure Stack
