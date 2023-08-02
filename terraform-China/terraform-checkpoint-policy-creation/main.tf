@@ -1,27 +1,25 @@
-
-
 # Create network objects
-resource "checkpoint_management_network" "example_network_obj" {
-  name   = "Example_Network"
-  subnet4 = "192.0.2.0"
+resource "checkpoint_management_network" "example_network_obj01" {
+  name   = "Example_Network01"
+  subnet4 = "192.168.1.0"
   mask_length4 = 24
 }
 
-resource "checkpoint_management_network" "example_network_obj2" {
-  name   = "Example_Network2"
-  subnet4 = "192.0.3.0"
+resource "checkpoint_management_network" "example_network_obj02" {
+  name   = "Example_Network02"
+  subnet4 = "192.168.2.0"
   mask_length4 = 24
 }
 
-resource "checkpoint_management_network" "example_network_obj3" {
-  name   = "Example_Network3"
-  subnet4 = "192.0.4.0"
+resource "checkpoint_management_network" "example_network_obj03" {
+  name   = "Example_Network03"
+  subnet4 = "192.168.3.0"
   mask_length4 = 24
 }
 
 # Create a service object
-resource "checkpoint_management_service_tcp" "example_service_obj" {
-  name        = "Example_Service"
+resource "checkpoint_management_service_tcp" "example_service_obj01" {
+  name        = "Example_Service01"
   port = 8989
   keep_connections_open_after_policy_installation = false
   session_timeout = 0
@@ -37,36 +35,36 @@ resource "checkpoint_management_service_tcp" "example_service_obj" {
 
 
 # Create a rule that allows traffic from the Example_Network to any destination using Example_Service
-resource "checkpoint_management_access_rule" "rule1" {
+resource "checkpoint_management_access_rule" "rule01" {
     depends_on = [
-    checkpoint_management_network.example_network_obj, 
-    checkpoint_management_network.example_network_obj2,
-    checkpoint_management_network.example_network_obj3,
-    checkpoint_management_service_tcp.example_service_obj
+    checkpoint_management_network.example_network_obj01, 
+    checkpoint_management_network.example_network_obj02,
+    checkpoint_management_network.example_network_obj03,
+    checkpoint_management_service_tcp.example_service_obj01
   ]
   layer = "Network"
   position = {top = "top"}
   name = "test1"
   enabled = true
   action = "Accept"
-  source = ["Example_Network3"]
-  destination = ["Example_Network", "Example_Network2"]
+  source = ["Example_Network03"]
+  destination = ["Example_Network01", "Example_Network02"]
   service = ["Example_Service"]
 }
 
-resource "checkpoint_management_access_rule" "rule2" {
+resource "checkpoint_management_access_rule" "rule02" {
     depends_on = [
-    checkpoint_management_network.example_network_obj, 
-    checkpoint_management_network.example_network_obj2,
-    checkpoint_management_network.example_network_obj3
+    checkpoint_management_network.example_network_obj01, 
+    checkpoint_management_network.example_network_obj02,
+    checkpoint_management_network.example_network_obj03
   ]
   layer = "Network"
-  position = {below = checkpoint_management_access_rule.rule1.name}
+  position = {below = checkpoint_management_access_rule.rule01.name}
   name = "Specific Deny"
   enabled = true
   action = "Drop"
   source = ["Any"]
-  destination = ["Example_Network", "Example_Network2"]
+  destination = ["Example_Network01", "Example_Network02"]
   service = ["Any"]
 }
 
