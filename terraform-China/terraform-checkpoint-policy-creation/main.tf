@@ -20,7 +20,7 @@ resource "checkpoint_management_network" "example_network_obj03" {
 # Create a service object
 resource "checkpoint_management_service_tcp" "example_service_obj01" {
   name        = "Example_Service01"
-  port = 8989
+  port = 9001
   keep_connections_open_after_policy_installation = false
   session_timeout = 0
   match_for_any = true
