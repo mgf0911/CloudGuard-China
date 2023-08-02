@@ -2,7 +2,7 @@ terraform {
   required_providers {
     checkpoint = {
       source  = "checkpointsw/checkpoint"
-      version = "~> v2.5.1"
+      version = "~> 2.5.1"
     }
   }
 }
