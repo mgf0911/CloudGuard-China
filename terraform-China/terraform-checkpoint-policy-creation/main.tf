@@ -49,7 +49,7 @@ resource "checkpoint_management_access_rule" "rule01" {
   action = "Accept"
   source = ["Example_Network03"]
   destination = ["Example_Network01", "Example_Network02"]
-  service = ["Example_Service"]
+  service = ["Example_Service01"]
 }
 
 resource "checkpoint_management_access_rule" "rule02" {
