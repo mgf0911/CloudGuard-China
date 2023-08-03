@@ -1,7 +1,7 @@
 # Set in this file your deployment variables
 
-mgmt-ip         = "20.205.42.111"
+mgmt-ip         = "52.80.196.183"
 api-username    = "admin"
-api-password    = "vpn123"
+api-password    = "CheckPoint"
 provider-context = "web_api"
 new-policy-pkg   = "SecurityPolicy"

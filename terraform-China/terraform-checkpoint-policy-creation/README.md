@@ -1,9 +1,10 @@
 # terraform-checkpoint-policy-creation
-从同事处复制 https://github.com/preechadev/terraform-checkpoint-policy-creation/
+从同事处复制的terraform模板 https://github.com/preechadev/terraform-checkpoint-policy-creation/
+进行了大规模的完善
 此工具可以给CP管理服务器添加策略和对象等，支持R81或以上版本。
 terraform init 做初始化
 terraform apply 做执行
-
+terraform destroy 做删除
 terraform.tfvars 文件定义目标管理服务器IP地址，用户名，密码
 main.tf 文件定义需要创建的network objects / service object / access_rule 等
 
