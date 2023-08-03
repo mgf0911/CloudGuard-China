@@ -37,7 +37,7 @@ resource "checkpoint_management_service_tcp" "example_service_obj01" {
 # Create a rule that allows traffic from the Example_Network to any destination using Example_Service
 resource "checkpoint_management_access_rule" "rule01" {
     depends_on = [
-    checkpoint_management_network.example_network_obj01, 
+    checkpoint_management_network.example_network_obj01,
     checkpoint_management_network.example_network_obj02,
     checkpoint_management_network.example_network_obj03,
     checkpoint_management_service_tcp.example_service_obj01
@@ -54,7 +54,7 @@ resource "checkpoint_management_access_rule" "rule01" {
 
 resource "checkpoint_management_access_rule" "rule02" {
     depends_on = [
-    checkpoint_management_network.example_network_obj01, 
+    checkpoint_management_network.example_network_obj01,
     checkpoint_management_network.example_network_obj02,
     checkpoint_management_network.example_network_obj03
   ]
@@ -69,7 +69,7 @@ resource "checkpoint_management_access_rule" "rule02" {
 }
 resource "checkpoint_management_access_rule" "rule03" {
     depends_on = [
-    checkpoint_management_network.example_network_obj01, 
+    checkpoint_management_network.example_network_obj01,
     checkpoint_management_network.example_network_obj02,
     checkpoint_management_network.example_network_obj03
   ]
@@ -84,7 +84,7 @@ resource "checkpoint_management_access_rule" "rule03" {
 }
 resource "checkpoint_management_access_rule" "rule04" {
     depends_on = [
-    checkpoint_management_network.example_network_obj01, 
+    checkpoint_management_network.example_network_obj01,
     checkpoint_management_network.example_network_obj02,
     checkpoint_management_network.example_network_obj03
   ]
@@ -100,12 +100,12 @@ resource "checkpoint_management_access_rule" "rule04" {
 
 resource "checkpoint_management_publish" "example" {
     depends_on = [
-	  checkpoint_management_network.example_network_obj01, 
+    checkpoint_management_network.example_network_obj01,
     checkpoint_management_network.example_network_obj02,
     checkpoint_management_network.example_network_obj03,
-	  checkpoint_management_access_rule.rule01,
-	  checkpoint_management_access_rule.rule02,
-	  checkpoint_management_access_rule.rule03,
+    checkpoint_management_access_rule.rule01,
+    checkpoint_management_access_rule.rule02,
+    checkpoint_management_access_rule.rule03,
     checkpoint_management_access_rule.rule04
   ]
 }
