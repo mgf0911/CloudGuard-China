@@ -60,13 +60,42 @@ resource "checkpoint_management_access_rule" "rule02" {
   ]
   layer = "Network"
   position = {below = checkpoint_management_access_rule.rule01.name}
-  name = "Specific Deny"
+  name = "Allow1"
   enabled = true
-  action = "Drop"
+  action = "Accept"
   source = ["Any"]
   destination = ["Example_Network01", "Example_Network02"]
   service = ["Any"]
 }
+resource "checkpoint_management_access_rule" "rule03" {
+    depends_on = [
+    checkpoint_management_network.example_network_obj01, 
+    checkpoint_management_network.example_network_obj02,
+    checkpoint_management_network.example_network_obj03
+  ]
+  layer = "Network"
+  position = {below = checkpoint_management_access_rule.rule02.name}
+  name = "Specific Deny2"
+  enabled = true
+  action = "Drop"
+  source = ["Any"]
+  destination = ["Example_Network03", "Example_Network02"]
+  service = ["Any"]
+}
+resource "checkpoint_management_access_rule" "rule04" {
+    depends_on = [
+    checkpoint_management_network.example_network_obj01, 
+    checkpoint_management_network.example_network_obj02,
+    checkpoint_management_network.example_network_obj03
+  ]
+  layer = "Network"
+  position = {below = checkpoint_management_access_rule.rule03.name}
+  name = "Specific Deny3"
+  enabled = true
+  action = "Drop"
+  source = ["Any"]
+  destination = ["Example_Network02", "Example_Network01"]
+  service = ["Any"]
+}
 
-
-resource "checkpoint_management_publish" "example" { }
+resource "checkpoint_management_publish" "example" {}
