@@ -100,12 +100,12 @@ resource "checkpoint_management_access_rule" "rule04" {
 
 resource "checkpoint_management_publish" "example" {
     depends_on = [
-	checkpoint_management_network.example_network_obj01, 
+	  checkpoint_management_network.example_network_obj01, 
     checkpoint_management_network.example_network_obj02,
     checkpoint_management_network.example_network_obj03,
-	checkpoint_management_access_rule.rule01,
-	checkpoint_management_access_rule.rule02,
-	checkpoint_management_access_rule.rule03,
+	  checkpoint_management_access_rule.rule01,
+	  checkpoint_management_access_rule.rule02,
+	  checkpoint_management_access_rule.rule03,
     checkpoint_management_access_rule.rule04
   ]
 }
