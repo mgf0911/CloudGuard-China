@@ -1,22 +1,3 @@
-# Create network objects
-resource "checkpoint_management_network" "example_network_obj01" {
-  name   = "Example_Network01"
-  subnet4 = "192.168.1.0"
-  mask_length4 = 24
-}
-
-resource "checkpoint_management_network" "example_network_obj02" {
-  name   = "Example_Network02"
-  subnet4 = "192.168.2.0"
-  mask_length4 = 24
-}
-
-resource "checkpoint_management_network" "example_network_obj03" {
-  name   = "Example_Network03"
-  subnet4 = "192.168.3.0"
-  mask_length4 = 24
-}
-
 # Create a service object
 resource "checkpoint_management_service_tcp" "example_service_obj01" {
   name        = "Example_Service01"
@@ -37,9 +18,6 @@ resource "checkpoint_management_service_tcp" "example_service_obj01" {
 # Create a rule that allows traffic from the Example_Network to any destination using Example_Service
 resource "checkpoint_management_access_rule" "rule01" {
     depends_on = [
-    checkpoint_management_network.example_network_obj01,
-    checkpoint_management_network.example_network_obj02,
-    checkpoint_management_network.example_network_obj03,
     checkpoint_management_service_tcp.example_service_obj01
   ]
   layer = "Network"
@@ -54,9 +32,7 @@ resource "checkpoint_management_access_rule" "rule01" {
 
 resource "checkpoint_management_access_rule" "rule02" {
     depends_on = [
-    checkpoint_management_network.example_network_obj01,
-    checkpoint_management_network.example_network_obj02,
-    checkpoint_management_network.example_network_obj03
+    checkpoint_management_access_rule.rule01
   ]
   layer = "Network"
   position = {below = checkpoint_management_access_rule.rule01.name}
@@ -69,9 +45,7 @@ resource "checkpoint_management_access_rule" "rule02" {
 }
 resource "checkpoint_management_access_rule" "rule03" {
     depends_on = [
-    checkpoint_management_network.example_network_obj01,
-    checkpoint_management_network.example_network_obj02,
-    checkpoint_management_network.example_network_obj03
+    checkpoint_management_access_rule.rule02
   ]
   layer = "Network"
   position = {below = checkpoint_management_access_rule.rule02.name}
@@ -84,9 +58,7 @@ resource "checkpoint_management_access_rule" "rule03" {
 }
 resource "checkpoint_management_access_rule" "rule04" {
     depends_on = [
-    checkpoint_management_network.example_network_obj01,
-    checkpoint_management_network.example_network_obj02,
-    checkpoint_management_network.example_network_obj03
+    checkpoint_management_access_rule.rule03
   ]
   layer = "Network"
   position = {below = checkpoint_management_access_rule.rule03.name}
@@ -100,9 +72,6 @@ resource "checkpoint_management_access_rule" "rule04" {
 
 resource "checkpoint_management_publish" "example" {
     depends_on = [
-    checkpoint_management_network.example_network_obj01,
-    checkpoint_management_network.example_network_obj02,
-    checkpoint_management_network.example_network_obj03,
     checkpoint_management_access_rule.rule01,
     checkpoint_management_access_rule.rule02,
     checkpoint_management_access_rule.rule03,
