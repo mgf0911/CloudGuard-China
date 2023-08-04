@@ -24,11 +24,3 @@ variable "new-policy-pkg" {
     description = "Define the name of your azure policy package"
     type = string
 }
-variable "deployment_type" {
-    description = "Define deployment host,network or services"
-    type    = string
-    default = "add-host"
-//	default = "add-network"
-//	default = "add-services"
-//	default = "add-rules"
-}

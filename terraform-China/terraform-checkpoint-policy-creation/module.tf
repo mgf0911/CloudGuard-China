@@ -18,8 +18,17 @@ module "add-network" {
   new-policy-pkg   = "new-policy-pkg"
 }
 module "add-services-rules" {
-  source             = "./modules/add-services-rules"
-  count              = var.deployment_type == "add-services-rules" ? 1 : 0
+  source             = "./modules/add-services"
+  count              = var.deployment_type == "add-services" ? 1 : 0
+  mgmt-ip         = "mgmt-ip"
+  api-username    = "api-username"
+  api-password    = "api-password"
+  provider-context = "provider-context"
+  new-policy-pkg   = "new-policy-pkg"
+}
+module "add-rules" {
+  source             = "./modules/add-rules"
+  count              = var.deployment_type == "add-rules" ? 1 : 0
   mgmt-ip         = "mgmt-ip"
   api-username    = "api-username"
   api-password    = "api-password"
