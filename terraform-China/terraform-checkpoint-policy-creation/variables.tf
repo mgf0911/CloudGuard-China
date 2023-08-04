@@ -26,9 +26,9 @@ variable "new-policy-pkg" {
 }
 variable "deployment_type" {
     description = "add-host,add-network,add-services,add-rules"
-    type    = string
-    default = "add-host"
-//	default = "add-network"
-//	default = "add-services"
-//	default = "add-rules"
+    type    = input("deployment_type")
+//    default = "add-host"
+//    default = "add-network"
+//    default = "add-services"
+//    default = "add-rules"
 }
