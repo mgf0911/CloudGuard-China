@@ -17,7 +17,7 @@ variable "api-password" {
 }
 variable "provider-context" {
     description = "It can be used either web_api or gaia_api"
-    default= "web_api"
+    default = "web_api"
 }
 
 variable "new-policy-pkg" {
@@ -26,9 +26,9 @@ variable "new-policy-pkg" {
 }
 variable "deployment_type" {
     description = "add-host,add-network,add-services,add-rules"
-    type    = input("deployment_type")
+    type    = string
 //    default = "add-host"
-//    default = "add-network"
+    default = "add-network"
 //    default = "add-services"
 //    default = "add-rules"
 }
