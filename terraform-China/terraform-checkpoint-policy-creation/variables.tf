@@ -21,11 +21,11 @@ variable "provider-context" {
 }
 
 variable "new-policy-pkg" {
-    description = "Define the name of your azure policy package"
+    description = "Define the name of your  policy package"
     type = string
 }
 variable "deployment_type" {
-    description = "Define deployment host,network or services"
+    description = "add-host,add-network,add-services,add-rules"
     type    = string
     default = "add-host"
 //	default = "add-network"

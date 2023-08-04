@@ -17,7 +17,7 @@ module "add-network" {
   provider-context = "provider-context"
   new-policy-pkg   = "new-policy-pkg"
 }
-module "add-services-rules" {
+module "add-services" {
   source             = "./modules/add-services"
   count              = var.deployment_type == "add-services" ? 1 : 0
   mgmt-ip         = "mgmt-ip"
