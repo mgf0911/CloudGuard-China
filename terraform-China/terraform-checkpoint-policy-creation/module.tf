@@ -17,6 +17,7 @@ module "add-network" {
   provider-context = "provider-context"
   new-policy-pkg   = "new-policy-pkg"
 }
+
 module "add-services" {
   source             = "./modules/add-services"
   count              = var.deployment_type == "add-services" ? 1 : 0
@@ -26,6 +27,7 @@ module "add-services" {
   provider-context = "provider-context"
   new-policy-pkg   = "new-policy-pkg"
 }
+
 module "add-rules" {
   source             = "./modules/add-rules"
   count              = var.deployment_type == "add-rules" ? 1 : 0
