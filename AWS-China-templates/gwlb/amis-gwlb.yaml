@@ -1,0 +1,27 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Returns a Check Point Amazon Machine ID (20230801)
+Parameters:
+  Version:
+    Description: Security Gateway version
+    Type: String
+    Default: R80.40-BYOL-GW
+    AllowedValues:
+    - R80.40-BYOL-GW
+Mappings:
+  ConverterMap:
+    R80.40-BYOL-GW:
+      Value: R8040BYOLGW
+  RegionMap:
+    cn-northwest-1:
+      R8040BYOLGW: ami-03271fe043b221c12
+    cn-north-1:
+      R8040BYOLGW: ami-01cf4ad65da54bdc6
+
+Resources:
+  DummyHandle:
+    Type: AWS::CloudFormation::WaitConditionHandle
+    Properties: {}
+Outputs:
+  ImageId:
+    Description: Check Point Security Gateway AMI
+    Value: !FindInMap [RegionMap ,!Ref 'AWS::Region', !FindInMap [ConverterMap, !Ref 'Version', Value]]
