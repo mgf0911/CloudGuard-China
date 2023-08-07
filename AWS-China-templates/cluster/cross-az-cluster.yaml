@@ -295,8 +295,6 @@ Parameters:
     Default: R81.20-BYOL
     AllowedValues:
       - R81.20-BYOL
-      - R81.20-PAYG-NGTP
-      - R81.20-PAYG-NGTX
   Shell:
     Description: Change the admin shell to enable advanced command line configuration.
     Type: String
