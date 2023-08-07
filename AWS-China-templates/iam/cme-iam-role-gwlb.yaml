@@ -62,7 +62,7 @@ Resources:
             - NotProvidedTrustedAccount
             - Effect: Allow
               Principal:
-                Service: [ec2.amazonaws.com]
+                Service: [ec2.amazonaws.com.cn]
               Action: ['sts:AssumeRole']
             - !Ref 'AWS::NoValue'
       Path: /
