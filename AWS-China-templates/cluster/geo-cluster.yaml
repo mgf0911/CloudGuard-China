@@ -405,7 +405,7 @@ Resources:
   ClusterRole:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://cgi-cfts.s3.amazonaws.com/iam/cluster-iam-role.yaml
+      TemplateURL: https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/iam/cluster-iam-role.yaml
   ClusterInstanceProfile:
     Type: AWS::IAM::InstanceProfile
     Properties:
@@ -415,14 +415,14 @@ Resources:
     Condition: EnableCloudWatch
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://cgi-cfts.s3.amazonaws.com/iam/cloudwatch-policy.yaml
+      TemplateURL: https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/iam/cloudwatch-policy.yaml
       Parameters:
         PolicyName: !If [ ProvidedResourcesTag, !Ref ResourcesTagName, !Ref 'AWS::StackName' ]
         PolicyRole: !If [CreateRole, !GetAtt ClusterRole.Outputs.ClusterIAMRole, !Ref GatewayPredefinedRole]
   AMI:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://cgi-cfts.s3.amazonaws.com/utils/amis.yaml
+      TemplateURL: https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/utils/amis.yaml
       Parameters:
         Version: !Join ['-', [!Ref GatewayVersion, GW]]
   PermissiveSecurityGroup:

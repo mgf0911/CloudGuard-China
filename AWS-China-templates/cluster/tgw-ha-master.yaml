@@ -406,7 +406,7 @@ Resources:
   VPCStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://cgi-cfts.s3.amazonaws.com/utils/vpc.yaml
+      TemplateURL: https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/utils/vpc.yaml
       Parameters:
         AvailabilityZones: !Join [',', !Ref AvailabilityZones]
         NumberOfAZs: 2
@@ -429,7 +429,7 @@ Resources:
   ClusterStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://cgi-cfts.s3.amazonaws.com/cluster/tgw-ha.yaml
+      TemplateURL: https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/cluster/tgw-ha.yaml
       Parameters:
         VPC: !GetAtt VPCStack.Outputs.VPCID
         PublicSubnetA: !GetAtt VPCStack.Outputs.PublicSubnet1ID

@@ -596,7 +596,7 @@ Resources:
   SecurityGatewaysStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://cgi-cfts.s3.amazonaws.com/gwlb/autoscale-gwlb.yaml
+      TemplateURL: https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/gwlb/autoscale-gwlb.yaml
       Parameters:
         VPC: !Ref VPC
         GatewaysSubnets: !Join [',', !Ref GatewaysSubnets]
@@ -625,7 +625,7 @@ Resources:
     Type: AWS::CloudFormation::Stack
     Condition: DeployManagement
     Properties:
-      TemplateURL: https://cgi-cfts.s3.amazonaws.com/gwlb/management-gwlb.yaml
+      TemplateURL: https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/gwlb/management-gwlb.yaml
       Parameters:
         VPC: !Ref VPC
         ManagementSubnet: !Select [0, !Ref GatewaysSubnets]

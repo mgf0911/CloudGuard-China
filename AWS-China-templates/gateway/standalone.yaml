@@ -373,14 +373,14 @@ Resources:
     Condition: EnableCloudWatch
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://cgi-cfts.s3.amazonaws.com/iam/cloudwatch-policy.yaml
+      TemplateURL: https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/iam/cloudwatch-policy.yaml
       Parameters:
         PolicyName: !If [ ProvidedResourcesTag, !Ref ResourcesTagName, !Ref 'AWS::StackName' ]
         PolicyRole: !Ref StandaloneIAMRole
   AMI:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://cgi-cfts.s3.amazonaws.com/utils/amis.yaml
+      TemplateURL: https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/utils/amis.yaml
       Parameters:
         Version: !Ref StandaloneVersion
   ExternalNetworkInterface:

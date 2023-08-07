@@ -601,7 +601,7 @@ Resources:
   VPCStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://cgi-cfts.s3.amazonaws.com/utils/vpc.yaml
+      TemplateURL: https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/utils/vpc.yaml
       Parameters:
         AvailabilityZones: !Join [',' , !Ref AvailabilityZones]
         NumberOfAZs: !Ref NumberOfAZs
@@ -614,7 +614,7 @@ Resources:
   GWLBStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://cgi-cfts.s3.amazonaws.com/gwlb/gwlb.yaml
+      TemplateURL: https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/gwlb/gwlb.yaml
       Parameters:
         VPC: !GetAtt VPCStack.Outputs.VPCID
         GatewaysSubnets: !Join

@@ -155,7 +155,7 @@ Resources:
   Vpc:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://cgi-cfts.s3.amazonaws.com/utils/vpc.yaml
+      TemplateURL: https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/utils/vpc.yaml
       Parameters:
         AvailabilityZones: !Ref AvailabilityZone
         NumberOfAZs: 1
@@ -183,7 +183,7 @@ Resources:
   GatewayStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://cgi-cfts.s3.amazonaws.com/waap/waap-gateway.yaml
+      TemplateURL: https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/waap/waap-gateway.yaml
       Parameters:
         VPC: !GetAtt Vpc.Outputs.VPCID
         PublicSubnet: !GetAtt Vpc.Outputs.PublicSubnet1ID

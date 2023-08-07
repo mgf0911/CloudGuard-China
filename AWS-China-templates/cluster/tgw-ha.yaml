@@ -402,7 +402,7 @@ Resources:
   ClusterStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://cgi-cfts.s3.amazonaws.com/cluster/geo-cluster.yaml
+      TemplateURL: https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/cluster/geo-cluster.yaml
       Parameters:
         VPC: !Ref VPC
         PublicSubnetA: !Ref PublicSubnetA
