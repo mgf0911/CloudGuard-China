@@ -1,4 +1,4 @@
-</style><h1 class="css-245gzq">中国AWS云的CloudGuard CloudFormation集群部署模板</h1></a>&nbsp;</strong></p>
+<h1 class="css-245gzq">中国AWS云的CloudGuard CloudFormation集群部署模板</h1></a>&nbsp;</strong></p>
 <p>The table below lists CloudFormation templates provided and maintained by Check Point that simplify the deployment of Check Point security solutions in AWS.</p>
 <p>You can use these templates as-is or as building blocks for customizing your own templates.</p>
 <p><strong>Notes:</strong></p>
