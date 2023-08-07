@@ -138,7 +138,7 @@ Resources:
                   Action:
                     - cloudformation:CreateStack
                     - cloudformation:DeleteStack
-                  Resource: 'arn:aws:cloudformation:*:*:stack/vpn-by-tag--*/*'
+                  Resource: 'arn:aws-cn:cloudformation:*:*:stack/vpn-by-tag--*/*'
                 - !Ref 'AWS::NoValue'
   InstanceProfile:
     Type: AWS::IAM::InstanceProfile
