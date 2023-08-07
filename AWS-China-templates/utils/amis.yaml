@@ -1,0 +1,83 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Returns a Check Point Amazon Machine ID (20230110)
+Parameters:
+  Version:
+    Description: Security Gateway or Management Server version
+    Type: String
+    Default: R81.10-BYOL-GW
+    AllowedValues:
+    - R80.30-BYOL-MGMT
+    - R80.30-BYOL-GW
+    - R80.40-BYOL-MGMT
+    - R80.40-BYOL-GW
+    - R81-BYOL-MGMT
+    - R81-BYOL-GW
+    - R81.10-BYOL-MGMT
+    - R81.10-BYOL-GW
+    - R81.20-BYOL-MGMT
+    - R81.20-BYOL-GW
+    - R80.40-BYOL-NGTP
+    - R81-BYOL-NGTP
+    - R81.10-BYOL-NGTP
+    - R81.20-BYOL-NGTP
+Mappings:
+  ConverterMap:
+    R80.30-BYOL-MGMT:
+      Value: R8030BYOLMGMT
+    R80.30-BYOL-GW:
+      Value: R8030BYOLGW
+    R80.40-BYOL-MGMT:
+      Value: R8040BYOLMGMT
+    R80.40-BYOL-GW:
+      Value: R8040BYOLGW
+    R81-BYOL-MGMT:
+      Value: R81BYOLMGMT
+    R81-BYOL-GW:
+      Value: R81BYOLGW
+    R81.10-BYOL-MGMT:
+      Value: R8110BYOLMGMT
+    R81.10-BYOL-GW:
+      Value: R8110BYOLGW
+    R81.20-BYOL-MGMT:
+      Value: R8120BYOLMGMT
+    R81.20-BYOL-GW:
+      Value: R8120BYOLGW
+    R80.40-BYOL-NGTP:
+      Value: R8040BYOLMGMT
+    R81-BYOL-NGTP:
+      Value: R81BYOLMGMT
+    R81.10-BYOL-NGTP:
+      Value: R8110BYOLMGMT
+    R81.20-BYOL-NGTP:
+      Value: R8120BYOLMGMT
+  RegionMap:
+    cn-northwest-1:
+      R8030BYOLMGMT: ami-093985ba96a4e3860
+      R8030BYOLGW: ami-0f57dd1c95ea176f6
+      R8040BYOLMGMT: ami-0486cd56a2c372e9e
+      R8040BYOLGW: ami-094ffcfc21208c99b
+      R81BYOLMGMT: ami-050311f03f6a9fdff
+      R81BYOLGW: ami-014d4a75a608a1a15
+      R8110BYOLMGMT: ami-0f83bf7861ad93e37
+      R8110BYOLGW: ami-0e5af8617f4364609
+      R8120BYOLMGMT: ami-0ff277a519360aaa3
+      R8120BYOLGW: ami-0bf7b473d4916a121
+    cn-north-1:
+      R8030BYOLMGMT: ami-0fbae329817ca7714
+      R8030BYOLGW: ami-08ce7aee96bc35707
+      R8040BYOLMGMT: ami-0b2182eb32037a295
+      R8040BYOLGW: ami-08b78fcab6b11f9c4
+      R81BYOLMGMT: ami-0537edbcb1efd4d1a
+      R81BYOLGW: ami-07299a04af00c38dd
+      R8110BYOLMGMT: ami-0016317878ce82a53
+      R8110BYOLGW: ami-098acb068d3f95c06
+      R8120BYOLMGMT: ami-032414bd22cf9b140
+      R8120BYOLGW: ami-090e51c147e83b5bc
+Resources:
+  DummyHandle:
+    Type: AWS::CloudFormation::WaitConditionHandle
+    Properties: {}
+Outputs:
+  ImageId:
+    Description: Check Point Security Gateway AMI
+    Value: !FindInMap [RegionMap ,!Ref 'AWS::Region', !FindInMap [ConverterMap, !Ref 'Version', Value]]
