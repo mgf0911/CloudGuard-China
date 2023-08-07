@@ -233,7 +233,7 @@
 <tr>
 <td style="vertical-align: top; width: 25%;">Deploys a Cross Availability Zone Cluster of Security Gateways into an <strong>existing VPC</strong>.</td>
 <td style="width: 6%; text-align: center;"><a href="https://github.com/CheckPointSW/CloudGuardIaaS/tree/master/terraform/aws/cross-az-cluster" target="_blank" rel="noopener"><img src="https://sc1.checkpoint.com/sc/images/download-m.png" alt="" style="display: block; margin-left: auto; margin-right: auto;" border="0"></a></td>
-<td style="text-align: center; width: 10%;"><a href="https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/cross-az-cluster.yaml" target="_blank" rel="noopener"><img src="https://sc1.checkpoint.com/sc/images/download-m.png" alt="" border="0"></a></td>
+<td style="text-align: center; width: 10%;"><a href="https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/cluster/cross-az-cluster.yaml" target="_blank" rel="noopener"><img src="https://sc1.checkpoint.com/sc/images/download-m.png" alt="" border="0"></a></td>
 <td style="text-align: center; width: 18%;"><a href="https://console.amazonaws.cn/cloudformation/home#/stacks/create/review?templateURL=https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/cluster/cross-az-cluster.yaml&amp;stackName=Check-Point-XAZ-cluster" target="_blank" rel="noopener"><img src="https://sc1.checkpoint.com/sc/SolutionsStatics/NEW_SK_NOID1460631718185/launch1604140412.png" alt=""></a></td>
 </tr>
 <tr>
