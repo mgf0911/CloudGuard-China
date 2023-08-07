@@ -1,0 +1,381 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Deploys a Check Point CloudGuard Infinity Gateway into an existing VPC (14112021)
+Metadata:
+  AWS::CloudFormation::Interface:
+    ParameterGroups:
+      - Label:
+          default: VPC network settings
+        Parameters:
+          - VPC
+          - PublicSubnet
+          - PrivateSubnet
+          - InternalRouteTable
+      - Label:
+          default: EC2 instance details
+        Parameters:
+          - GatewayName
+          - GatewayInstanceType
+          - InboundSources
+          - KeyName
+          - AllocatePublicAddress
+          - EnableInstanceConnect
+          - GatewayPasswordHash
+      - Label:
+          default: Check Point Infinity Next Cloud
+        Parameters:
+          - InfinityToken
+          - FogAddress
+      - Label:
+          default: Gateway settings
+        Parameters:
+          - GatewayHostname
+          - GatewayBootstrapScript
+    ParameterLabels:
+      VPC:
+        default: VPC
+      PublicSubnet:
+        default: Public subnet
+      PrivateSubnet:
+        default: Private subnet
+      InternalRouteTable:
+        default: Internal route table
+      GatewayName:
+        default: Gateway Name
+      InboundSources:
+        default: Allow access from
+      KeyName:
+        default: Key name
+      InfinityToken:
+        default: Infinity Next Agent Token
+      AllocatePublicAddress:
+        default: Assign public IP address to the gateway
+      EnableInstanceConnect:
+        default: Enable EC2 Instance Connect
+      GatewayPasswordHash:
+        default: Gateway's Password hash (optional)
+      FogAddress:
+        default: Fog address (optional)
+      GatewayInstanceType:
+        default: Gateway's instance type
+      GatewayHostname:
+        default: Gateway's Hostname (optional)
+      GatewayBootstrapScript:
+        default: Bootstrap script (optional)
+Parameters:
+  VPC:
+    Type: AWS::EC2::VPC::Id
+    MinLength: 1
+  PublicSubnet:
+    Description: The public subnet of the security gateway
+    Type: AWS::EC2::Subnet::Id
+    MinLength: 1
+  PrivateSubnet:
+    Description: The private subnet of the security gateway
+    Type: AWS::EC2::Subnet::Id
+    MinLength: 1
+  InternalRouteTable:
+    Description: Set 0.0.0.0/0 route to the Gateway instance in this route table (e.g.
+      rtb-12a34567) (optional)
+    Type: String
+    Default: ''
+  GatewayName:
+    Type: String
+    Default: Check-Point-Infinty-Next
+  InboundSources:
+    Description: Specify the client IP addresses that can reach your instance. Can be IP address range in CIDR notation (e.g. for any source use 0.0.0.0/0)
+    Type: String
+    Default: 0.0.0.0/0
+    AllowedPattern: '^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$'
+    ConstraintDescription: Only CIDR notation is allowed i.e. X.X.X.X/X
+  KeyName:
+    Description: The EC2 Key Pair to allow SSH access to the instances created by this stack
+    Type: AWS::EC2::KeyPair::KeyName
+    MinLength: 1
+    ConstraintDescription: Must be the name of an existing EC2 KeyPair
+  InfinityToken:
+    Description: 'Token can be obtained by logging in to Infinity Portal "https://portal.checkpoint.com/" -> INFINITY POLICY -> CLOUD -> Profiles'
+    Type: String
+    AllowedPattern: '^cp-(([a-z0-9A-Z-]{72,72})|([a-z0-9A-Z-]{75,75}))$'
+    ConstraintDescription: Token should begin with 'cp-' and must be 75 or 78 characters long
+    NoEcho: true
+  EnableInstanceConnect:
+    Description: Enable SSH connection over AWS web console
+    Type: String
+    Default: false
+    AllowedValues:
+      - true
+      - false
+  GatewayPasswordHash:
+    Description: User is set to 'admin' (use command "openssl passwd -6 PASSWORD" to get the password's hash)
+    Type: String
+    Default: ''
+    AllowedPattern: '^[\$\./a-zA-Z0-9]*$'
+    NoEcho: true
+  FogAddress:
+    Type: String
+    Default: ''
+  GatewayInstanceType:
+    Type: String
+    Default: c5.xlarge
+    AllowedValues:
+      - c5.large
+      - c5.xlarge
+      - c5.2xlarge
+      - c5.4xlarge
+      - c5.9xlarge
+      - c5.18xlarge
+      - c5n.large
+      - c5n.xlarge
+      - c5n.2xlarge
+      - c5n.4xlarge
+      - c5n.9xlarge
+      - c5n.18xlarge
+    ConstraintDescription: Must be a valid EC2 instance type
+  AllocatePublicAddress:
+    Type: String
+    Default: true
+    AllowedValues:
+      - true
+      - false
+  GatewayHostname:
+    Type: String
+    Default: ''
+    AllowedPattern: '^([A-Za-z]([-0-9A-Za-z]{0,61}[0-9A-Za-z])?|)$'
+    ConstraintDescription: A valid hostname label or an empty string
+  GatewayBootstrapScript:
+    Description: An optional script with semicolon (;) separated commands to run on the initial boot
+    Type: String
+    Default: ''
+    NoEcho: true
+Conditions:
+  ProvidedRouteTable: !Not [!Equals [!Ref InternalRouteTable, '']]
+  AllocateAddress: !Equals [!Ref AllocatePublicAddress, true]
+  ProvideUSFogAddress: !And [!Equals [!Ref FogAddress, ''], !Equals [!Select [0, !Split ['cp-us-', !Ref InfinityToken]], '']]
+Resources:
+  ReadyHandle:
+    Type: AWS::CloudFormation::WaitConditionHandle
+    Condition: AllocateAddress
+    Properties: {}
+  ReadyCondition:
+    Type: AWS::CloudFormation::WaitCondition
+    Condition: AllocateAddress
+    DependsOn: GatewayInstance
+    Properties:
+      Handle: !Ref ReadyHandle
+      Timeout: 1800
+  AMI:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://cgi-cfts.s3.amazonaws.com/waap/waap-amis.yaml
+  ExternalNetworkInterface:
+    Type: AWS::EC2::NetworkInterface
+    Properties:
+      Tags:
+        - Key: Name
+          Value:
+            !Join
+            - _
+            - - !Ref 'AWS::StackName'
+              - ExternalNetworkInterface
+      Description: eth0
+      SourceDestCheck: false
+      GroupSet:
+        - !Ref PermissiveSecurityGroup
+      SubnetId: !Ref PublicSubnet
+  InternalNetworkInterface:
+    Type: AWS::EC2::NetworkInterface
+    Properties:
+      Tags:
+        - Key: Name
+          Value:
+            !Join
+            - _
+            - - !Ref 'AWS::StackName'
+              - InternalNetworkInterface
+      Description: eth1
+      SourceDestCheck: false
+      GroupSet:
+        - !Ref PermissiveSecurityGroup
+      SubnetId: !Ref PrivateSubnet
+  PermissiveSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      Tags:
+        - Key: Name
+          Value:
+            !Join
+            - _
+            - - !Ref 'AWS::StackName'
+              - PermissiveSecurityGroup
+      GroupDescription: Permissive security group
+      VpcId: !Ref VPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: !Ref InboundSources
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          CidrIp: !Ref InboundSources
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: !Ref InboundSources
+        - IpProtocol: tcp
+          FromPort: 30443
+          ToPort: 30443
+          CidrIp: !Ref InboundSources
+  InternalDefaultRoute:
+    Type: AWS::EC2::Route
+    Condition: ProvidedRouteTable
+    Properties:
+      DestinationCidrBlock: 0.0.0.0/0
+      NetworkInterfaceId: !Ref InternalNetworkInterface
+      RouteTableId: !Ref InternalRouteTable
+  GatewayInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: !GetAtt AMI.Outputs.ImageId
+      InstanceType: !Ref GatewayInstanceType
+      BlockDeviceMappings:
+        - DeviceName: '/dev/xvda'
+          Ebs:
+            VolumeType: gp2
+            VolumeSize: 100
+      UserData:
+        'Fn::Base64':
+          !Join
+          - |+
+
+          - - '#!/bin/bash'
+            - 'set -e'
+            - 'logfile=/var/log/aws-user-data.log'
+            - '> ${logfile}'
+            - 'exec 1>>${logfile} 2>>${logfile}'
+            - 'function report-status() {'
+            - '    local rc=${?}'
+            - '    local status=""'
+            - '    local reason="Security Gateway configuration"'
+            - '    local data=""'
+            - '    set +e'
+            - '    printf H4sIAEQeOVoCAzNoYuE3aGL6voCZiZGJiZHBgJeNU6vNo+07LyMjKyuDQYYhtwEnG3MoC5swU2iwoaqBMojDJSwTXJJYlJaZmpOiEJKanJGXn5OfnplarKPgmZesZ2hkYABSxi2siVDmnJNYXKxgpOCcWlSSmZaZnFiSmZ+n4FhakpFflFlSaSAnzmtgYmBmZGlobmxpaBYlzmuMzKWjS5oYFZCDgZGVgbmJkZcBKM7B1MTIyLDd6MS/l4XLWFrX8gim3D/n+/4Es0S7/cLVv22Wzf9weOGtKzfytIMn/FZZYtfyYd6L+DdP1V2+aiyzr773QOvDifXB+vNOsTJOlutPk7Fc7vsralsxi2ra6/L655HHvGaqioS8Vjv+uV7yqkFB//oNblr/177WfHt9/iqW9sVXfnYuNYm/7Tyxyexmms3GHTub/s6xshM4Yf2eLTWtarakhO3/wkAbA734fbblxZti2XIOK4fN0m5VmySznGnzE3ve9RyVTTvMbF/NuWy6eU/mqa9n5r74m9Ir3mCcF+cVO/OkXPuWuVIHruYJmyrH3Z8db/v+2veyQ6/sdlfwyjilZ7Pc+HHtVn73J5cFjKuZGJkXNx41aDxkIAsMW1k+FjEWkf3x2y+euyvf9iU6dM2d6wKH+FZ2PDdonASSV2Zp7DJobG/AqmZhzpIs+kVtEzCB84DcJMzCasDMyPgfLbkzg6KXda59x9yLJ6VCF67J/Pw58tZsxnYp//CVCys5tW5/198kd+Z4XNaN5vaF0997mtqVszlGJO3vi9jBlW7/ZvNdxTT5kyG/is7Y+jjcaFxfPq+5avei419NxPtuCjp8+aOj5StavzwpVk/1MgO3gpRsxk/xHV/2dr/ViLzrK9Yt3nxiU+px3aqlq/YEt+XeDV9y6oeCI3fGhy+/S/aFxVZVfv0p2/pYd+q+r4UTnM/0ys9i4GrXfBmqFMGg/OqxkLNmtDvH3R7HrFS2FU8VVzlumao4dWftRZPVwtfW7rnzyNby7F670oKFEpHMJ5W29M+5Gqd1fem2K1y5P7Y7CLrNkq/kS9rPP/3NA3158SkAHEuNARMEAAA= | base64 -d | gunzip -c | cpopenssl x509 -inform DER >${CPDIR}/tmp/wait-handle.crt'
+            - '    cat ${CPDIR}/conf/ca-bundle.crt >>${CPDIR}/tmp/wait-handle.crt'
+            - '    if [[ ${rc} -eq 0 ]]; then'
+            - '        status="SUCCESS"'
+            - '        reason+=" completed"'
+            - '        data="Configuration completed."'
+            - '    else'
+            - '        status="FAILURE"'
+            - '        reason+=" failed"'
+            - '        data="None"'
+            - '    fi'
+            - '    echo "Reporting status ${status}: ${reason}"'
+            - '    curl_cli -s -S --cacert ${CPDIR}/tmp/wait-handle.crt -X PUT -H "Content-Type:" --data-binary "{\"Status\" : \"${status}\", \"Reason\" : \"${reason}\", \"UniqueId\" : \"${instance_id}\", \"Data\": \"${data}\"}" "${wait_handle}"'
+            - '}'
+            - 'echo -e "\nStarting user-data\n"'
+            - 'echo "Setting up parameters"'
+            - !Sub 'pwd_hash=''${GatewayPasswordHash}'' ; hostname=${GatewayHostname} ; eic=${EnableInstanceConnect} ; eip=${AllocatePublicAddress} ; wait_handle=''${ReadyHandle}'' '
+            - !Sub ['fog=${Fog}', {Fog: !If [ProvideUSFogAddress, 'https://inext-agents-us.cloud.ngen.checkpoint.com', !Ref FogAddress]}]
+            - !Join ['', ['token="$(echo ', 'Fn::Base64': !Ref InfinityToken, ' | base64 --decode)"']]
+            - !Join ['', ['bootstrap="$(echo ', 'Fn::Base64': !Ref GatewayBootstrapScript, ' | base64 --decode)"']]
+            - "instance_id=`curl_cli --connect-timeout 10 http://169.254.169.254/latest/meta-data/instance-id`"
+            - 'if [[ -n ${wait_handle} ]] && ${eip}; then'
+            - '    trap report-status EXIT'
+            - 'fi'
+            - 'echo "Updating cloud-version file"'
+            - 'template="waap"'
+            - 'echo "template_name: ${template}" >> /etc/cloud-version'
+            - 'echo "template_version: 20211114" >> /etc/cloud-version'
+            - 'if [[ -z ${pwd_hash} ]]; then'
+            - '    echo "Generating random password hash"'
+            - '    pwd_hash="$(dd if=/dev/urandom count=1 2>/dev/null | sha1sum | cut -c -28)"'
+            - 'fi'
+            - 'echo "Setting admin shell to /bin/bash"'
+            - 'clish -c "lock database override" -s || true'
+            - 'clish -c "set user admin shell /bin/bash" -s'
+            - 'if [[ -n ${hostname} ]]; then'
+            - '   echo "Setting hostname to ${hostname}"'
+            - '   clish -c "lock database override" -s || true'
+            - '   clish -c "set hostname ${hostname}" -s'
+            - 'fi'
+            - 'sic=""'
+            - 'echo "Starting First Time Wizard"'
+            - 'blink_config -s "gateway_cluster_member=false&ftw_sic_key=${sic}&upload_info=false&download_info=false&admin_hash=${pwd_hash}"'
+            - 'echo "Setting admin password"'
+            - 'clish -c "lock database override" -s || true'
+            - 'clish -c "set user admin password-hash ${pwd_hash}" -s'
+            - 'if ${eic}; then'
+            - '    echo "Enabling ec2 instance connect"'
+            - '    if [[ -d "/etc/ec2-instance-connect" ]]; then'
+            - '        ec2-instance-connect-config on'
+            - '    else'
+            - '        echo "Could not enable eic, /etc/ec2-instance-connect was not found"'
+            - '    fi'
+            - 'fi'
+            - 'if [[ -n ${bootstrap} ]]; then'
+            - '    echo "Invoking bootstrap script"'
+            - '    eval ${bootstrap}'
+            - 'fi'
+            - 'echo "Running WAAP init"'
+            - '/opt/CPWAAP/init_waap.sh'
+            - 'echo "Start the WAAP agent"'
+            - 'echo "Using fog address: ${fog}"'
+            - 'install_command=""'
+            - 'if [[ -n ${fog} ]]; then'
+            - '    install_command="/opt/CPWAAP/agent/cp-nano-egg --install --token ${token} --fog ${fog}"'
+            - 'else'
+            - '    install_command="/opt/CPWAAP/agent/cp-nano-egg --install --token ${token}"'
+            - 'fi'
+            - 'script_name=zzzz_install_appsec'
+            - 'launch_on_reboot=/etc/init.d/${script_name}'
+            - 'cat <<EOF > ${launch_on_reboot}'
+            - '#!/bin/sh'
+            - '# chkconfig: 2345 99 99'
+            - '# description: AppSec agent download and installation'
+            - 'logfile=/var/log/aws-user-data.log'
+            - 'exec 1>>${logfile} 2>>${logfile}'
+            - '. /opt/CPshared/5.0/tmp/.CPprofile.sh'
+            - '${install_command}'
+            - 'echo -e "\nRun the following command: cpnano -s\n" >> /etc/motd'
+            - 'chkconfig --del ${launch_on_reboot}'
+            - 'shred -zun1 ${launch_on_reboot}'
+            - 'EOF'
+            - 'chmod u+rwx ${launch_on_reboot}'
+            - 'chkconfig --add ${launch_on_reboot}'
+            - 'reboot'
+      KeyName: !Ref KeyName
+      NetworkInterfaces:
+        - DeviceIndex: 0
+          NetworkInterfaceId: !Ref ExternalNetworkInterface
+        - DeviceIndex: 1
+          NetworkInterfaceId: !Ref InternalNetworkInterface
+      Tags:
+        - Key: Name
+          Value: !Ref GatewayName
+  PublicAddress:
+    Type: AWS::EC2::EIP
+    Condition: AllocateAddress
+    Properties:
+      Domain: vpc
+  AddressAssoc:
+    Type: AWS::EC2::EIPAssociation
+    Condition: AllocateAddress
+    DependsOn: GatewayInstance
+    Properties:
+      NetworkInterfaceId: !Ref ExternalNetworkInterface
+      AllocationId: !GetAtt PublicAddress.AllocationId
+      PrivateIpAddress: !GetAtt ExternalNetworkInterface.PrimaryPrivateIpAddress
+Outputs:
+  PublicAddress:
+    Description: The public address of the Check Point instance
+    Value: !Ref PublicAddress
+    Condition: AllocateAddress
+  SSH:
+    Description: SSH command to the Check Point instance
+    Value: !Join ['', ['ssh -i ', !Ref KeyName, ' admin@', !Ref PublicAddress]]
+    Condition: AllocateAddress
+  URL:
+    Description: URL to the portal
+    Value: !Join ['', ['https://', !Ref PublicAddress]]
+    Condition: AllocateAddress

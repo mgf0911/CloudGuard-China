@@ -1,0 +1,57 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Returns CloudGuard Infinity Next Gateway Amazon Machine ID (01092021)
+Mappings:
+  RegionMap:
+    us-east-1:
+      CgiInfinityWaap: ami-0ea8788a26e2b65da
+    us-east-2:
+      CgiInfinityWaap: ami-0bca219166adfcb4b
+    us-west-1:
+      CgiInfinityWaap: ami-06e7330510a580eb5
+    us-west-2:
+      CgiInfinityWaap: ami-01249502632e5bbce
+    ca-central-1:
+      CgiInfinityWaap: ami-031b761389d14b61f
+    eu-central-1:
+      CgiInfinityWaap: ami-092903b41ab4c8028
+    eu-west-1:
+      CgiInfinityWaap: ami-08239ea18e9409a34
+    eu-west-2:
+      CgiInfinityWaap: ami-085003379a8647d1b
+    eu-west-3:
+      CgiInfinityWaap: ami-0bb266e9fb8f9d7b4
+    eu-north-1:
+      CgiInfinityWaap: ami-096052b6e6d4f6412
+    eu-south-1:
+      CgiInfinityWaap: ami-0be129d9ae90b50d8
+    ap-east-1:
+      CgiInfinityWaap: ami-0aab0e1b6fb39d294
+    ap-southeast-1:
+      CgiInfinityWaap: ami-0b4eadcbd842b825b
+    ap-southeast-2:
+      CgiInfinityWaap: ami-03e05740db2621dd0
+    ap-northeast-2:
+      CgiInfinityWaap: ami-07d22b4de30f7dbbc
+    ap-northeast-1:
+      CgiInfinityWaap: ami-05fc06245e4c4e4dc
+    ap-northeast-3:
+      CgiInfinityWaap: ami-0965fde0d05f10310
+    ap-south-1:
+      CgiInfinityWaap: ami-03b8c44a78e10b2b9
+    sa-east-1:
+      CgiInfinityWaap: ami-071cc8cf577e2f998
+    me-south-1:
+      CgiInfinityWaap: ami-0e9f7afd8247fb941
+    af-south-1:
+      CgiInfinityWaap: ami-0da41468278ce1b28
+    us-gov-east-1:
+      CgiInfinityWaap: ami-0023fa6d0e80a4541
+    us-gov-west-1:
+      CgiInfinityWaap: ami-015879f2ede0954d2
+Resources:
+  DummyHandle:
+    Type: 'AWS::CloudFormation::WaitConditionHandle'
+    Properties: {}
+Outputs:
+  ImageId:
+    Value: !FindInMap [RegionMap, !Ref 'AWS::Region', CgiInfinityWaap]
