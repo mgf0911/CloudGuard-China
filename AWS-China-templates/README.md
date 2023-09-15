@@ -377,7 +377,7 @@
 </tbody>
 </table></div>
 <p></p>
-<h3 id="CloudGuard Infinity Next Gateway"><br>CloudGuard AppSec 不支持中国AWS请勿使用</h3>
+<h3 id="CloudGuard Infinity Next Gateway"><br>CloudGuard AppSec （Not in China AWS）不支持中国AWS请勿使用</h3>
 <div class="table-wrapper"><table class="footnote" style="table-layout: fixed; width: 100%;" width="100%" cellspacing="2" cellpadding="4" border="1">
 <tbody>
 <tr class="SubTitle" style="text-align: center;" bgcolor="#d6dff0">
@@ -399,7 +399,7 @@
 </tr>
 </tbody>
 </table></div>
-<h3 id="CloudGuard Infinity Next Gateway Auto Scaling Group"><br>CloudGuard AppSec Auto Scaling Group 不支持中国AWS请勿使用</h3>
+<h3 id="CloudGuard Infinity Next Gateway Auto Scaling Group"><br>CloudGuard AppSec Auto Scaling Group （Not in China AWS）不支持中国AWS请勿使用</h3>
 <div class="table-wrapper"><table class="footnote" style="table-layout: fixed; width: 100%;" width="100%" cellspacing="2" cellpadding="4" border="1">
 <tbody>
 <tr class="SubTitle" style="text-align: center;" bgcolor="#d6dff0">
