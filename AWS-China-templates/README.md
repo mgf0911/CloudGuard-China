@@ -52,10 +52,10 @@
 <div class="checkpoint_navigate" targetid="Standalone Deployment">Security Management Server &amp; Security Gateway (Standalone Deployment)</div>
 </li>
 <li>
-<div class="checkpoint_navigate" targetid="CloudGuard Infinity Next Gateway">CloudGuard AppSec&nbsp;</div>
+<div class="checkpoint_navigate" targetid="CloudGuard Infinity Next Gateway">CloudGuard AppSec （Not in China AWS）&nbsp;</div>
 </li>
 <li>
-<div class="checkpoint_navigate" targetid="CloudGuard Infinity Next Gateway Auto Scaling Group">CloudGuard AppSec Auto Scaling Group</div>
+<div class="checkpoint_navigate" targetid="CloudGuard Infinity Next Gateway Auto Scaling Group">CloudGuard AppSec Auto Scaling Group （Not in China AWS）</div>
 </li>
 <li>
 <div class="checkpoint_navigate" targetid="General">General</div>
