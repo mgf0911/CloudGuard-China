@@ -38,7 +38,8 @@ resource "alicloud_ram_policy" "ram_policy" {
             "vpc:DescribeEipAddresses",
             "vpc:AssociateEipAddress",
             "vpc:UnassociateEipAddress",
-            "ecs:DescribeNetworkInterfaces"
+            "ecs:DescribeNetworkInterfaces",
+            "ram:ListPolicyVersions"
         ],
         "Effect": "Allow",
         "Resource": ["*"]
