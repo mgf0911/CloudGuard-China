@@ -7,7 +7,7 @@ vswitch_id = "vsw-"
 // --- ECS Instances Configuration ---
 instance_name = "CP-Management-tf"
 instance_type = "ecs.g6e.xlarge"
-key_name = "SGM-CP-Key"
+key_name = "key name"
 allocate_and_associate_eip = true
 volume_size = 100
 disk_category = "cloud_essd"

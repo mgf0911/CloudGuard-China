@@ -9,11 +9,12 @@ private_route_table = "vtb-"
 // --- ECS Instance Configuration ---
 gateway_name = "Check-Point-Gateway-tf"
 gateway_instance_type = "ecs.g5ne.xlarge"
-key_name = "key"
+key_name = "key name"
 allocate_and_associate_eip = true
 volume_size = 100
 disk_category = "cloud_efficiency"
-ram_role_name = "role_name"
+#disk_category = "cloud_essd"
+ram_role_name = ""
 instance_tags = {
   key1 = "value1"
   key2 = "value2"

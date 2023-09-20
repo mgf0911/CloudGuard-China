@@ -10,7 +10,7 @@ private_route_table = "vtb-"
 // --- ECS Instance Configuration ---
 gateway_name = "Check-Point-Cluster-tf"
 gateway_instance_type = "ecs.g5ne.xlarge"
-key_name = "key"
+key_name = "key name"
 allocate_and_associate_eip = false
 volume_size = 100
 disk_category = "cloud_efficiency"

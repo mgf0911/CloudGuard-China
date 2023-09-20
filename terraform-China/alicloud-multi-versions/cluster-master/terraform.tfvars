@@ -16,7 +16,7 @@ vswitchs_bit_length = 8
 // --- ECS Instance Configuration ---
 gateway_name = "Check-Point-Cluster-tf"
 gateway_instance_type = "ecs.g7ne.large"
-key_name = "SGM-CP-Key"
+key_name = "key name"
 allocate_and_associate_eip = false
 volume_size = 100
 #disk_category = "cloud_efficiency"
