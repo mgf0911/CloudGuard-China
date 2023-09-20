@@ -1,0 +1,316 @@
+Description: Returns a Check Point AliCloud Machine ID (__VERSION__)
+Parameters:
+  Version:
+    Description: Security Gateway or Management Server version
+    Type: String
+    Default: R81-BYOL-GW
+    AllowedValues:
+      - R81-BYOL-GW
+      - R81-BYOL-MGMT
+      - R81.10-BYOL-GW
+      - R81.10-BYOL-MGMT
+      - R81.20-BYOL-GW
+      - R81.20-BYOL-MGMT
+Mappings:
+  ConverterMap:
+    R81-BYOL-GW:
+      Value: R81BYOLGW
+    R81-BYOL-MGMT:
+      Value: R81BYOLMGMT
+    R81.10-BYOL-GW:
+      Value: R8110BYOLGW
+    R81.10-BYOL-MGMT:
+      Value: R8110BYOLMGMT
+    R81.20-BYOL-GW:
+      Value: R8120BYOLGW
+    R81.20-BYOL-MGMT:
+      Value: R8120BYOLMGMT
+  RegionMap:
+#美国（硅谷）
+    us-west-1:
+      R81BYOLMGMT: m-rj9csbi4q07sal73dyto
+      R81BYOLGW: m-rj98nsv4hy6j6hvr6q30
+      R8110BYOLMGMT: m-rj93ope8yizf7jd2h0ps
+      R8110BYOLGW: m-rj9immh6askv51jgtl8o
+      R8120BYOLMGMT: m-rj98pfb3ks3vc7291fzw
+      R8120BYOLGW: m-rj99xqs2licdxwte7tcr
+#美国（弗吉尼亚）
+    us-east-1:
+      R81BYOLMGMT: m-0xib7wkyt0xusbijak24
+      R81BYOLGW: m-0xi6jx6todorcl73ko15
+      R8110BYOLMGMT: m-0xi5besp4voode0ps5xv
+      R8110BYOLGW: m-0xi9p4vgnj6qjg1uxtpg
+      R8120BYOLMGMT: m-0xianzb03i4p1kvxgb1v
+      R8120BYOLGW: m-0xiadp7xvmv4nwv2rw8z
+#阿联酋（迪拜）
+    me-east-1:
+      R81BYOLMGMT: m-eb339adf5t3o1ee1jju3
+      R81BYOLGW: m-eb339adf5t3o1ee1jju2
+      R8110BYOLMGMT: m-eb32i6ik5eaamccuoxa2
+      R8110BYOLGW: m-eb32i6ik5eaamebvsz97
+      R8120BYOLMGMT: m-eb3f41e98ed8r3p6edj5
+      R8120BYOLGW: m-eb3aur2msduqmv2s0okc
+#沙特（利雅得)
+    me-central-1:
+      R81BYOLMGMT: m-l4v1bacq8ww2f1hja3wy
+      R81BYOLGW: m-l4vir693vjcptyq63z43
+      R8110BYOLMGMT: m-l4vhwjielnmconi6j09u
+      R8110BYOLGW: m-l4vcd7zzlfaiemozu44n
+      R8120BYOLMGMT: m-l4v1bacq8ww3fjk4anh4
+      R8120BYOLGW: m-l4vcd7zzlfajbwcr7f57
+#英国（伦敦）
+    eu-west-1:
+      R81BYOLMGMT: m-d7o50pjm83mml7u0x3t9
+      R81BYOLGW: m-d7o0iph0td8d3lxhem3n
+      R8110BYOLMGMT: m-d7oja1b9vhs0fm2x47dc
+      R8110BYOLGW: m-d7o5grtynrr35t2a23md
+      R8120BYOLMGMT: m-d7oja1b9vhs1cxpplkd2
+      R8120BYOLGW: m-d7o5grtynrr432q1fenc
+#德国（法兰克福）
+    eu-central-1:
+      R81BYOLMGMT: m-gw8gczdbuh32mvdea1kj
+      R81BYOLGW: m-gw86zjiusm26w85rasg3
+      R8110BYOLMGMT: m-gw8eszsz6807sydmabu3
+      R8110BYOLGW: m-gw87orpj8csd3grq1hcv
+      R8120BYOLMGMT: m-gw868gfib0n7al7h217v
+      R8120BYOLGW: m-gw8659twtnjsgiu2cxgo
+#cn-zhengzhou-nebula-1
+    cn-zhengzhou-nebula-1:
+      R81BYOLMGMT: 
+      R81BYOLGW: 
+      R8110BYOLMGMT: 
+      R8110BYOLGW: 
+      R8120BYOLMGMT: 
+      R8120BYOLGW: 
+#郑州（联通合营）
+    cn-zhengzhou-jav:
+      R81BYOLMGMT: 
+      R81BYOLGW: 
+      R8110BYOLMGMT: 
+      R8110BYOLGW: 
+      R8120BYOLMGMT: 
+      R8120BYOLGW: 
+#华北3（张家口）
+    cn-zhangjiakou:
+      R81BYOLMGMT: m-8vb887q7vs6i95iey885
+      R81BYOLGW: m-0jl2l4f1n5oavci2bcab
+      R8110BYOLMGMT: m-8vb6d6doi8nmjmempril
+      R8110BYOLGW: m-8vb3arfnohxc6d3jx20s
+      R8120BYOLMGMT: m-8vb5xybjjwveq5frzzx3
+      R8120BYOLGW: m-8vbeywfwjqqqvnp2j0cn
+#华北6（乌兰察布）
+    cn-wulanchabu:
+      R81BYOLMGMT: m-0jl1d84n0a6ut8frtj9t
+      R81BYOLGW: m-0jl2l4f1n5oavci2bcab
+      R8110BYOLMGMT: m-0jl26jymoe0x0v2ckt83
+      R8110BYOLGW: m-0jlizk9k73a1malnefl2
+      R8120BYOLMGMT: m-0jl26jymoe0xy6p52685
+      R8120BYOLGW: m-0jlizk9k73a2jk9erqm7
+#华南1（深圳）
+    cn-shenzhen:
+      R81BYOLMGMT: m-wz92jknqf1xzc5zr85ro
+      R81BYOLGW: m-wz90trccrytopqik9mbk
+      R8110BYOLMGMT: m-wz94l6mfklnxy27pfsdk
+      R8110BYOLGW: m-wz9art3z4st6gb2gnlc1
+      R8120BYOLMGMT: 	m-wz9azget5rt2sv3trfqy
+      R8120BYOLGW: m-wz97i5jpcvxsf2dap5jo
+#华南 1 金融云
+    cn-shenzhen-finance-1:
+      R81BYOLMGMT: m-j5e6pno8g423k1aebsdk
+      R81BYOLGW: m-j5e7704shrh101endfgh
+      R8110BYOLMGMT: m-j5eb6fy5151xfnry493g
+      R8110BYOLGW: m-j5e14y6rpu28tf13y7b7
+      R8120BYOLMGMT: m-j5ee17kit0s4eiypnk8f
+      R8120BYOLGW: m-j5ecfq7zqd54sl86ffm2
+#华东 2 金融云
+    cn-shanghai-finance-1:
+      R81BYOLMGMT: m-zm08s6qknfwgk3wm9ym1
+      R81BYOLGW: m-zm06y5rnonx8s3uckwrl
+      R8110BYOLMGMT: m-zm0dhrt0alj87ujxrvtx
+      R8110BYOLGW: m-zm0gziv9gnzzo140wy4k
+      R8120BYOLMGMT: m-zm014vvbc1fbsajln302
+      R8120BYOLGW: m-zm01cela3h4oupfumrgo
+#华东2（上海）
+    cn-shanghai:
+      R81BYOLMGMT: m-uf69bqo8qyfmd4gyqjtr
+      R81BYOLGW: m-uf62dall0ngyc5ea2vu4
+      R8110BYOLMGMT: m-uf6ej3nv29wjtdeaq9x1
+      R8110BYOLGW: m-uf6bcpzf8a6zj7afae2w
+      R8120BYOLMGMT: m-uf61n3t4o77j2pl5xn9o
+      R8120BYOLGW: m-uf6b18qcxq217y89hunc
+#华北1（青岛）
+    cn-qingdao:
+      R81BYOLMGMT: m-m5e36or6ncaav2wkftla
+      R81BYOLGW: m-m5edd5nhvhleyljz9ul8
+      R8110BYOLMGMT: m-m5ecfqygk2t2dxtld65o
+      R8110BYOLGW: m-m5ed52sho8gcdp7gh6z8
+      R8120BYOLMGMT: m-m5eiwh6hgygizpwruyu4
+      R8120BYOLGW: m-m5e98aby1cqwknhttuv8
+#华北 2 阿里政务云1
+    cn-north-2-gov-1:
+      R81BYOLMGMT: 
+      R81BYOLGW: 
+      R8110BYOLMGMT: 
+      R8110BYOLGW: 
+      R8120BYOLMGMT: 
+      R8120BYOLGW: 
+#华东5（南京-本地地域）
+    cn-nanjing:
+      R81BYOLMGMT: m-gc7ixk6ll00n8iihhz76
+      R81BYOLGW: m-gc7h511k08g177ifvxos
+      R8110BYOLMGMT: m-gc72z9x9e88g4rgm4w4d
+      R8110BYOLGW: m-gc7gc4szvvzwjhhcqai9
+      R8120BYOLMGMT: m-gc7ixk6ll00o90l2iirf
+      R8120BYOLGW: m-gc75c4x7x3xg0c2npvzv
+#华北5（呼和浩特）
+    cn-huhehaote:
+      R81BYOLMGMT: m-hp305pd91tkyyqvotdul
+      R81BYOLGW: m-hp305pd91tkyyqvotduk
+      R8110BYOLMGMT: m-hp3975l2qq99ataaag32
+      R8110BYOLGW: m-hp3d1nr1ld1l2nauh2dy
+      R8120BYOLMGMT: m-hp37fy4152kw0t7z27pu
+      R8120BYOLGW: m-hp32rd7556vg65j0kaui
+#cn-huhehaote-nebula-1
+    cn-huhehaote-nebula-1: 
+      R81BYOLMGMT: m-i5ubyiy68vp28ahsv4bn
+      R81BYOLGW: m-i5ue8q1sprngdlzeg0xc
+      R8110BYOLMGMT: m-i5uium2x2i866fzkllfj
+      R8110BYOLGW: m-i5ubyiy68vp2biwmicv8
+      R8120BYOLMGMT: m-i5u7ijxhorkmqdi17avn
+      R8120BYOLGW: m-i5ue8q1sprnhe41zgkhe
+#中国香港
+    cn-hongkong:
+      R81BYOLMGMT: m-j6c221c76pr8goj2slua
+      R81BYOLGW: m-j6c0kjl3k1utzmk4n26z
+      R8110BYOLMGMT: m-j6cc8hheg62dcezo5geg
+      R8110BYOLGW: m-j6cgqamwfge5eu715mib
+      R8120BYOLMGMT: m-j6cghbnnukuoiaav15f7
+      R8120BYOLGW: m-j6ccj57nx6ar2c8ok8wr
+#华南2（河源）
+    cn-heyuan:
+      R81BYOLMGMT: m-f8z1bor7yisktjncywrr
+      R81BYOLGW: m-f8zewxv4pspu6adrzhbn
+      R8110BYOLMGMT: m-f8zfir0dvanizqk4nxif
+      R8110BYOLGW: m-f8zcer5qaqp8wcl9odpp
+      R8120BYOLMGMT: f8zewxv4pspv6sgd00vw
+      R8120BYOLGW: m-f8z1bor7yislu1pxzgc8
+#华东1（杭州）
+    cn-hangzhou:
+      R81BYOLMGMT: m-bp13uc2h0pwm8y8k8ksh
+      R81BYOLGW: m-bp1b80uqxar0n9s4yykx
+      R8110BYOLMGMT: m-bp1il9gfaoq30iz6x7i5
+      R8110BYOLGW: m-bp18gjlm9oi22qhb1qyc
+      R8120BYOLMGMT: m-bp18tiez3oeymb8yk842
+      R8120BYOLGW: m-bp165qz8yki9str62h6m
+#阿里政务云
+    cn-north-2:
+      R81BYOLMGMT: 
+      R81BYOLGW: 
+      R8110BYOLMGMT: 
+      R8110BYOLGW: 
+      R8120BYOLMGMT: 
+      R8120BYOLGW: 
+#华南3（广州）
+    cn-guangzhou:
+      R81BYOLMGMT: m-7xvgqut65v5clqxegfkn
+      R81BYOLGW: m-7xv715k54i1ucuxwjlnp
+      R8110BYOLMGMT: m-7xvfyt47v2pk3ygka9a6
+      R8110BYOLGW: m-7xv33j3xazqzxto3l1x9
+      R8120BYOLMGMT: m-7xv715k54i1vdd0hk57z
+      R8120BYOLGW: m-7xvbs9fqrdmb5cts7ofy
+#华东6（福州-本地地域）
+    cn-fuzhou:
+      R81BYOLMGMT: m-gw0hmi3va4lua1f9n8gk
+      R81BYOLGW: m-gw0g4klatinqtd0ezbmx
+      R8110BYOLMGMT: m-gw05c4x7x3xf30fv8j04
+      R8110BYOLGW: m-gw0g4klatinqwlf8mk6i
+      R8120BYOLMGMT: m-gw02z9x9e88h233em942
+      R8120BYOLGW: m-gw0ixk6ll00o90l2iire
+#西南1（成都）
+    cn-chengdu:
+      R81BYOLMGMT: m-2vc4lvmdee3numbqfpgx
+      R81BYOLGW: m-2vc4sz5lo3zox9778s2j
+      R8110BYOLMGMT: m-2vc4lvmdee3nxsriyw1e
+      R8110BYOLGW: m-2vc4sz5lo3zp0hm0w0m6
+      R8120BYOLMGMT: m-2vc5xwjxxxwcoy42o7vu
+      R8120BYOLGW: m-2vcejlh1dikguiz4je01
+#华北2（北京）
+    cn-beijing:
+      R81BYOLMGMT: m-2ze3es8pc7vrpjwckuba
+      R81BYOLGW: m-2zeb2dmca18kewvpkty1
+      R8110BYOLMGMT: m-2zeac1fuwn00n7pdi5h5
+      R8110BYOLGW: m-2zec2y4xcnihzny6linn
+      R8120BYOLMGMT: m-2zej2x85324mkhksi1xh
+      R8120BYOLGW: m-2zefa3k4kcjxpjcck449
+#新加坡
+    ap-southeast-1:
+      R81BYOLMGMT: m-t4nclxd4qo1t8i8j0e7u
+      R81BYOLGW: m-t4n6ai4zftfrphf1wqfc
+      R8110BYOLMGMT: m-t4n8o3mmrju9ksfl3pdo
+      R8110BYOLGW: m-t4n653ofrf294ikoal4r
+      R8120BYOLMGMT: m-t4n1ainz070flvo4gynl
+      R8120BYOLGW: m-t4n1o8d15wx659ky4dwe
+#马来西亚（吉隆坡）
+    ap-southeast-3:
+      R81BYOLMGMT: m-8ps30dpcjd246gjpxu3u
+      R81BYOLGW: m-8ps6421079fmhrat2nci
+      R8110BYOLMGMT: m-8ps8cpr4oeb4mi4fct81
+      R8110BYOLGW: m-8ps6421079fmkzpmpvw4
+      R8120BYOLMGMT: m-8ps6421079fni9de36xa
+      R8120BYOLGW: m-8psa4v24frczmq9joacp
+#印度尼西亚（雅加达）
+    ap-southeast-5:
+      R81BYOLMGMT: m-k1a4t2lcjf0oewycwikb
+      R81BYOLGW: m-k1aaubp42ea75q8jdro6
+      R8110BYOLMGMT: m-k1agb6dbexnkb3uw3o3b
+      R8110BYOLGW: m-k1addoakcbg1pf8c5zm5
+      R8120BYOLMGMT: m-k1aaubp42ea868b4eb8k
+      R8120BYOLGW: m-k1agum5nstfim4vgyy7r
+#澳大利亚（悉尼）
+    ap-southeast-2:
+      R81BYOLMGMT: m-p0wfgg6w446hwk9ht4l7
+      R81BYOLGW: m-p0wele2id71i3i9iizbd
+      R8110BYOLMGMT: m-p0wb1cp8zbs9lpdh8kyt
+      R8110BYOLGW: m-p0wb1cp8zbs9lrcicmxy
+      R8120BYOLMGMT: m-p0wfgg6w446ix2c2to6h
+      R8120BYOLGW: m-p0wiotoqvn2qr8yutvjb
+#泰国（曼谷）
+    ap-southeast-7:
+      R81BYOLMGMT: m-0joewkzuqeafje9h7feh
+      R81BYOLGW: m-0joewkzuqeafje9h7feg
+      R8110BYOLMGMT: m-0jo2o1ywo8eryhfarqdw
+      R8110BYOLGW: m-0joakh5yfcg5wufxto93
+      R8120BYOLMGMT: m-0joewkzuqeagjwc27yyu
+      R8120BYOLGW: m-0joewkzuqeagjwc27yyt
+#菲律宾（马尼拉）
+    ap-southeast-6:
+      R81BYOLMGMT: m-5tsj61t84gyt7jhtshe0
+      R81BYOLGW: m-5tsj61t84gyt7jhtshdz
+      R8110BYOLMGMT: m-5tsj61t84gytapxmbnyk
+      R8110BYOLGW: m-5tsj61t84gytarwnfpxp
+      R8120BYOLMGMT: m-5tsa988tl55h6ij4u266
+      R8120BYOLGW: m-5ts8s9wg5ewlq9rflh6b
+#印度（孟买）
+    ap-south-1:
+      R81BYOLMGMT: m-a2d2z2e413utwjxnyspw
+      R81BYOLGW: m-a2dj8brzns24y0e9dnjz
+      R8110BYOLMGMT: m-a2d4nmhy949tmdd54uyf
+      R8110BYOLGW: m-a2d4nmhy949tmfc68wxk
+      R8120BYOLMGMT: m-a2dctsrempw0e7blllc1
+      R8120BYOLGW: m-a2d2z2e413uux208zca6
+#日本（东京）
+    ap-northeast-1:
+      R81BYOLMGMT: m-6we1epn14kkbab6fx3ib
+      R81BYOLGW: m-6wefu31c092k0gb0pff9
+      R8110BYOLMGMT: m-6wedifery1r54jekbw9s
+      R8110BYOLGW: m-6we5okq4bc6k23d84t0i
+      R8120BYOLMGMT: m-6we1epn14kkcat90xn2q
+      R8120BYOLGW: m-6we6blpcvg4ld46xucpi
+#韩国（首尔）
+    ap-northeast-2:
+      R81BYOLMGMT: m-mj7idta42lfh0klrifvx
+      R81BYOLGW: m-mj77pj0uyenzsj7100cb
+      R8110BYOLMGMT: m-mj7ffsqy3i2cq7md41jf
+      R8110BYOLGW: m-mj79dczg3sdd3vm74t6g
+      R8120BYOLMGMT: m-mj7ffsqy3i2dnj95lej4
+      R8120BYOLGW: m-mj79dczg3sde159yi471
