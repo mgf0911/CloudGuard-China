@@ -157,12 +157,12 @@ Parameters:
   StandaloneVersion:
     Description: Standalone Version & License.
     Type: String
-    Default: R81.20-BYOL
+    Default: R81.20-BYOL-MGMT
     AllowedValues:
-      - R80.40-BYOL
-      - R81-BYOL
-      - R81.10-BYOL
-      - R81.20-BYOL
+      - R80.40-BYOL-MGMT
+      - R81-BYOL-MGMT
+      - R81.10-BYOL-MGMT
+      - R81.20-BYOL-MGMT
   Shell:
     Description: Change the admin shell to enable advanced command line configuration.
     Type: String
