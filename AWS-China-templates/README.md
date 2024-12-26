@@ -172,7 +172,7 @@
 <tr>
 <td style="width: 35%;">Deploys and configures the Security Gateways as an AWS Auto Scaling group.<br><br>For more details, refer to the <a href="https://sc1.checkpoint.com/documents/IaaS/WebAdminGuides/EN/CloudGuard_Network_for_AWS_AutoScaling_DeploymentGuide/Default.htm" target="_blank" rel="noopener">CloudGuard Network Auto Scaling for AWS R80.20 and Higher Deployment Guide.</a></td>
 <td style="width: 25%;">Deploys an Auto Scaling group of Security Gateways into an <strong>existing VPC</strong>.</td>
-<td style="width: 6%; text-align: center;">R81.20<br>R81.10<br>R81<br>R80.40</td>
+<td style="width: 6%; text-align: center;">R81.20<br>R81.10<br>R82</td>
 <td style="width: 6%; text-align: center;"><a href="https://github.com/CheckPointSW/CloudGuardIaaS/tree/master/terraform/aws/autoscale" target="_blank" rel="noopener"><img src="https://sc1.checkpoint.com/sc/images/download-m.png" alt="" style="display: block; margin-left: auto; margin-right: auto;" border="0"></a></td>
 <td style="text-align: center; width: 10%;"><a href="https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/autoscale/autoscale.yaml" target="_blank" rel="noopener"><img src="https://sc1.checkpoint.com/sc/images/download-m.png" alt="" border="0"></a></td>
 <td style="text-align: center; width: 18%;"><a href="https://console.amazonaws.cn/cloudformation/home#/stacks/create/review?templateURL=https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/autoscale/autoscale.yaml&amp;stackName=Check-Point-Security-Gateway-AutoScaling" target="_blank" rel="noopener"><img src="https://sc1.checkpoint.com/sc/SolutionsStatics/NEW_SK_NOID1460631718185/launch1604140412.png" alt=""></a></td>
@@ -194,7 +194,7 @@
 <tr>
 <td rowspan="2" style="width: 35%;">Deploys and configured the Security Gateways as an AWS Auto Scaling group configured for Transit Gateway.<br><br>For more details, refer to <a href="https://sc1.checkpoint.com/documents/IaaS/WebAdminGuides/EN/CP_CloudGuard_AWS_Transit_Gateway/Default.htm" target="_blank" rel="noopener">AWS Transit Gateway R80.10 and above Deployment Guide</a>.</td>
 <td style="width: 25%;">Creates a <strong>new VPC</strong> and deploys an Auto Scaling group of Security Gateways configured for Transit Gateway into it, and an optional, preconfigured Security Management Server to manage them.</td>
-<td style="width: 6%; text-align: center;" rowspan="2">R81.20<br>R81.10<br>R81<br>R80.40</td>
+<td style="width: 6%; text-align: center;" rowspan="2">R81.20<br>R81.10<br>R82</td>
 <td style="width: 6%; text-align: center;"><a href="https://github.com/CheckPointSW/CloudGuardIaaS/tree/master/terraform/aws/tgw-asg-master" target="_blank" rel="noopener"><img src="https://sc1.checkpoint.com/sc/images/download-m.png" alt="" style="display: block; margin-left: auto; margin-right: auto;" border="0"></a></td>
 <td style="text-align: center; width: 10%;"><a href="https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/autoscale/tgw-asg-master.yaml" target="_blank" rel="noopener"><img src="https://sc1.checkpoint.com/sc/images/download-m.png" alt="" border="0"></a></td>
 <td style="text-align: center; width: 18%;"><a href="https://console.amazonaws.cn/cloudformation/home#/stacks/create/review?templateURL=https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/autoscale/tgw-asg-master.yaml&amp;stackName=Check-Point-TGW-AutoScaling" target="_blank" rel="noopener"><img src="https://sc1.checkpoint.com/sc/SolutionsStatics/NEW_SK_NOID1460631718185/launch1604140412.png" alt=""></a></td>
@@ -224,7 +224,7 @@
 <p>Deploys two Security Gateways, each in a different Availability Zone.<br><br>For more details, refer to <a href="https://sc1.checkpoint.com/documents/IaaS/WebAdminGuides/EN/CP_CloudGuard_for_AWS_Cross_AZ_Cluster/Default.htm" target="_blank" rel="noopener">Cross Availability Zone Cluster for AWS R81.20 Administration Guide</a></p>
 </td>
 <td style="width: 25%;">Creates a <strong>new VPC</strong> and deploys a Cross Availability Zone Cluster of Security Gateways into it.</td>
-<td style="width: 6%; text-align: center;" rowspan="2">R81.20</td>
+<td style="width: 6%; text-align: center;" rowspan="2">R81.20<br>R82</td>
 <td style="width: 6%; text-align: center;"><a href="https://github.com/CheckPointSW/CloudGuardIaaS/tree/master/terraform/aws/cross-az-cluster-master" target="_blank" rel="noopener"><img src="https://sc1.checkpoint.com/sc/images/download-m.png" alt="" style="display: block; margin-left: auto; margin-right: auto;" border="0"></a></td>
 <td style="text-align: center; width: 10%;"><a href="https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/cluster/cross-az-cluster-master.yaml" target="_blank" rel="noopener"><img src="https://sc1.checkpoint.com/sc/images/download-m.png" alt="" border="0"></a></td>
 <td style="text-align: center; width: 18%;"><a href="https://console.amazonaws.cn/cloudformation/home#/stacks/create/review?templateURL=https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/cluster/cross-az-cluster-master.yaml&amp;stackName=Check-Point-XAZ-Cluster" target="_blank" rel="noopener"><img src="https://sc1.checkpoint.com/sc/SolutionsStatics/NEW_SK_NOID1460631718185/launch1604140412.png" alt=""></a></td>
@@ -270,7 +270,7 @@
 <p>For more details, refer to <a href="https://sc1.checkpoint.com/documents/IaaS/WebAdminGuides/EN/CP_CloudGuard_for_AWS_Cross_AZ_Cluster/Default.htm" target="_blank" rel="noopener">Cross Availability Zone Cluster for AWS R81.20 Administration Guide</a></p>
 </td>
 <td style="width: 25%;">Creates a <strong>new VPC</strong> and deploys a Cross Availability Zone Cluster of Security Gateways configured for Transit Gateway into it.</td>
-<td style="text-align: center; width: 6%;" rowspan="2">R81.20</td>
+<td style="text-align: center; width: 6%;" rowspan="2">R81.20<br>R82</td>
 <td style="width: 6%; text-align: center;"><a href="https://github.com/CheckPointSW/CloudGuardIaaS/tree/master/terraform/aws/tgw-cross-az-cluster-master" target="_blank" rel="noopener"><img src="https://sc1.checkpoint.com/sc/images/download-m.png" alt="" style="display: block; margin-left: auto; margin-right: auto;" border="0"></a></td>
 <td style="text-align: center; width: 10%;"><a href="https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/cluster/tgw-cross-az-cluster-master.yaml" target="_blank" rel="noopener"><img src="https://sc1.checkpoint.com/sc/images/download-m.png" alt="" border="0"></a></td>
 <td style="text-align: center; width: 18%;"><a href="https://console.amazonaws.cn/cloudformation/home#/stacks/create/review?templateURL=https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/cluster/tgw-cross-az-cluster-master.yaml&amp;stackName=Check-Point-TGW-XAZ-Cluster" target="_blank" rel="noopener"><img src="https://sc1.checkpoint.com/sc/SolutionsStatics/NEW_SK_NOID1460631718185/launch1604140412.png" alt=""></a></td>
@@ -314,7 +314,7 @@
 <tr>
 <td style="width: 35%;">Deploys and configures a Security Management Server.<br><br>For more details, refer to <a href="https://supportcenter.checkpoint.com/supportcenter/portal?eventSubmit_doGoviewsolutiondetails=&amp;solutionid=sk130372" target="_blank" rel="noopener">sk130372</a>.</td>
 <td style="width: 25%;">Deploys a Security Management Server into an <strong>existing VPC</strong>.</td>
-<td style="width: 6%; text-align: center;">R81.20<br>R81.10<br>R81<br>R80.40</td>
+<td style="width: 6%; text-align: center;">R81.20<br>R81.10<br>R82</td>
 <td style="width: 6%; text-align: center;"><a href="https://github.com/CheckPointSW/CloudGuardIaaS/tree/master/terraform/aws/management" target="_blank" rel="noopener"><img src="https://sc1.checkpoint.com/sc/images/download-m.png" alt="" style="display: block; margin-left: auto; margin-right: auto;" border="0"></a></td>
 <td style="text-align: center; width: 10%;"><a href="https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/management/management.yaml" target="_blank" rel="noopener"><img src="https://sc1.checkpoint.com/sc/images/download-m.png" alt="" border="0"></a></td>
 <td style="text-align: center; width: 18%;"><a href="https://console.amazonaws.cn/cloudformation/home#/stacks/create/review?templateURL=https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/management/management.yaml&amp;stackName=Check-Point-Management" target="_blank" rel="noopener"><img src="https://sc1.checkpoint.com/sc/SolutionsStatics/NEW_SK_NOID1460631718185/launch1604140412.png" alt=""></a></td>
@@ -338,7 +338,7 @@
 <p>For more details, refer to <a href="https://supportcenter.us.checkpoint.com/supportcenter/portal?eventSubmit_doGoviewsolutiondetails=&amp;solutionid=sk143213" target="_blank" rel="noopener">sk143213</a>.</p>
 </td>
 <td style="width: 25%;">Deploys a Multi-Domain Security Management Server into an <strong>existing VPC</strong>.</td>
-<td style="text-align: center; width: 6%;">R81.20<br>R81.10<br>R81<br>R80.40</td>
+<td style="text-align: center; width: 6%;">R81.20<br>R81.10<br>R82</td>
 <td style="text-align: center; width: 6%;"><a href="https://github.com/CheckPointSW/CloudGuardIaaS/tree/master/terraform/aws/mds" target="_blank" rel="noopener"><img src="https://sc1.checkpoint.com/sc/images/download-m.png" alt="" style="display: block; margin-left: auto; margin-right: auto;" border="0"></a></td>
 <td style="text-align: center; width: 10%;"><a href="https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/management/mds.yaml" target="_blank" rel="noopener"><img src="https://sc1.checkpoint.com/sc/images/download-m.png" alt="" border="0"></a></td>
 <td style="text-align: center; width: 18%;"><a href="https://console.amazonaws.cn/cloudformation/home#/stacks/create/review?templateURL=https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/management/mds.yaml&amp;stackName=Check-Point-MDS" target="_blank" rel="noopener"><img src="https://sc1.checkpoint.com/sc/SolutionsStatics/NEW_SK_NOID1460631718185/launch1604140412.png" alt=""></a></td>
@@ -362,7 +362,7 @@
 <p>Deploys and configures Standalone or a manually configurable instance.</p>
 </td>
 <td style="width: 25%;">Creates a <strong>new VPC</strong> and deploys a Standalone or a manually configurable instance into it.</td>
-<td style="text-align: center; width: 6%;" rowspan="2">R81.20<br>R81.10<br>R81<br>R80.40</td>
+<td style="text-align: center; width: 6%;" rowspan="2">R81.20<br>R81.10<br>R82</td>
 <td style="text-align: center; width: 6%;"><a href="https://github.com/CheckPointSW/CloudGuardIaaS/tree/master/terraform/aws/standalone-master" target="_blank" rel="noopener"><img src="https://sc1.checkpoint.com/sc/images/download-m.png" alt="" style="display: block; margin-left: auto; margin-right: auto;" border="0"></a></td>
 <td style="text-align: center; width: 10%;"><a href="https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/gateway/standalone-master.yaml" target="_blank" rel="noopener"><img src="https://sc1.checkpoint.com/sc/images/download-m.png" alt="" border="0"></a></td>
 <td style="text-align: center; width: 18%;"><a href="https://console.amazonaws.cn/cloudformation/home#/stacks/create/review?templateURL=https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/gateway/standalone-master.yaml&amp;stackName=Check-Point-Standalone" target="_blank" rel="noopener"><img src="https://sc1.checkpoint.com/sc/SolutionsStatics/NEW_SK_NOID1460631718185/launch1604140412.png" alt=""></a></td>
