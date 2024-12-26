@@ -116,7 +116,7 @@
 <tr>
 <td rowspan="2" style="width: 35%;">Deploys and configures a Security Gateway.<br><br>To deploy the Security Gateway so that it will be automatically provisioned, refer to <a href="https://supportcenter.checkpoint.com/supportcenter/portal?eventSubmit_doGoviewsolutiondetails=&amp;solutionid=sk131434" target="_blank" rel="noopener">sk131434</a>.</td>
 <td style="width: 25%;">Creates a <strong>new VPC</strong> and deploys a Security Gateway into it.</td>
-<td style="text-align: center; width: 6%;" rowspan="2">R81.20<br>R81.10<br>R81<br>R80.40</td>
+<td style="text-align: center; width: 6%;" rowspan="2">R81.20<br>R81.10<br>R82</td>
 <td style="text-align: center; width: 6%;"><a href="https://github.com/CheckPointSW/CloudGuardIaaS/tree/master/terraform/aws/gateway-master" target="_blank" rel="noopener"><img src="https://sc1.checkpoint.com/sc/images/download-m.png" alt="" style="display: block; margin-left: auto; margin-right: auto;" border="0"></a></td>
 <td style="width: 10%;"><a href="https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/gateway/gateway-master.yaml" target="_blank" rel="noopener"><img src="https://sc1.checkpoint.com/sc/images/download-m.png" alt="" style="display: block; margin-left: auto; margin-right: auto;" border="0"></a></td>
 <td style="text-align: center; width: 18%;"><a href="https://console.amazonaws.cn/cloudformation/home#/stacks/create/review?templateURL=https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/gateway/gateway-master.yaml&amp;stackName=Check-Point-Gateway" target="_blank" rel="noopener"><img src="https://sc1.checkpoint.com/sc/SolutionsStatics/NEW_SK_NOID1460631718185/launch1604140412.png" alt=""></a></td>
