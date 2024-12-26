@@ -144,7 +144,7 @@
 <tr>
 <td rowspan="2" style="width: 35%;">Deploys and configures two Security Gateways as a Cluster.<br><br>For more details, refer to the <a href="https://sc1.checkpoint.com/documents/IaaS/WebAdminGuides/EN/CloudGuard_Network_for_AWS_Cluster_DeploymentGuide/Default.htm" target="_blank" rel="noopener">CloudGuard Network for AWS Security Cluster R80.20 and Higher Deployment Guide</a>.</td>
 <td style="width: 25%;">Creates a <strong>new VPC</strong> and deploys a Cluster into it.</td>
-<td style="text-align: center;" rowspan="2">R81.20<br>R81.10<br>R81<br>R80.40</td>
+<td style="text-align: center;" rowspan="2">R81.20<br>R81.10<br>R82</td>
 <td style="text-align: center; width: 6%;"><a href="https://github.com/CheckPointSW/CloudGuardIaaS/tree/master/terraform/aws/cluster-master" target="_blank" rel="noopener"><img src="https://sc1.checkpoint.com/sc/images/download-m.png" alt="" style="display: block; margin-left: auto; margin-right: auto;" border="0"></a></td>
 <td style="text-align: center;"><a href="https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/cluster/cluster-master.yaml" target="_blank" rel="noopener"><img src="https://sc1.checkpoint.com/sc/images/download-m.png" alt="" border="0"></a></td>
 <td style="text-align: center;"><a href="https://console.amazonaws.cn/cloudformation/home#/stacks/create/review?templateURL=https://cgi-cfts.s3.cn-northwest-1.amazonaws.com.cn/cluster/cluster-master.yaml&amp;stackName=Check-Point-Cluster" target="_blank" rel="noopener"><img src="https://sc1.checkpoint.com/sc/SolutionsStatics/NEW_SK_NOID1460631718185/launch1604140412.png" alt=""></a></td>
