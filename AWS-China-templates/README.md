@@ -11,8 +11,7 @@
 <p>国际版AWS使用的CloudFormation Templates请直接访问Check Point官网SK111013 <a href="https://supportcenter.checkpoint.com/supportcenter/portal?eventSubmit_doGoviewsolutiondetails=&solutionid=sk111013&partition=Basic&product=CloudGuard">Check Point SK111013</a>
 </p>
 </li>
-<li>
-<p>If you encounter an error during use, you can contact the CP China SE team, or <a href="mailto:zhenq@checkpoint.com">Send Email</a>、如果使用时遇到报错可以联系CP中国SE团队，或 <a href="mailto:zhenq@checkpoint.com">发邮件</a></p>
+<li
 </li>
 <p>For R81.20 and higher versions, Gateway Load Balancer (GWLB) and Gateway images are unified. They use <strong>the same</strong> Product AMI in the AWS Marketplace.</p>
 </li>
